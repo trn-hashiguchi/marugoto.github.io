@@ -18,42 +18,45 @@
   </head>
   <body>
     <header class="header">
-      <div class="header-left">
-        <div class="logo"><i class="fas fa-chart-line"></i> なるごと会計</div>
-        <a href="#" class="btn btn-plan"
-          ><i class="fas fa-dollar-sign"></i> 利益計画</a
-        >
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
+          <a href="#" class="btn btn-plan"
+            ><i class="fas fa-dollar-sign"></i> 利益計画</a
+          >
+        </div>
+        <nav class="header-nav">
+          <ul>
+            <li>
+              <a href="#"
+                ><i class="fas fa-file-invoice-dollar"></i>
+                決算申告予測推移表</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-balance-scale"></i> 貸借対照表</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-book"></i> 残高資産台帳</a>
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fas fa-chart-bar"></i> 分析表
+                <i class="fas fa-chevron-down"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#">KPI <i class="fas fa-chevron-down"></i></a>
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fas fa-cog"></i> 設定
+                <i class="fas fa-chevron-down"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <nav class="header-nav">
-        <ul>
-          <li>
-            <a href="#"
-              ><i class="fas fa-file-invoice-dollar"></i> 決算申告予測推移表</a
-            >
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-balance-scale"></i> 貸借対照表</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-book"></i> 残高資産台帳</a>
-          </li>
-          <li>
-            <a href="#"
-              ><i class="fas fa-chart-bar"></i> 分析表
-              <i class="fas fa-chevron-down"></i
-            ></a>
-          </li>
-          <li>
-            <a href="#">KPI <i class="fas fa-chevron-down"></i></a>
-          </li>
-          <li>
-            <a href="#"
-              ><i class="fas fa-cog"></i> 設定
-              <i class="fas fa-chevron-down"></i
-            ></a>
-          </li>
-        </ul>
-      </nav>
     </header>
 
     <div class="container">
@@ -104,12 +107,8 @@
 
       <div class="page-controls">
         <div class="action-buttons">
-          <button class="btn btn-primary">
-            <i class="fas fa-pen"></i> 入力開始
-          </button>
-          <button class="btn btn-secondary">
-            <i class="fas fa-calculator-alt"></i> 電卓
-          </button>
+          <button class="btn btn-primary">入力開始</button>
+          <button class="btn btn-secondary">電卓</button>
         </div>
         <div class="action-links">
           <a href="#" class="action-link"
@@ -183,7 +182,21 @@
               </tr>
 
               <tr class="category-header">
-                <td colspan="15">収益</td>
+                <td><div class="td-content">収益</div></td>
+                <td>16,651</td>
+                <td>17,047</td>
+                <td>18,097</td>
+                <td>18,072</td>
+                <td>20,072</td>
+                <td>20,072</td>
+                <td>20,072</td>
+                <td>20,027</td>
+                <td>20,027</td>
+                <td>20,027</td>
+                <td>20,072</td>
+                <td>20,072</td>
+                <td>0</td>
+                <td>230,353</td>
               </tr>
               <tr class="major-item">
                 <td>
@@ -229,7 +242,7 @@
                 <td>36,631</td>
                 <td>36,631</td>
               </tr>
-              <tr class="major-item parent">
+              <tr class="major-item parent open">
                 <td>
                   <div class="td-content">
                     <i class="fas fa-caret-right"></i> 外部売上<button
@@ -254,7 +267,7 @@
                 <td>0</td>
                 <td>230,353</td>
               </tr>
-              <tr class="minor-item">
+              <tr class="minor-item" style="display: table-row;">
                 <td>
                   <div class="td-content">
                     受託<button class="btn-sui">推</button
@@ -276,7 +289,7 @@
                 <td></td>
                 <td>165,495</td>
               </tr>
-              <tr class="minor-item">
+              <tr class="minor-item" style="display: table-row;">
                 <td>
                   <div class="td-content">
                     派遣<button class="btn-sui">推</button
@@ -298,7 +311,7 @@
                 <td></td>
                 <td>38,220</td>
               </tr>
-              <tr class="minor-item">
+              <tr class="minor-item" style="display: table-row;">
                 <td>
                   <div class="td-content">
                     自社：HP制作<button class="btn-sui">推</button
@@ -322,7 +335,21 @@
               </tr>
 
               <tr class="category-header">
-                <td colspan="15">利益</td>
+                <td><div class="td-content">利益</div></td>
+                <td>16,365</td>
+                <td>16,747</td>
+                <td>17,797</td>
+                <td>17,772</td>
+                <td>19,072</td>
+                <td>19,072</td>
+                <td>19,072</td>
+                <td>19,027</td>
+                <td>19,027</td>
+                <td>19,027</td>
+                <td>19,072</td>
+                <td>19,072</td>
+                <td>0</td>
+                <td>221,167</td>
               </tr>
               <tr class="highlight-profit">
                 <td>
@@ -348,9 +375,23 @@
               </tr>
 
               <tr class="category-header">
-                <td colspan="15">経費</td>
+                <td><div class="td-content">経費</div></td>
+                <td>14,760</td>
+                <td>15,069</td>
+                <td>15,051</td>
+                <td>15,051</td>
+                <td>15,059</td>
+                <td>15,103</td>
+                <td>15,335</td>
+                <td>15,079</td>
+                <td>15,047</td>
+                <td>15,067</td>
+                <td>15,102</td>
+                <td>15,102</td>
+                <td>3,000</td>
+                <td>183,825</td>
               </tr>
-              <tr class="major-item parent">
+              <tr class="major-item parent open">
                 <td>
                   <div class="td-content">
                     <i class="fas fa-caret-right"></i> 外部販管費<button
@@ -375,7 +416,7 @@
                 <td>3,000</td>
                 <td>183,825</td>
               </tr>
-              <tr class="minor-item">
+              <tr class="minor-item" style="display: table-row;">
                 <td>
                   <div class="td-content">
                     役員報酬<button class="btn-sui">推</button
@@ -397,7 +438,7 @@
                 <td></td>
                 <td>26,160</td>
               </tr>
-              <tr class="minor-item">
+              <tr class="minor-item" style="display: table-row;">
                 <td>
                   <div class="td-content">
                     給与手当<button class="btn-sui">推</button
@@ -418,6 +459,138 @@
                 <td>6,551</td>
                 <td></td>
                 <td>78,585</td>
+              </tr>
+              <tr class="minor-item" style="display: table-row;">
+                <td>
+                  <div class="td-content">
+                    法定福利費<button class="btn-sui">推</button
+                    ><button class="btn-bu">部</button>
+                  </div>
+                </td>
+                <td>980</td>
+                <td>985</td>
+                <td>985</td>
+                <td>985</td>
+                <td>985</td>
+                <td>985</td>
+                <td>985</td>
+                <td>985</td>
+                <td>985</td>
+                <td>985</td>
+                <td>985</td>
+                <td>985</td>
+                <td></td>
+                <td>11,810</td>
+              </tr>
+              <tr class="minor-item" style="display: table-row;">
+                <td>
+                  <div class="td-content">
+                    福利厚生費<button class="btn-sui">推</button
+                    ><button class="btn-bu">部</button>
+                  </div>
+                </td>
+                <td>200</td>
+                <td>210</td>
+                <td>205</td>
+                <td>215</td>
+                <td>220</td>
+                <td>225</td>
+                <td>230</td>
+                <td>235</td>
+                <td>240</td>
+                <td>245</td>
+                <td>250</td>
+                <td>255</td>
+                <td></td>
+                <td>2,730</td>
+              </tr>
+              <tr class="minor-item" style="display: table-row;">
+                <td>
+                  <div class="td-content">
+                    採用費<button class="btn-sui">推</button
+                    ><button class="btn-bu">部</button>
+                  </div>
+                </td>
+                <td>50</td>
+                <td>100</td>
+                <td>150</td>
+                <td>50</td>
+                <td>100</td>
+                <td>150</td>
+                <td>50</td>
+                <td>100</td>
+                <td>150</td>
+                <td>50</td>
+                <td>100</td>
+                <td>150</td>
+                <td></td>
+                <td>1,200</td>
+              </tr>
+              <tr class="minor-item" style="display: table-row;">
+                <td>
+                  <div class="td-content">
+                    地代家賃<button class="btn-sui">推</button
+                    ><button class="btn-bu">部</button>
+                  </div>
+                </td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td>800</td>
+                <td></td>
+                <td>9,600</td>
+              </tr>
+              <tr class="minor-item" style="display: table-row;">
+                <td>
+                  <div class="td-content">
+                    水道光熱費<button class="btn-sui">推</button
+                    ><button class="btn-bu">部</button>
+                  </div>
+                </td>
+                <td>150</td>
+                <td>155</td>
+                <td>160</td>
+                <td>165</td>
+                <td>170</td>
+                <td>175</td>
+                <td>180</td>
+                <td>185</td>
+                <td>190</td>
+                <td>195</td>
+                <td>200</td>
+                <td>205</td>
+                <td></td>
+                <td>2,130</td>
+              </tr>
+              <tr class="minor-item" style="display: table-row;">
+                <td>
+                  <div class="td-content">
+                    通信費<button class="btn-sui">推</button
+                    ><button class="btn-bu">部</button>
+                  </div>
+                </td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td>300</td>
+                <td></td>
+                <td>3,600</td>
               </tr>
             </tbody>
           </table>

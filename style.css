@@ -11,7 +11,9 @@
   --header-text: #adb5bd;
   --header-text-hover: #ffffff;
   --font-family: "Noto Sans JP", sans-serif;
-  --orange-highlight: #fff3e0;
+  --orange-highlight-light: #fff8f0;
+  --orange-highlight-medium: #fff3e0;
+  --orange-highlight-dark: #ffe0b2;
 }
 
 body {
@@ -19,7 +21,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /* Header Styles */
@@ -36,6 +38,15 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 .header-left {
   display: flex;
@@ -92,12 +103,12 @@ body {
 .container {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 4px 16px 16px;
 }
 
 /* Page Header */
 .page-header {
-  margin-bottom: 16px;
+  margin-bottom: 4px;
 }
 .page-header h1 {
   font-size: 22px;
@@ -108,9 +119,10 @@ body {
 /* Filter Controls (Above Tabs) */
 .filter-controls {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
-  margin-bottom: 12px;
+  gap: 12px;
+  /* margin-bottom: 4px; */
 }
 .checkboxes {
   display: flex;
@@ -121,13 +133,13 @@ body {
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: var(--secondary-color);
+  /* color: var(--secondary-color); */
   cursor: pointer;
 }
 
 /* Tab Navigation */
 .main-nav {
-  margin-bottom: 20px;
+  margin-bottom: 4px;
 }
 .nav-tabs {
   display: flex;
@@ -157,13 +169,14 @@ body {
 /* Page Controls Area (Below Tabs) */
 .page-controls {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
 }
 .action-buttons {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-right: 12px;
 }
 .action-links {
   display: flex;
@@ -186,18 +199,19 @@ body {
 .controls select {
   margin-left: 0;
   margin-right: 16px;
-  padding: 8px 12px;
+  padding: 4px 8px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background-color: var(--surface-color);
   font-family: var(--font-family);
-  font-size: 14px;
-  height: 40px;
+  font-size: 13px;
+  height: 36px;
+  min-width: 300px;
 }
 
 /* General Buttons */
 .btn {
-  padding: 10px 20px;
+  padding: 6px 16px;
   border: none;
   border-radius: 6px;
   font-size: 14px;
@@ -219,7 +233,7 @@ body {
   background-color: var(--surface-color);
   color: var(--text-color);
   border: 1px solid var(--border-color);
-  padding: 10px 16px;
+  padding: 8px 12px;
 } /* 余白調整 */
 .btn-secondary:hover {
   background-color: #e9ecef;
@@ -227,7 +241,7 @@ body {
 
 /* Table Styles */
 .content {
-  margin-top: 24px;
+  margin-top: 4px;
 }
 .table-wrapper {
   background-color: var(--surface-color);
@@ -235,6 +249,8 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
 }
 table {
   width: 100%;
@@ -242,7 +258,7 @@ table {
 }
 th,
 td {
-  padding: 12px 16px;
+  padding: 8px 12px;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
 }
@@ -251,6 +267,9 @@ thead th {
   font-weight: 500;
   font-size: 13px;
   color: var(--secondary-color);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 tbody tr:last-child td {
   border-bottom: none;
@@ -310,18 +329,18 @@ td .td-content .fa-caret-right {
 }
 
 .highlight-top-row {
-  background-color: var(--orange-highlight);
+  background-color: var(--orange-highlight-light);
 }
 .highlight-top-row td {
   font-weight: 700 !important;
 }
 
 .parent {
-  background-color: var(--orange-highlight);
+  background-color: var(--orange-highlight-medium);
   cursor: pointer;
 }
 .parent:hover {
-  background-color: #ffe0b2 !important;
+  background-color: var(--orange-highlight-dark) !important;
 }
 
 .minor-item {
@@ -332,17 +351,19 @@ td .td-content .fa-caret-right {
 }
 
 .category-header {
-  background-color: #e9ecef;
+  background-color: var(--orange-highlight-dark);
   font-weight: 700;
 }
 .category-header:hover {
-  background-color: #e9ecef;
+  background-color: #fed89e !important; /* Slightly darker orange on hover */
 }
 .category-header td {
-  font-size: 16px;
-  padding-top: 20px;
-  padding-bottom: 8px;
-  border: none;
+  text-align: right;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-color);
+}
+.category-header td:first-child {
+  text-align: left;
 }
 
 .highlight-profit {
@@ -352,4 +373,10 @@ td .td-content .fa-caret-right {
 .highlight-profit td,
 .highlight-profit td:first-child {
   color: var(--profit-text-color);
+}
+
+/* Highlight July Column */
+thead tr th:nth-child(3),
+tbody tr td:nth-child(3) {
+  background-color: rgba(52, 152, 219, 0.1);
 }
