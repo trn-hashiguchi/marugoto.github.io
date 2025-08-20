@@ -21,15 +21,17 @@ jobs:
 
       - name: Inject version query (?v=short_sha) to CSS links
         run: |
-          SHORT_SHA="${GITHUB_SHA::7}"
-          # 例）全HTMLの rel=stylesheet のhrefに ?v=<sha> を付ける（既に?があれば &v= に）
-          find . -name "*.html" -type f -print0 | xargs -0 -I{} \
-            bash -lc 'awk -vsha="$SHORT_SHA" '"'"'{
-              gsub(/href="([^"#?]+\.css)"/, "href=\"\\1?v=" sha "\"");
-              gsub(/href="([^"#?]+\.css)\\?([^"]*)"/, "href=\"\\1?\\2&v=" sha "\"");
-              print
-            }'"'"' {} > {}.tmp && mv {}.tmp {}
-          # .nojekyll を置く（必要なら）
+          set -euo pipefail
+          SHORT_SHA="${GITHUB_SHA::7}"   # Actions既定変数
+          export SHORT_SHA
+          # 全HTMLの .css 参照に ?v=<sha> を付与（既に?があれば &v= で追記）
+          find . -name "*.html" -type f -print0 | \
+            xargs -0 -I{} perl -0777 -i -pe '
+              s/href="([^"#?]+\.css)"/"href=\"$1?v=$ENV{SHORT_SHA}\""/ge;
+              s/href="([^"#?]+\.css)\?([^"]*)"/"href=\"$1?$2&v=$ENV{SHORT_SHA}\""/ge;
+            ' {}
+
+          # Jekyll無効化（必要なら）
           touch .nojekyll
 
       - name: Upload artifact
