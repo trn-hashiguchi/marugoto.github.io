@@ -14,7 +14,8 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 差分取得に必要（履歴全体）  # ref: https://zenn.dev/noraworld/articles/github-actions-checkout-fetch-depth
+          # 差分を取るため履歴が必要
+          fetch-depth: 0
 
       - name: Compute diff (before -> after)
         id: diff
@@ -24,7 +25,7 @@ jobs:
           BEFORE="${{ github.event.before }}"
           AFTER="${{ github.sha }}"
 
-          # 初回 push 等で BEFORE が all-zero の場合は直近コミットのみ
+          # 初回 push 等で BEFORE が all-zero の場合は単発コミット扱い
           if [[ "$BEFORE" == "0000000000000000000000000000000000000000" || -z "$BEFORE" ]]; then
             git show "$AFTER" --unified=3 > diff.patch
           else
@@ -33,8 +34,10 @@ jobs:
 
           if [ ! -s diff.patch ]; then
             echo "empty=true" >> "$GITHUB_OUTPUT"
+            echo "No diff; skipping."
           else
             echo "empty=false" >> "$GITHUB_OUTPUT"
+            echo "Diff generated."
           fi
 
       - name: Set up Python
@@ -43,19 +46,23 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install deps (Gemini SDK + helpers)
+      - name: Install deps (Gemini SDK + jq)
         if: steps.diff.outputs.empty == 'false'
+        shell: bash
         run: |
+          set -euo pipefail
           python -m pip install --upgrade pip
           pip install google-genai==0.3.0 jq
 
       - name: Generate review with Gemini
         if: steps.diff.outputs.empty == 'false'
+        shell: bash
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
+          set -euo pipefail
           python - <<'PY'
-import os, io, textwrap
+import os, textwrap
 from google import genai
 
 api_key = os.environ["GEMINI_API_KEY"]
@@ -77,40 +84,43 @@ resp = client.models.generate_content(
     model="gemini-2.0-flash-exp",
     contents=contents,
 )
-text = resp.text or "(no content)"
-# Slackメッセージは ~40,000 文字上限（超えると切り詰められる）ため適度にトリム
-# ref: https://api.slack.com/changelog/2018-04-truncating-really-long-messages
+text = (resp.text or "(no content)")
+
+# Slackの長文上限に合わせ軽くトリム（約4万文字）
 MAX = 39000
 if len(text) > MAX:
     text = text[:MAX] + "\n\n…(truncated)…"
 
-open("review.md","w",encoding="utf-8").write(text)
+with open("review.md","w",encoding="utf-8") as f:
+    f.write(text)
 PY
 
-      - name: Post to Slack (chat.postMessage)
+      - name: Post review text to Slack (chat.postMessage)
         if: steps.diff.outputs.empty == 'false'
+        shell: bash
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
         run: |
           set -euo pipefail
-          # JSONエスケープして本文を送信
+          # review.md を JSON 文字列にエスケープ
           TEXT=$(jq -Rs '.' < review.md)
           curl -sS -X POST 'https://slack.com/api/chat.postMessage' \
             -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
             -H 'Content-type: application/json; charset=utf-8' \
             --data "{\"channel\":\"${SLACK_CHANNEL_ID}\",\"text\":${TEXT}}"
-          # ref: https://api.slack.com/methods/chat.postMessage
 
       - name: Attach review.md as a file (getUploadURLExternal → completeUploadExternal)
         if: steps.diff.outputs.empty == 'false'
+        shell: bash
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
         run: |
           set -euo pipefail
           SIZE=$(wc -c < review.md)
-          # Step1: 一時URLの発行
+
+          # Step1: 一時URLを取得
           UPRES=$(curl -sS -X POST 'https://slack.com/api/files.getUploadURLExternal' \
             -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
             -H 'Content-type: application/x-www-form-urlencoded' \
@@ -123,15 +133,13 @@ PY
           UPURL=$(echo "$UPRES" | jq -r '.upload_url')
           FILEID=$(echo "$UPRES" | jq -r '.file_id')
 
-          # Step2: 実体アップロード（生バイトでOK）
-          curl -sS -X POST "$UPURL" --data-binary @review.md \
-            -H 'Content-Type: application/octet-stream' >/dev/null
+          # Step2: 実体をアップロード
+          curl -sS -X POST "$UPURL" \
+            -H 'Content-Type: application/octet-stream' \
+            --data-binary @review.md >/dev/null
 
-          # Step3: 完了通知＆チャンネル共有
+          # Step3: 完了通知 & チャンネル共有
           curl -sS -X POST 'https://slack.com/api/files.completeUploadExternal' \
             -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
             -H 'Content-type: application/json; charset=utf-8' \
             --data "{\"files\":[{\"id\":\"${FILEID}\",\"title\":\"Gemini Review\"}],\"channel_id\":\"${SLACK_CHANNEL_ID}\",\"initial_comment\":\"📝 Geminiによるコミット差分レビューです。\"}"
-          # refs:
-          # https://api.slack.com/methods/files.getUploadURLExternal
-          # https://api.slack.com/methods/files.completeUploadExternal
