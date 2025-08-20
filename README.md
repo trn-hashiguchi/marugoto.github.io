@@ -1,0 +1,1 @@
+# marugoto.github.io
