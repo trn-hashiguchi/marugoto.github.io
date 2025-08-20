@@ -244,13 +244,11 @@ body {
   margin-top: 4px;
 }
 .table-wrapper {
-  background-color: var(--surface-color);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  max-height: calc(100vh - 300px);
-  overflow-y: auto;
+  overflow: auto;
+  max-height: calc(100vh - 250px);
 }
 table {
   width: 100%;
@@ -261,16 +259,51 @@ td {
   padding: 8px 12px;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
 }
+
+/* --- Sticky Header & Column Styles --- */
 thead th {
-  background-color: #f8f9fa;
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--secondary-color);
   position: sticky;
   top: 0;
-  z-index: 1;
+  background-color: #f8f9fa;
+  z-index: 2;
 }
+
+th:first-child,
+td:first-child {
+  position: sticky;
+  left: 0;
+  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
+  z-index: 3;
+}
+
+/* Override all backgrounds for the sticky column for proper layering */
+td:first-child {
+    background-color: var(--surface-color);
+}
+.highlight-top-row td:first-child {
+    background-color: var(--orange-highlight-light);
+}
+.parent td:first-child {
+    background-color: var(--orange-highlight-medium);
+}
+.category-header td:first-child {
+    background-color: var(--orange-highlight-dark);
+}
+.highlight-profit td:first-child {
+    background-color: var(--profit-bg-color);
+}
+
+/* Top-left corner cell needs the highest z-index */
+thead th:first-child {
+  z-index: 4;
+  background-color: #f8f9fa; /* Match header background */
+}
+/* --- End Sticky Styles --- */
+
 tbody tr:last-child td {
   border-bottom: none;
 }
@@ -290,6 +323,7 @@ tbody tr:not(.parent):hover {
   display: flex;
   align-items: center;
   gap: 4px;
+  white-space: normal;
 }
 td .td-content .fa-caret-right {
   margin-right: 5px;
@@ -355,7 +389,7 @@ td .td-content .fa-caret-right {
   font-weight: 700;
 }
 .category-header:hover {
-  background-color: #fed89e !important; /* Slightly darker orange on hover */
+  background-color: #fed89e !important; 
 }
 .category-header td {
   text-align: right;
@@ -376,7 +410,9 @@ td .td-content .fa-caret-right {
 }
 
 /* Highlight July Column */
-thead tr th:nth-child(3),
+thead tr th:nth-child(3) {
+  background-color: #eaf5fb; /* Solid light blue for sticky header */
+}
 tbody tr td:nth-child(3) {
-  background-color: rgba(52, 152, 219, 0.1);
+  background-color: rgba(52, 152, 219, 0.1); /* Semi-transparent for body */
 }
