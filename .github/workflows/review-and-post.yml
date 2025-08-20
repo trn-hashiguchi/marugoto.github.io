@@ -1,39 +1,113 @@
-- name: Generate review with Gemini
-if: steps.diff.outputs.empty == 'false'
-shell: bash
-env:
-  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-run: |
-  set -euo pipefail
-  python - <<'PY'
-import os, textwrap
-from google import genai
+name: Review diff with Gemini and post to Slack (Bot token)
 
-api_key = os.environ["GEMINI_API_KEY"]
-client = genai.Client(api_key=api_key)
+on:
+  push:
+    branches: [ "main" ]
 
-prompt = textwrap.dedent("""\
-あなたはプロのコードレビュアーです。
-以下のGitのコミット差分をレビューし、改善点・良い点・懸念点を指摘してください。
-出力はSlackで綺麗に表示されるよう **GitHub Flavored Markdown** で、
-各セクションは `##` 見出しで記述してください。
-""")
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
-with open("diff.patch","r",encoding="utf-8") as f:
-diff = f.read()
+    steps:
+      - name: Check out (history needed for diff)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 差分計算に履歴が必要
+          # 参考: checkout ドキュメント / fetch-depth 説明
+          # https://github.com/actions/checkout
 
-contents = prompt + "\n```diff\n" + diff + "\n```\n"
+      - name: Compute diff (before -> after)
+        id: diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
 
-resp = client.models.generate_content(
-model="gemini-2.0-flash-exp",
-contents=contents,
-)
-text = (resp.text or "(no content)")
+          # 初回 push など all-zero のときは単発コミット扱い
+          if [[ "$BEFORE" == "0000000000000000000000000000000000000000" || -z "$BEFORE" ]]; then
+            git show "$AFTER" --unified=3 > diff.patch
+          else
+            git diff "$BEFORE" "$AFTER" > diff.patch
+          fi
 
-MAX = 39000
-if len(text) > MAX:
-text = text[:MAX] + "\n\n…(truncated)…"
+          if [ ! -s diff.patch ]; then
+            echo "empty=true" >> "$GITHUB_OUTPUT"
+            echo "No diff; skipping."
+          else
+            echo "empty=false" >> "$GITHUB_OUTPUT"
+            echo "Diff generated."
+          fi
 
-with open("review.md","w",encoding="utf-8") as f:
-f.write(text)
-PY
+      - name: Set up Python
+        if: steps.diff.outputs.empty == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps (Gemini SDK + jq)
+        if: steps.diff.outputs.empty == 'false'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          pip install google-genai==0.3.0 jq
+
+      - name: Run reviewer (Gemini -> review.md)
+        if: steps.diff.outputs.empty == 'false'
+        shell: bash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          set -euo pipefail
+          python scripts/reviewer.py
+
+      - name: Post review text to Slack (chat.postMessage)
+        if: steps.diff.outputs.empty == 'false'
+        shell: bash
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+        run: |
+          set -euo pipefail
+          TEXT=$(jq -Rs '.' < review.md)
+          curl -sS -X POST 'https://slack.com/api/chat.postMessage' \
+            -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+            -H 'Content-type: application/json; charset=utf-8' \
+            --data "{\"channel\":\"${SLACK_CHANNEL_ID}\",\"text\":${TEXT}}"
+
+      - name: Attach review.md (files.getUploadURLExternal → completeUploadExternal)
+        if: steps.diff.outputs.empty == 'false'
+        shell: bash
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+        run: |
+          set -euo pipefail
+          SIZE=$(wc -c < review.md)
+
+          # Step1: 一時URLを取得
+          UPRES=$(curl -sS -X POST 'https://slack.com/api/files.getUploadURLExternal' \
+            -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+            -H 'Content-type: application/x-www-form-urlencoded' \
+            --data "filename=review.md&length=${SIZE}")
+          OK=$(echo "$UPRES" | jq -r '.ok')
+          if [ "$OK" != "true" ]; then
+            echo "getUploadURLExternal failed: $UPRES"
+            exit 1
+          fi
+          UPURL=$(echo "$UPRES" | jq -r '.upload_url')
+          FILEID=$(echo "$UPRES" | jq -r '.file_id')
+
+          # Step2: 実体アップロード
+          curl -sS -X POST "$UPURL" \
+            -H 'Content-Type: application/octet-stream' \
+            --data-binary @review.md >/dev/null
+
+          # Step3: 完了通知 & 共有
+          curl -sS -X POST 'https://slack.com/api/files.completeUploadExternal' \
+            -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+            -H 'Content-type: application/json; charset=utf-8' \
+            --data "{\"files\":[{\"id\":\"${FILEID}\",\"title\":\"Gemini Review\"}],\"channel_id\":\"${SLACK_CHANNEL_ID}\",\"initial_comment\":\"📝 Geminiによるコミット差分レビューです。\"}"
