@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>貸借対照表</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="balanceseet.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
+          <a href="index.html" class="btn btn-plan"
+            ><i class="fas fa-dollar-sign"></i> 利益計画</a
+          >
+        </div>
+        <nav class="header-nav">
+          <ul>
+            <li>
+              <a href="enterprise.html"
+                ><i class="fas fa-file-invoice-dollar"></i> 決算予測推移表</a
+              >
+            </li>
+            <li>
+              <a href="balanceseet.html" class="active"
+                ><i class="fas fa-balance-scale"></i> 貸借対照表</a
+              >
+            </li>
+            <li>
+              <a href="asset.html"><i class="fas fa-book"></i> 残高資産台帳</a>
+            </li>
+            <li class="dropdown">
+              <a href="#"
+                ><i class="fas fa-chart-bar"></i> 分析表
+                <i class="fas fa-chevron-down"></i
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">科目別 推移表</a></li>
+                <li><a href="#">部門対比表</a></li>
+                <li><a href="#">Z精算書</a></li>
+                <li><a href="#">科目別 部門対比表</a></li>
+                <li><a href="#">部門対比 推移表</a></li>
+                <li><a href="#">報告書</a></li>
+                <li><a href="#">四半期集計表</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">KPI <i class="fas fa-chevron-down"></i></a>
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fas fa-cog"></i> 設定
+                <i class="fas fa-chevron-down"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="page-header">
+        <h1>トランソニックソフトウェア 貸借対照表</h1>
+      </div>
+
+      <div class="filter-controls">
+        <select id="year-select">
+          <option>2026年</option>
+          <option>2025年</option>
+          <option>2024年</option>
+        </select>
+        <div class="checkboxes">
+          <label><input type="checkbox" /> を中央に表示</label>
+          <label><input type="checkbox" /> 計算しない行を表示</label>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <ul class="nav-tabs">
+          <li class="active">
+            <a href="#"
+              ><i class="fas fa-balance-scale-right"></i> 貸借合計
+              (会計ソフト＋調整)</a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-laptop"></i> 会計ソフト</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-chart-line"></i> 含み損益</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-exchange-alt"></i> 時価・簿価比較</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="action-bar">
+        <button class="btn-primary">
+          <i class="fas fa-pen"></i> 入力を開始
+        </button>
+      </div>
+
+      <main class="content">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>勘定科目</th>
+                <th>2021年05月</th>
+                <th>2022年05月</th>
+                <th>2023年05月</th>
+                <th>2024年05月</th>
+                <th>2025年05月</th>
+                <th>2026年05月</th>
+                <th>2027年05月</th>
+                <th>...</th>
+              </tr>
+              <tr class="header-row-2">
+                <td>決算確認</td>
+                <td><input type="checkbox" checked /></td>
+                <td><input type="checkbox" checked /></td>
+                <td><input type="checkbox" checked /></td>
+                <td><input type="checkbox" checked /></td>
+                <td><input type="checkbox" checked /></td>
+                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" /></td>
+                <td>...</td>
+              </tr>
+              <tr class="header-row-3">
+                <td>資産と負債/資本の差額</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="negative">-1</td>
+                <td class="negative">-1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>...</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="category-header">
+                <td colspan="9">資産の部</td>
+              </tr>
+              <tr class="major-total">
+                <td>流動資産合計</td>
+                <td>87,467</td>
+                <td>78,567</td>
+                <td>96,035</td>
+                <td>151,628</td>
+                <td>156,854</td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="sub-total">
+                <td>現金預金</td>
+                <td>63,442</td>
+                <td>52,572</td>
+                <td>59,936</td>
+                <td>113,188</td>
+                <td>104,740</td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="child-item">
+                <td>現金</td>
+                <td>63,442</td>
+                <td>52,572</td>
+                <td>59,936</td>
+                <td>113,188</td>
+                <td>104,740</td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="child-item">
+                <td>預金</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="sub-total">
+                <td>流動資産他</td>
+                <td>24,025</td>
+                <td>25,995</td>
+                <td>36,099</td>
+                <td>38,440</td>
+                <td>52,114</td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="child-item">
+                <td>(一括)</td>
+                <td></td>
+                <td>-1</td>
+                <td>-1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="child-item">
+                <td>売掛金</td>
+                <td>23,721</td>
+                <td>25,767</td>
+                <td>33,390</td>
+                <td>37,912</td>
+                <td>51,219</td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="child-item">
+                <td>貸倒引当金</td>
+                <td class="negative">-142</td>
+                <td class="negative">-154</td>
+                <td class="negative">-200</td>
+                <td class="negative">-227</td>
+                <td class="negative">-180</td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+
+              <tr class="major-total">
+                <td>固定資産</td>
+                <td>8,828</td>
+                <td>13,963</td>
+                <td>16,490</td>
+                <td>31,526</td>
+                <td>74,113</td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="sub-total">
+                <td>有形固定資産</td>
+                <td>1,726</td>
+                <td>3,249</td>
+                <td>2,816</td>
+                <td>2,734</td>
+                <td>3,235</td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="child-item">
+                <td>建物付属設備</td>
+                <td></td>
+                <td>2,178</td>
+                <td>2,028</td>
+                <td>1,878</td>
+                <td>1,728</td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

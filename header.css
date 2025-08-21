@@ -1,0 +1,129 @@
+:root {
+  --header-bg: #212529;
+  --header-text: #adb5bd;
+  --header-text-hover: #ffffff;
+  --font-family: "Noto Sans JP", sans-serif;
+}
+
+/* General Button base for header button */
+.btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s ease;
+}
+
+/* Header Styles */
+.header {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: var(--font-family);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #00bfff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn.btn-plan {
+  background-color: #000;
+  color: var(--header-text-hover);
+  border: 1px solid #495057;
+  padding: 8px 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.btn.btn-plan:hover {
+  background-color: #343a40;
+}
+.header-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-nav a {
+  color: var(--header-text);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease-in-out;
+}
+.header-nav a:hover {
+  background-color: #343a40;
+  color: var(--header-text-hover);
+}
+.header-nav a .fa-chevron-down {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* Dropdown styles */
+.header-nav .dropdown {
+  position: relative;
+}
+
+.header-nav .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--header-bg);
+  border: 1px solid #495057;
+  border-radius: 6px;
+  padding: 8px 0;
+  list-style: none;
+  margin-top: 5px;
+  min-width: 200px;
+  z-index: 1001;
+}
+
+.header-nav .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.header-nav .dropdown-menu a {
+  padding: 10px 20px;
+  white-space: nowrap;
+}
+
+.header-nav .dropdown-menu a:hover {
+  background-color: #343a40;
+}

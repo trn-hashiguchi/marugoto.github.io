@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>決算予測推移表</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="enterprise.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
+          <a href="index.html" class="btn btn-plan"
+            ><i class="fas fa-dollar-sign"></i> 利益計画</a
+          >
+        </div>
+        <nav class="header-nav">
+          <ul>
+            <li>
+              <a href="enterprise.html" class="active"
+                ><i class="fas fa-file-invoice-dollar"></i> 決算予測推移表</a
+              >
+            </li>
+            <li>
+              <a href="balanceseet.html"
+                ><i class="fas fa-balance-scale"></i> 貸借対照表</a
+              >
+            </li>
+            <li>
+              <a href="asset.html"><i class="fas fa-book"></i> 残高資産台帳</a>
+            </li>
+            <li class="dropdown">
+              <a href="#"
+                ><i class="fas fa-chart-bar"></i> 分析表
+                <i class="fas fa-chevron-down"></i
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">科目別 推移表</a></li>
+                <li><a href="#">部門対比表</a></li>
+                <li><a href="#">Z精算書</a></li>
+                <li><a href="#">科目別 部門対比表</a></li>
+                <li><a href="#">部門対比 推移表</a></li>
+                <li><a href="#">報告書</a></li>
+                <li><a href="#">四半期集計表</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">KPI <i class="fas fa-chevron-down"></i></a>
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fas fa-cog"></i> 設定
+                <i class="fas fa-chevron-down"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="page-header">
+        <h1>トランソニックソフトウェア 決算予測推移表 (2026年5月期)</h1>
+      </div>
+
+      <div class="filter-controls-1">
+        <select id="company-select">
+          <option>会社全体</option>
+        </select>
+        <div class="checkboxes">
+          <label><input type="checkbox" /> 金額がゼロの行を表示</label>
+          <label><input type="checkbox" /> 計算しない行を表示</label>
+          <label><input type="checkbox" /> 非表示の勘定科目を確認</label>
+        </div>
+        <div class="color-condition">
+          <label for="change-threshold">→方向に変化が</label>
+          <input type="text" id="change-threshold" value="1000" />
+          <span>以上なら背景色</span>
+        </div>
+      </div>
+
+      <div class="period-selector">
+        <button>6月分</button>
+        <button>7月分</button>
+        <button>8月分</button>
+        <button>9月分</button>
+        <button>10月分</button>
+        <button>11月分</button>
+        <button>12月分</button>
+        <button>1月分</button>
+        <button>2月分</button>
+        <button>3月分</button>
+        <button>4月分</button>
+        <button>5月分</button>
+        <button>決算調整</button>
+        <button class="active">年間合計</button>
+        <button>1Q</button>
+        <button>2Q</button>
+        <button>3Q</button>
+        <button>4Q</button>
+        <button>前期</button>
+        <button>後期</button>
+      </div>
+
+      <nav class="main-nav">
+        <ul class="nav-tabs">
+          <li class="active">
+            <a href="#"
+              ><i class="fas fa-calculator"></i> 損益計算 (会計ソフト＋調整)</a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-laptop"></i> 会計ソフト</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-sliders"></i> 調整</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-file-alt"></i> ファイル</a>
+          </li>
+        </ul>
+      </nav>
+
+      <main class="content">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr class="header-row-1">
+                <th rowspan-="3"></th>
+                <th rowspan="3" class="fixed-col">勘定科目</th>
+                <th rowspan="3">前年実績 <<</th>
+                <th rowspan="3">前年同期</th>
+                <th rowspan="3">当期予測</th>
+                <th>7月30日</th>
+                <th>8月30日</th>
+                <th>9月30日</th>
+                <th>10月30日</th>
+                <th>11月30日</th>
+                <th>12月30日</th>
+                <th>1月30日</th>
+                <th>...</th>
+              </tr>
+              <tr class="header-row-2">
+                <th>報告者編集</th>
+                <th>報告者編集</th>
+                <th>報告者編集</th>
+                <th>報告者編集</th>
+                <th>報告者編集</th>
+                <th>報告者編集</th>
+                <th>報告者編集</th>
+                <th>...</th>
+              </tr>
+              <tr class="header-row-3">
+                <th>年間合計予測</th>
+                <th>年間合計予測</th>
+                <th>年間合計予測</th>
+                <th>年間合計予測</th>
+                <th>年間合計予測</th>
+                <th>年間合計予測</th>
+                <th>年間合計予測</th>
+                <th>...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="major-item">
+                <td></td>
+                <td class="fixed-col">当月経常利益</td>
+                <td>11,298</td>
+                <td>48,401</td>
+                <td class="highlight-green">38,055</td>
+                <td class="highlight-gray-bg">36,631</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>...</td>
+              </tr>
+              <tr class="category-header">
+                <td colspan="15">収益</td>
+              </tr>
+              <tr class="major-item parent">
+                <td><i class="fas fa-caret-right"></i></td>
+                <td class="fixed-col">
+                  <i class="fas fa-plus-circle icon-blue"></i> 外部売上
+                </td>
+                <td>179,954</td>
+                <td class="highlight-yellow">221,941</td>
+                <td class="highlight-green">223,334</td>
+                <td class="highlight-yellow">230,353</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="minor-item">
+                <td></td>
+                <td class="fixed-col">
+                  <i class="fas fa-wrench icon-gray"></i> 受託
+                </td>
+                <td>123,181</td>
+                <td class="highlight-yellow">150,790</td>
+                <td class="highlight-green">167,158</td>
+                <td class="highlight-yellow">165,495</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="minor-item">
+                <td></td>
+                <td class="fixed-col">
+                  <i class="fas fa-wrench icon-gray"></i> 派遣
+                </td>
+                <td>44,070</td>
+                <td class="highlight-yellow">23,155</td>
+                <td class="highlight-green">37,800</td>
+                <td class="highlight-yellow">38,220</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="category-header">
+                <td colspan="15">費用</td>
+              </tr>
+              <tr class="major-item parent">
+                <td><i class="fas fa-caret-right"></i></td>
+                <td class="fixed-col">
+                  <i class="fas fa-plus-circle icon-blue"></i> 外部販管費
+                </td>
+                <td>160,874</td>
+                <td class="highlight-yellow">188,613</td>
+                <td class="highlight-green">184,137</td>
+                <td class="highlight-yellow">183,825</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="minor-item">
+                <td></td>
+                <td class="fixed-col">
+                  <i class="fas fa-wrench icon-gray"></i> 役員報酬
+                </td>
+                <td>19,000</td>
+                <td class="highlight-yellow">20,700</td>
+                <td class="highlight-green">26,160</td>
+                <td class="highlight-yellow">26,160</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="minor-item">
+                <td></td>
+                <td class="fixed-col">
+                  <i class="fas fa-wrench icon-gray"></i> 給与手当
+                </td>
+                <td>67,303</td>
+                <td class="highlight-yellow">75,544</td>
+                <td class="highlight-green">78,612</td>
+                <td class="highlight-yellow">78,585</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="category-header">
+                <td colspan="15">利益</td>
+              </tr>
+              <tr class="major-item">
+                <td></td>
+                <td class="fixed-col">粗利</td>
+                <td>169,832</td>
+                <td class="highlight-yellow">205,510</td>
+                <td class="highlight-green">222,724</td>
+                <td class="highlight-yellow">221,167</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="major-item">
+                <td></td>
+                <td class="fixed-col">(粗利率)</td>
+                <td>94.4%</td>
+                <td class="highlight-yellow">92.6%</td>
+                <td class="highlight-green">95.5%</td>
+                <td class="highlight-yellow">96%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const parentRows = document.querySelectorAll(".parent");
+
+        parentRows.forEach((row) => {
+          row.addEventListener("click", (e) => {
+            if (e.target.closest("i")) {
+              if (!e.target.classList.contains("fa-caret-right")) {
+                return;
+              }
+            }
+            row.classList.toggle("open");
+            let nextSibling = row.nextElementSibling;
+            while (
+              nextSibling &&
+              (nextSibling.classList.contains("minor-item") ||
+                nextSibling.classList.contains("sub-category"))
+            ) {
+              if (row.classList.contains("open")) {
+                nextSibling.style.display = "table-row";
+              } else {
+                nextSibling.style.display = "none";
+              }
+              nextSibling = nextSibling.nextElementSibling;
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

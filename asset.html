@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>時価資産台帳</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="asset.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
+          <a href="index.html" class="btn btn-plan"
+            ><i class="fas fa-dollar-sign"></i> 利益計画</a
+          >
+        </div>
+        <nav class="header-nav">
+          <ul>
+            <li>
+              <a href="enterprise.html"
+                ><i class="fas fa-file-invoice-dollar"></i> 決算予測推移表</a
+              >
+            </li>
+            <li>
+              <a href="balanceseet.html"
+                ><i class="fas fa-balance-scale"></i> 貸借対照表</a
+              >
+            </li>
+            <li>
+              <a href="asset.html" class="active"
+                ><i class="fas fa-book"></i> 残高資産台帳</a
+              >
+            </li>
+            <li class="dropdown">
+              <a href="#"
+                ><i class="fas fa-chart-bar"></i> 分析表
+                <i class="fas fa-chevron-down"></i
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">科目別 推移表</a></li>
+                <li><a href="#">部門対比表</a></li>
+                <li><a href="#">Z精算書</a></li>
+                <li><a href="#">科目別 部門対比表</a></li>
+                <li><a href="#">部門対比 推移表</a></li>
+                <li><a href="#">報告書</a></li>
+                <li><a href="#">四半期集計表</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">KPI <i class="fas fa-chevron-down"></i></a>
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fas fa-cog"></i> 設定
+                <i class="fas fa-chevron-down"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="page-header">
+        <h1>トランソニックソフトウェア 時価資産台帳</h1>
+      </div>
+
+      <div class="filter-controls">
+        <select id="year-select">
+          <option>2026年</option>
+          <option>2025年</option>
+          <option>2024年</option>
+        </select>
+        <div class="checkboxes">
+          <label><input type="checkbox" /> を中央に表示</label>
+        </div>
+        <button class="btn-primary">
+          <i class="fas fa-pen"></i> 入力を開始
+        </button>
+      </div>
+
+      <main class="content">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">勘定科目</th>
+                <th>2021年05月</th>
+                <th>2022年05月</th>
+                <th>2023年05月</th>
+                <th>2024年05月</th>
+                <th>2025年05月</th>
+                <th class="current-period">2026年05月</th>
+                <th>2027年05月</th>
+                <th>2028年05月</th>
+                <th>...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="3" class="account-name">保険積立金</td>
+                <td class="item-type">簿価</td>
+                <td>5,823</td>
+                <td>5,823</td>
+                <td>6,688</td>
+                <td>8,417</td>
+                <td>5,977</td>
+                <td class="current-period"></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td class="item-type">時価</td>
+                <td>10,000</td>
+                <td>5,823</td>
+                <td>6,688</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="current-period"></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="unrealized-gain-loss">
+                <td class="item-type">含み損益</td>
+                <td>4,177</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="negative">-8,417</td>
+                <td class="negative">-5,977</td>
+                <td class="current-period"></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+
+              <tr>
+                <td rowspan="3" class="account-name">退職金引き当て</td>
+                <td class="item-type">簿価</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="current-period"></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td class="item-type">時価</td>
+                <td class="negative">-10,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="current-period"></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+              <tr class="unrealized-gain-loss">
+                <td class="item-type">含み損益</td>
+                <td class="negative">-10,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="current-period"></td>
+                <td></td>
+                <td></td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

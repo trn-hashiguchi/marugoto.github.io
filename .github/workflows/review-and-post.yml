@@ -64,20 +64,6 @@ jobs:
           set -euo pipefail
           python scripts/reviewer.py
 
-      - name: Post review text to Slack (chat.postMessage)
-        if: steps.diff.outputs.empty == 'false'
-        shell: bash
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
-        run: |
-          set -euo pipefail
-          TEXT=$(jq -Rs '.' < review.md)
-          curl -sS -X POST 'https://slack.com/api/chat.postMessage' \
-            -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
-            -H 'Content-type: application/json; charset=utf-8' \
-            --data "{\"channel\":\"${SLACK_CHANNEL_ID}\",\"text\":${TEXT}}"
-
       - name: Attach review.md (files.getUploadURLExternal → completeUploadExternal)
         if: steps.diff.outputs.empty == 'false'
         shell: bash

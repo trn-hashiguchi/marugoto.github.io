@@ -14,6 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="header.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -21,38 +22,36 @@
       <div class="header-content">
         <div class="header-left">
           <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
-          <a href="#" class="btn btn-plan"
-            ><i class="fas fa-dollar-sign"></i> 利益計画</a
-          >
+          <a href="index.html" class="btn btn-plan active"><i class="fas fa-dollar-sign"></i> 利益計画</a>
         </div>
         <nav class="header-nav">
           <ul>
             <li>
-              <a href="#"
-                ><i class="fas fa-file-invoice-dollar"></i>
-                決算申告予測推移表</a
-              >
+              <a href="enterprise.html"><i class="fas fa-file-invoice-dollar"></i> 決算予測推移表</a>
             </li>
             <li>
-              <a href="#"><i class="fas fa-balance-scale"></i> 貸借対照表</a>
+              <a href="balanceseet.html"><i class="fas fa-balance-scale"></i> 貸借対照表</a>
             </li>
             <li>
-              <a href="#"><i class="fas fa-book"></i> 残高資産台帳</a>
+              <a href="asset.html"><i class="fas fa-book"></i> 残高資産台帳</a>
             </li>
-            <li>
-              <a href="#"
-                ><i class="fas fa-chart-bar"></i> 分析表
-                <i class="fas fa-chevron-down"></i
-              ></a>
+            <li class="dropdown">
+              <a href="#"><i class="fas fa-chart-bar"></i> 分析表 <i class="fas fa-chevron-down"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">科目別 推移表</a></li>
+                <li><a href="#">部門対比表</a></li>
+                <li><a href="#">Z精算書</a></li>
+                <li><a href="#">科目別 部門対比表</a></li>
+                <li><a href="#">部門対比 推移表</a></li>
+                <li><a href="#">報告書</a></li>
+                <li><a href="#">四半期集計表</a></li>
+              </ul>
             </li>
             <li>
               <a href="#">KPI <i class="fas fa-chevron-down"></i></a>
             </li>
             <li>
-              <a href="#"
-                ><i class="fas fa-cog"></i> 設定
-                <i class="fas fa-chevron-down"></i
-              ></a>
+              <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
             </li>
           </ul>
         </nav>
