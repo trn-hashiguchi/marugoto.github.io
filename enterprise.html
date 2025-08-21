@@ -14,8 +14,8 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="header.css" />
-    <link rel="stylesheet" href="enterprise.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/enterprise.css" />
   </head>
   <body>
     <header class="header">
@@ -118,7 +118,7 @@
         <ul class="nav-tabs">
           <li class="active">
             <a href="#"
-              ><i class="fas fa-calculator"></i> 損益計算 (会計ソフト＋調整)</a
+              ><i class="fas fa-calculator"></i> 真利益 (会計ソフト＋調整)</a
             >
           </li>
           <li>
@@ -140,8 +140,8 @@
               <tr class="header-row-1">
                 <th rowspan-="3"></th>
                 <th rowspan="3" class="fixed-col">勘定科目</th>
-                <th rowspan="3">前年実績 <<</th>
-                <th rowspan="3">前年同期</th>
+                <th rowspan="3">前前年実績 <<</th>
+                <th rowspan="3">前年実績</th>
                 <th rowspan="3">当期予測</th>
                 <th>7月30日</th>
                 <th>8月30日</th>
@@ -336,34 +336,6 @@
       </main>
     </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const parentRows = document.querySelectorAll(".parent");
-
-        parentRows.forEach((row) => {
-          row.addEventListener("click", (e) => {
-            if (e.target.closest("i")) {
-              if (!e.target.classList.contains("fa-caret-right")) {
-                return;
-              }
-            }
-            row.classList.toggle("open");
-            let nextSibling = row.nextElementSibling;
-            while (
-              nextSibling &&
-              (nextSibling.classList.contains("minor-item") ||
-                nextSibling.classList.contains("sub-category"))
-            ) {
-              if (row.classList.contains("open")) {
-                nextSibling.style.display = "table-row";
-              } else {
-                nextSibling.style.display = "none";
-              }
-              nextSibling = nextSibling.nextElementSibling;
-            }
-          });
-        });
-      });
-    </script>
+    <script src="js/enterprise.js"></script>
   </body>
 </html>

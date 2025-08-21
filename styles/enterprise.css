@@ -111,6 +111,9 @@ body {
   padding: 6px 10px;
   font-size: 13px;
 }
+.filter-controls-1 select {
+  min-width: 300px;
+}
 .checkboxes {
   display: flex;
   gap: 20px;
@@ -271,7 +274,7 @@ tbody td {
   font-weight: bold;
 }
 .category-header td {
-  padding: 10px 12px;
+  padding: 6px 8px;
 }
 
 /* Cell Highlighting & Icons */
