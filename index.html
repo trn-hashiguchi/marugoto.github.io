@@ -84,515 +84,965 @@
 
       <nav class="main-nav">
         <ul class="nav-tabs">
-          <li class="active">
+          <li class="active" data-tab="software">
             <a href="#"><i class="fas fa-calculator"></i> 会計ソフト</a>
           </li>
-          <li>
+          <li data-tab="adjustment">
             <a href="#"><i class="fas fa-sliders"></i> 調整</a>
           </li>
-          <li>
+          <li data-tab="profit">
             <a href="#"
               ><i class="fas fa-chart-pie"></i> 真利益 (会計+ソフト)</a
             >
           </li>
-          <li>
+          <li data-tab="restore">
             <a href="#"><i class="fas fa-undo"></i> データ復元</a>
           </li>
-          <li>
+          <li data-tab="files">
             <a href="#"><i class="fas fa-file-alt"></i> ファイル</a>
           </li>
         </ul>
       </nav>
 
-      <div class="page-controls">
-        <div class="action-buttons">
-          <button class="btn btn-primary">入力開始</button>
-          <button class="btn btn-secondary">電卓</button>
-        </div>
-        <div class="action-links">
-          <a href="#" class="action-link"
-            ><i class="fas fa-comment-alt"></i> コメントの付け方[?]</a
-          >
-          <a href="#" class="action-link"
-            ><i class="fas fa-copy"></i> 前回実績をコピーする</a
-          >
-          <a href="#" class="action-link"
-            ><i class="fas fa-edit"></i> 報告書編集</a
-          >
-        </div>
-      </div>
-
       <main class="content">
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>勘定科目</th>
-                <th>6月</th>
-                <th>7月</th>
-                <th>8月</th>
-                <th>9月</th>
-                <th>10月</th>
-                <th>11月</th>
-                <th>12月</th>
-                <th>1月</th>
-                <th>2月</th>
-                <th>3月</th>
-                <th>4月</th>
-                <th>5月</th>
-                <th>決算調整</th>
-                <th>年間合計</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="highlight-top-row">
-                <td><div class="td-content">当月経常利益</div></td>
-                <td class="positive-highlight">1,606</td>
-                <td class="positive-highlight">1,998</td>
-                <td class="positive-highlight">2,746</td>
-                <td class="positive-highlight">2,721</td>
-                <td class="positive-highlight">3,913</td>
-                <td class="positive-highlight">3,945</td>
-                <td class="positive-highlight">3,812</td>
-                <td class="positive-highlight">3,948</td>
-                <td class="positive-highlight">3,980</td>
-                <td class="positive-highlight">3,934</td>
-                <td class="positive-highlight">4,009</td>
-                <td class="positive-highlight">4,009</td>
-                <td class="negative">-3,000</td>
-                <td class="positive-highlight">39,631</td>
-              </tr>
-              <tr class="highlight-top-row">
-                <td><div class="td-content">累計</div></td>
-                <td class="positive-highlight">1,606</td>
-                <td class="positive-highlight">3,604</td>
-                <td class="positive-highlight">6,350</td>
-                <td class="positive-highlight">9,071</td>
-                <td class="positive-highlight">12,984</td>
-                <td class="positive-highlight">16,929</td>
-                <td class="positive-highlight">20,741</td>
-                <td class="positive-highlight">24,689</td>
-                <td class="positive-highlight">28,669</td>
-                <td class="positive-highlight">32,603</td>
-                <td class="positive-highlight">36,612</td>
-                <td class="positive-highlight">40,621</td>
-                <td></td>
-                <td class="positive-highlight">39,631</td>
-              </tr>
+        <div id="software" class="tab-content active">
+          <div class="page-controls">
+            <div class="action-buttons">
+              <button class="btn btn-primary">入力開始</button>
+              <button class="btn btn-secondary">電卓</button>
+            </div>
+            <div class="action-links">
+              <a href="#" class="action-link"
+                ><i class="fas fa-comment-alt"></i> コメントの付け方[?]</a
+              >
+              <a href="#" class="action-link"
+                ><i class="fas fa-copy"></i> 前回実績をコピーする</a
+              >
+              <a href="#" class="action-link"
+                ><i class="fas fa-edit"></i> 報告書編集</a
+              >
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table id="software-table">
+              <thead>
+                <tr>
+                  <th>勘定科目</th>
+                  <th>6月</th>
+                  <th>7月</th>
+                  <th>8月</th>
+                  <th>9月</th>
+                  <th>10月</th>
+                  <th>11月</th>
+                  <th>12月</th>
+                  <th>1月</th>
+                  <th>2月</th>
+                  <th>3月</th>
+                  <th>4月</th>
+                  <th>5月</th>
+                  <th>決算調整</th>
+                  <th>年間合計</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="highlight-top-row">
+                  <td><div class="td-content">当月経常利益</div></td>
+                  <td class="positive-highlight">1,606</td>
+                  <td class="positive-highlight">1,998</td>
+                  <td class="positive-highlight">2,746</td>
+                  <td class="positive-highlight">2,721</td>
+                  <td class="positive-highlight">3,913</td>
+                  <td class="positive-highlight">3,945</td>
+                  <td class="positive-highlight">3,812</td>
+                  <td class="positive-highlight">3,948</td>
+                  <td class="positive-highlight">3,980</td>
+                  <td class="positive-highlight">3,934</td>
+                  <td class="positive-highlight">4,009</td>
+                  <td class="positive-highlight">4,009</td>
+                  <td class="negative">-3,000</td>
+                  <td class="positive-highlight">39,631</td>
+                </tr>
+                <tr class="highlight-top-row">
+                  <td><div class="td-content">累計</div></td>
+                  <td class="positive-highlight">1,606</td>
+                  <td class="positive-highlight">3,604</td>
+                  <td class="positive-highlight">6,350</td>
+                  <td class="positive-highlight">9,071</td>
+                  <td class="positive-highlight">12,984</td>
+                  <td class="positive-highlight">16,929</td>
+                  <td class="positive-highlight">20,741</td>
+                  <td class="positive-highlight">24,689</td>
+                  <td class="positive-highlight">28,669</td>
+                  <td class="positive-highlight">32,603</td>
+                  <td class="positive-highlight">36,612</td>
+                  <td class="positive-highlight">40,621</td>
+                  <td></td>
+                  <td class="positive-highlight">39,631</td>
+                </tr>
 
-              <tr class="category-header">
-                <td><div class="td-content">収益</div></td>
-                <td>16,651</td>
-                <td>17,047</td>
-                <td>18,097</td>
-                <td>18,072</td>
-                <td>20,072</td>
-                <td>20,072</td>
-                <td>20,072</td>
-                <td>20,027</td>
-                <td>20,027</td>
-                <td>20,027</td>
-                <td>20,072</td>
-                <td>20,072</td>
-                <td>0</td>
-                <td>230,353</td>
-              </tr>
-              <tr class="major-item">
-                <td>
-                  <div class="td-content">
-                    当月利益<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>1,426</td>
-                <td>1,484</td>
-                <td>2,746</td>
-                <td>2,532</td>
-                <td>3,913</td>
-                <td>3,945</td>
-                <td>4,147</td>
-                <td>3,794</td>
-                <td>3,921</td>
-                <td>3,901</td>
-                <td>3,911</td>
-                <td>3,911</td>
-                <td class="negative">-3,000</td>
-                <td>36,631</td>
-              </tr>
-              <tr class="major-item">
-                <td>
-                  <div class="td-content">
-                    累計<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>1,426</td>
-                <td>2,910</td>
-                <td>5,656</td>
-                <td>8,188</td>
-                <td>12,101</td>
-                <td>16,046</td>
-                <td>20,193</td>
-                <td>23,987</td>
-                <td>27,908</td>
-                <td>31,809</td>
-                <td>35,720</td>
-                <td>39,631</td>
-                <td>36,631</td>
-                <td>36,631</td>
-              </tr>
-              <tr class="major-item parent open">
-                <td>
-                  <div class="td-content">
-                    <i class="fas fa-caret-right"></i> 外部売上<button
-                      class="btn-sui"
-                    >
-                      推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>16,651</td>
-                <td>17,047</td>
-                <td>18,097</td>
-                <td>18,072</td>
-                <td>20,072</td>
-                <td>20,072</td>
-                <td>20,072</td>
-                <td>20,027</td>
-                <td>20,027</td>
-                <td>20,027</td>
-                <td>20,072</td>
-                <td>20,072</td>
-                <td>0</td>
-                <td>230,353</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    受託<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>11,095</td>
-                <td>14,000</td>
-                <td>15,000</td>
-                <td>15,000</td>
-                <td>13,800</td>
-                <td>13,800</td>
-                <td>13,800</td>
-                <td>13,800</td>
-                <td>13,800</td>
-                <td>13,800</td>
-                <td>13,800</td>
-                <td>13,800</td>
-                <td></td>
-                <td>165,495</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    派遣<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>2,120</td>
-                <td>2,700</td>
-                <td>2,700</td>
-                <td>2,700</td>
-                <td>3,500</td>
-                <td>3,500</td>
-                <td>3,500</td>
-                <td>3,500</td>
-                <td>3,500</td>
-                <td>3,500</td>
-                <td>3,500</td>
-                <td>3,500</td>
-                <td></td>
-                <td>38,220</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    自社：HP制作<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>137</td>
-                <td>97</td>
-                <td>147</td>
-                <td>122</td>
-                <td>122</td>
-                <td>122</td>
-                <td>122</td>
-                <td>77</td>
-                <td>77</td>
-                <td>122</td>
-                <td>122</td>
-                <td>122</td>
-                <td></td>
-                <td>1,389</td>
-              </tr>
+                <tr class="category-header">
+                  <td><div class="td-content">収益</div></td>
+                  <td>16,651</td>
+                  <td>17,047</td>
+                  <td>18,097</td>
+                  <td>18,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,027</td>
+                  <td>20,027</td>
+                  <td>20,027</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>0</td>
+                  <td>230,353</td>
+                </tr>
+                <tr class="major-item">
+                  <td>
+                    <div class="td-content">
+                      当月利益<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>1,426</td>
+                  <td>1,484</td>
+                  <td>2,746</td>
+                  <td>2,532</td>
+                  <td>3,913</td>
+                  <td>3,945</td>
+                  <td>4,147</td>
+                  <td>3,794</td>
+                  <td>3,921</td>
+                  <td>3,901</td>
+                  <td>3,911</td>
+                  <td>3,911</td>
+                  <td class="negative">-3,000</td>
+                  <td>36,631</td>
+                </tr>
+                <tr class="major-item">
+                  <td>
+                    <div class="td-content">
+                      累計<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>1,426</td>
+                  <td>2,910</td>
+                  <td>5,656</td>
+                  <td>8,188</td>
+                  <td>12,101</td>
+                  <td>16,046</td>
+                  <td>20,193</td>
+                  <td>23,987</td>
+                  <td>27,908</td>
+                  <td>31,809</td>
+                  <td>35,720</td>
+                  <td>39,631</td>
+                  <td>36,631</td>
+                  <td>36,631</td>
+                </tr>
+                <tr class="major-item parent open">
+                  <td>
+                    <div class="td-content">
+                      <i class="fas fa-caret-right"></i> 外部売上<button
+                        class="btn-sui"
+                      >
+                        推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>16,651</td>
+                  <td>17,047</td>
+                  <td>18,097</td>
+                  <td>18,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,027</td>
+                  <td>20,027</td>
+                  <td>20,027</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>0</td>
+                  <td>230,353</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      受託<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>11,095</td>
+                  <td>14,000</td>
+                  <td>15,000</td>
+                  <td>15,000</td>
+                  <td>13,800</td>
+                  <td>13,800</td>
+                  <td>13,800</td>
+                  <td>13,800</td>
+                  <td>13,800</td>
+                  <td>13,800</td>
+                  <td>13,800</td>
+                  <td>13,800</td>
+                  <td></td>
+                  <td>165,495</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      派遣<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>2,120</td>
+                  <td>2,700</td>
+                  <td>2,700</td>
+                  <td>2,700</td>
+                  <td>3,500</td>
+                  <td>3,500</td>
+                  <td>3,500</td>
+                  <td>3,500</td>
+                  <td>3,500</td>
+                  <td>3,500</td>
+                  <td>3,500</td>
+                  <td>3,500</td>
+                  <td></td>
+                  <td>38,220</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      自社：HP制作<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>137</td>
+                  <td>97</td>
+                  <td>147</td>
+                  <td>122</td>
+                  <td>122</td>
+                  <td>122</td>
+                  <td>122</td>
+                  <td>77</td>
+                  <td>77</td>
+                  <td>122</td>
+                  <td>122</td>
+                  <td>122</td>
+                  <td></td>
+                  <td>1,389</td>
+                </tr>
 
-              <tr class="category-header">
-                <td><div class="td-content">利益</div></td>
-                <td>16,365</td>
-                <td>16,747</td>
-                <td>17,797</td>
-                <td>17,772</td>
-                <td>19,072</td>
-                <td>19,072</td>
-                <td>19,072</td>
-                <td>19,027</td>
-                <td>19,027</td>
-                <td>19,027</td>
-                <td>19,072</td>
-                <td>19,072</td>
-                <td>0</td>
-                <td>221,167</td>
-              </tr>
-              <tr class="highlight-profit">
-                <td>
-                  <div class="td-content">
-                    粗利<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>16,365</td>
-                <td>16,747</td>
-                <td>17,797</td>
-                <td>17,772</td>
-                <td>19,072</td>
-                <td>19,072</td>
-                <td>19,072</td>
-                <td>19,027</td>
-                <td>19,027</td>
-                <td>19,027</td>
-                <td>19,072</td>
-                <td>19,072</td>
-                <td>0</td>
-                <td>221,167</td>
-              </tr>
+                <tr class="category-header">
+                  <td><div class="td-content">利益</div></td>
+                  <td>16,365</td>
+                  <td>16,747</td>
+                  <td>17,797</td>
+                  <td>17,772</td>
+                  <td>19,072</td>
+                  <td>19,072</td>
+                  <td>19,072</td>
+                  <td>19,027</td>
+                  <td>19,027</td>
+                  <td>19,027</td>
+                  <td>19,072</td>
+                  <td>19,072</td>
+                  <td>0</td>
+                  <td>221,167</td>
+                </tr>
+                <tr class="highlight-profit">
+                  <td>
+                    <div class="td-content">
+                      粗利<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>16,365</td>
+                  <td>16,747</td>
+                  <td>17,797</td>
+                  <td>17,772</td>
+                  <td>19,072</td>
+                  <td>19,072</td>
+                  <td>19,072</td>
+                  <td>19,027</td>
+                  <td>19,027</td>
+                  <td>19,027</td>
+                  <td>19,072</td>
+                  <td>19,072</td>
+                  <td>0</td>
+                  <td>221,167</td>
+                </tr>
 
-              <tr class="category-header">
-                <td><div class="td-content">経費</div></td>
-                <td>14,760</td>
-                <td>15,069</td>
-                <td>15,051</td>
-                <td>15,051</td>
-                <td>15,059</td>
-                <td>15,103</td>
-                <td>15,335</td>
-                <td>15,079</td>
-                <td>15,047</td>
-                <td>15,067</td>
-                <td>15,102</td>
-                <td>15,102</td>
-                <td>3,000</td>
-                <td>183,825</td>
-              </tr>
-              <tr class="major-item parent open">
-                <td>
-                  <div class="td-content">
-                    <i class="fas fa-caret-right"></i> 外部販管費<button
-                      class="btn-sui"
-                    >
-                      推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>14,760</td>
-                <td>15,069</td>
-                <td>15,051</td>
-                <td>15,051</td>
-                <td>15,059</td>
-                <td>15,103</td>
-                <td>15,335</td>
-                <td>15,079</td>
-                <td>15,047</td>
-                <td>15,067</td>
-                <td>15,102</td>
-                <td>15,102</td>
-                <td>3,000</td>
-                <td>183,825</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    役員報酬<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td>1,930</td>
-                <td></td>
-                <td>26,160</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    給与手当<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>6,524</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td>6,551</td>
-                <td></td>
-                <td>78,585</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    法定福利費<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>980</td>
-                <td>985</td>
-                <td>985</td>
-                <td>985</td>
-                <td>985</td>
-                <td>985</td>
-                <td>985</td>
-                <td>985</td>
-                <td>985</td>
-                <td>985</td>
-                <td>985</td>
-                <td>985</td>
-                <td></td>
-                <td>11,810</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    福利厚生費<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>200</td>
-                <td>210</td>
-                <td>205</td>
-                <td>215</td>
-                <td>220</td>
-                <td>225</td>
-                <td>230</td>
-                <td>235</td>
-                <td>240</td>
-                <td>245</td>
-                <td>250</td>
-                <td>255</td>
-                <td></td>
-                <td>2,730</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    採用費<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>50</td>
-                <td>100</td>
-                <td>150</td>
-                <td>50</td>
-                <td>100</td>
-                <td>150</td>
-                <td>50</td>
-                <td>100</td>
-                <td>150</td>
-                <td>50</td>
-                <td>100</td>
-                <td>150</td>
-                <td></td>
-                <td>1,200</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    地代家賃<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td>800</td>
-                <td></td>
-                <td>9,600</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    水道光熱費<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>150</td>
-                <td>155</td>
-                <td>160</td>
-                <td>165</td>
-                <td>170</td>
-                <td>175</td>
-                <td>180</td>
-                <td>185</td>
-                <td>190</td>
-                <td>195</td>
-                <td>200</td>
-                <td>205</td>
-                <td></td>
-                <td>2,130</td>
-              </tr>
-              <tr class="minor-item" style="display: table-row;">
-                <td>
-                  <div class="td-content">
-                    通信費<button class="btn-sui">推</button
-                    ><button class="btn-bu">部</button>
-                  </div>
-                </td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td>300</td>
-                <td></td>
-                <td>3,600</td>
-              </tr>
-            </tbody>
-          </table>
+                <tr class="category-header">
+                  <td><div class="td-content">経費</div></td>
+                  <td>14,760</td>
+                  <td>15,069</td>
+                  <td>15,051</td>
+                  <td>15,051</td>
+                  <td>15,059</td>
+                  <td>15,103</td>
+                  <td>15,335</td>
+                  <td>15,079</td>
+                  <td>15,047</td>
+                  <td>15,067</td>
+                  <td>15,102</td>
+                  <td>15,102</td>
+                  <td>3,000</td>
+                  <td>183,825</td>
+                </tr>
+                <tr class="major-item parent open">
+                  <td>
+                    <div class="td-content">
+                      <i class="fas fa-caret-right"></i> 外部販管費<button
+                        class="btn-sui"
+                      >
+                        推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>14,760</td>
+                  <td>15,069</td>
+                  <td>15,051</td>
+                  <td>15,051</td>
+                  <td>15,059</td>
+                  <td>15,103</td>
+                  <td>15,335</td>
+                  <td>15,079</td>
+                  <td>15,047</td>
+                  <td>15,067</td>
+                  <td>15,102</td>
+                  <td>15,102</td>
+                  <td>3,000</td>
+                  <td>183,825</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      役員報酬<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td>1,930</td>
+                  <td></td>
+                  <td>26,160</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      給与手当<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>6,524</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td>6,551</td>
+                  <td></td>
+                  <td>78,585</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      法定福利費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>980</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td>985</td>
+                  <td></td>
+                  <td>11,810</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      福利厚生費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>200</td>
+                  <td>210</td>
+                  <td>205</td>
+                  <td>215</td>
+                  <td>220</td>
+                  <td>225</td>
+                  <td>230</td>
+                  <td>235</td>
+                  <td>240</td>
+                  <td>245</td>
+                  <td>250</td>
+                  <td>255</td>
+                  <td></td>
+                  <td>2,730</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      採用費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>50</td>
+                  <td>100</td>
+                  <td>150</td>
+                  <td>50</td>
+                  <td>100</td>
+                  <td>150</td>
+                  <td>50</td>
+                  <td>100</td>
+                  <td>150</td>
+                  <td>50</td>
+                  <td>100</td>
+                  <td>150</td>
+                  <td></td>
+                  <td>1,200</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      地代家賃<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td></td>
+                  <td>9,600</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      水道光熱費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>150</td>
+                  <td>155</td>
+                  <td>160</td>
+                  <td>165</td>
+                  <td>170</td>
+                  <td>175</td>
+                  <td>180</td>
+                  <td>185</td>
+                  <td>190</td>
+                  <td>195</td>
+                  <td>200</td>
+                  <td>205</td>
+                  <td></td>
+                  <td>2,130</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      通信費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td></td>
+                  <td>3,600</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="adjustment" class="tab-content">
+          <div class="table-wrapper">
+            <table id="adjustment-table">
+              <thead>
+                <tr>
+                  <th>勘定科目</th>
+                  <th>6月</th>
+                  <th>7月</th>
+                  <th>8月</th>
+                  <th>9月</th>
+                  <th>10月</th>
+                  <th>11月</th>
+                  <th>12月</th>
+                  <th>1月</th>
+                  <th>2月</th>
+                  <th>3月</th>
+                  <th>4月</th>
+                  <th>5月</th>
+                  <th>決算調整</th>
+                  <th>年間合計</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="highlight-top-row">
+                  <td><div class="td-content">当月経常利益</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="highlight-top-row">
+                  <td><div class="td-content">累計</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+
+                <tr class="category-header">
+                  <td><div class="td-content">収益</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="major-item">
+                  <td>
+                    <div class="td-content">
+                      当月利益<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="major-item">
+                  <td>
+                    <div class="td-content">
+                      累計<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="major-item parent open">
+                  <td>
+                    <div class="td-content">
+                      <i class="fas fa-caret-right"></i> 外部売上<button
+                        class="btn-sui"
+                      >
+                        推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      受託<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      派遣<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      自社：HP制作<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+
+                <tr class="category-header">
+                  <td><div class="td-content">利益</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="highlight-profit">
+                  <td>
+                    <div class="td-content">
+                      粗利<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+
+                <tr class="category-header">
+                  <td><div class="td-content">経費</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="major-item parent open">
+                  <td>
+                    <div class="td-content">
+                      <i class="fas fa-caret-right"></i> 外部販管費<button
+                        class="btn-sui"
+                      >
+                        推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      役員報酬<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      給与手当<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      法定福利費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      福利厚生費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      採用費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      地代家賃<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      水道光熱費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      通信費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="profit" class="tab-content">
+          <div class="table-wrapper">
+            <table id="profit-table">
+              <thead>
+                <tr>
+                  <th>勘定科目</th>
+                  <th>6月</th>
+                  <th>7月</th>
+                  <th>8月</th>
+                  <th>9月</th>
+                  <th>10月</th>
+                  <th>11月</th>
+                  <th>12月</th>
+                  <th>1月</th>
+                  <th>2月</th>
+                  <th>3月</th>
+                  <th>4月</th>
+                  <th>5月</th>
+                  <th>決算調整</th>
+                  <th>年間合計</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="highlight-top-row">
+                  <td><div class="td-content">当月経常利益</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="highlight-top-row">
+                  <td><div class="td-content">累計</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+
+                <tr class="category-header">
+                  <td><div class="td-content">収益</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="major-item">
+                  <td>
+                    <div class="td-content">
+                      当月利益<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="major-item">
+                  <td>
+                    <div class="td-content">
+                      累計<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="major-item parent open">
+                  <td>
+                    <div class="td-content">
+                      <i class="fas fa-caret-right"></i> 外部売上<button
+                        class="btn-sui"
+                      >
+                        推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      受託<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      派遣<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      自社：HP制作<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+
+                <tr class="category-header">
+                  <td><div class="td-content">利益</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="highlight-profit">
+                  <td>
+                    <div class="td-content">
+                      粗利<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+
+                <tr class="category-header">
+                  <td><div class="td-content">経費</div></td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="major-item parent open">
+                  <td>
+                    <div class="td-content">
+                      <i class="fas fa-caret-right"></i> 外部販管費<button
+                        class="btn-sui"
+                      >
+                        推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      役員報酬<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      給与手当<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      法定福利費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      福利厚生費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      採用費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      地代家賃<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      水道光熱費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+                <tr class="minor-item" style="display: table-row;">
+                  <td>
+                    <div class="td-content">
+                      通信費<button class="btn-sui">推</button
+                      ><button class="btn-bu">部</button>
+                    </div>
+                  </td>
+                  <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td><td>0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="restore" class="tab-content">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>バックアップ日時</th>
+                  <th>ファイル名</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2025/08/20 15:30</td>
+                  <td>backup_20250820_1530.zip</td>
+                </tr>
+                <tr>
+                  <td>2025/08/19 10:00</td>
+                  <td>backup_20250819_1000.zip</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="files" class="tab-content">
+          <div class="action-buttons">
+            <button class="btn btn-primary">ファイルを追加</button>
+            <button class="btn btn-primary">URLを追加</button>
+          </div>
+          <p class="warning-text">※権限に関係なくすべての社員アカウントに公開されます。扱う情報にご注意ください</p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>タイトル</th>
+                  <th>更新日時</th>
+                  <th>更新者</th>
+                  <th>ファイルサイズ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2025年度事業計画書</td>
+                  <td>2025/08/21 10:00</td>
+                  <td>山田 太郎</td>
+                  <td>1.2MB</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </main>
     </div>
@@ -603,7 +1053,6 @@
 
         parentRows.forEach((row) => {
           row.addEventListener("click", (e) => {
-            // Stop if a button inside the cell was clicked
             if (e.target.closest("button")) {
               return;
             }
@@ -622,6 +1071,53 @@
             }
           });
         });
+
+        const tabs = document.querySelectorAll(".nav-tabs li");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            tabs.forEach(item => item.classList.remove("active"));
+            tab.classList.add("active");
+
+            const target = tab.getAttribute("data-tab");
+            tabContents.forEach(content => {
+              if (content.id === target) {
+                content.classList.add("active");
+              } else {
+                content.classList.remove("active");
+              }
+            });
+
+            if (target === 'profit') {
+                calculateProfit();
+            }
+          });
+        });
+
+        function calculateProfit() {
+            const softwareTable = document.getElementById('software-table').tBodies[0];
+            const adjustmentTable = document.getElementById('adjustment-table').tBodies[0];
+            const profitTable = document.getElementById('profit-table').tBodies[0];
+
+            for (let i = 0; i < softwareTable.rows.length; i++) {
+                for (let j = 1; j < softwareTable.rows[i].cells.length; j++) {
+                    const softwareCell = softwareTable.rows[i].cells[j];
+                    const adjustmentCell = adjustmentTable.rows[i].cells[j];
+                    const profitCell = profitTable.rows[i].cells[j];
+
+                    if (!softwareCell || !adjustmentCell || !profitCell) continue;
+
+                    const softwareValue = parseFloat(softwareCell.innerText.replace(/,/g, '')) || 0;
+                    const adjustmentValue = parseFloat(adjustmentCell.innerText.replace(/,/g, '')) || 0;
+
+                    const sum = softwareValue + adjustmentValue;
+                    if(profitCell) {
+                        profitCell.innerText = sum.toLocaleString();
+                    }
+                }
+            }
+        }
       });
     </script>
   </body>

@@ -413,3 +413,24 @@ thead tr th:nth-child(3) {
 tbody tr td:nth-child(3) {
   background-color: rgba(52, 152, 219, 0.1); /* Semi-transparent for body */
 }
+
+/* Tab content */
+.tab-content {
+  display: none;
+  padding-top: 16px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Warning text for files tab */
+.warning-text {
+  color: #E74C3C;
+  margin: 15px 0;
+  font-size: 13px;
+}
+
+#files .action-buttons {
+    margin-bottom: 15px;
+}
