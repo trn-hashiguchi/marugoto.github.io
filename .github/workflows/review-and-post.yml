@@ -2,7 +2,7 @@ name: Review diff with Gemini and post to Slack (Bot token)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   review:
@@ -14,7 +14,7 @@ jobs:
       - name: Check out (history needed for diff)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 差分計算に履歴が必要
+          fetch-depth: 0 # 差分計算に履歴が必要
           # 参考: checkout ドキュメント / fetch-depth 説明
           # https://github.com/actions/checkout
 
@@ -45,7 +45,7 @@ jobs:
         if: steps.diff.outputs.empty == 'false'
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install deps (Gemini SDK + jq)
         if: steps.diff.outputs.empty == 'false'
