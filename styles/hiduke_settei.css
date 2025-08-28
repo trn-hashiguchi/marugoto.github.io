@@ -1,0 +1,96 @@
+:root {
+    --primary-color: #34a8d9;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --surface-color: #ffffff;
+    --text-color: #212529;
+    --border-color: #dee2e6;
+    --font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Main Content Layout */
+.container {
+    padding: 32px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+}
+
+/* Card Style */
+.card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 32px 40px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 40px 0;
+}
+
+.form-section {
+    margin-bottom: 32px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.form-control-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.form-control-group select {
+    font-size: 14px;
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    flex-shrink: 0;
+    /* selectが縮まないようにする */
+}
+
+.info-text {
+    margin: 0;
+    color: var(--secondary-color);
+    line-height: 1.7;
+}
+
+.btn-submit {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 16px;
+}
+
+.btn-submit:hover {
+    background-color: #288fb4;
+}

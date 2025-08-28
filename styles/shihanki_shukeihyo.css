@@ -1,0 +1,244 @@
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --surface-color: #ffffff;
+    --text-color: #212529;
+    --border-color: #dee2e6;
+    --header-bg: #212529;
+    --header-text: #adb5bd;
+    --header-text-hover: #ffffff;
+    --font-family: 'Noto Sans JP', sans-serif;
+    --major-total-bg: #fff3e0;
+    --sub-total-bg: #f5f5f5;
+    --highlight-green-bg: #e8f5e9;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    font-size: 13px;
+}
+
+/* Header */
+.header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-nav a {
+    color: var(--header-text);
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease-in-out;
+    font-size: 14px;
+}
+
+.header-nav a:hover,
+.header-nav a.active {
+    background-color: #343a40;
+    color: var(--header-text-hover);
+}
+
+.header-nav a .fa-chevron-down {
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+/* Main Container & Page Header */
+.container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.page-header h1 {
+    font-size: 20px;
+    color: var(--text-color);
+    margin: 0 0 16px 0;
+}
+
+.filter-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 24px;
+}
+
+.filter-controls select {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+.checkboxes {
+    display: flex;
+    gap: 20px;
+}
+
+.checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+/* Tabs */
+.main-nav {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-tabs li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: 500;
+    border: 1px solid transparent;
+    border-bottom: none;
+    margin-bottom: -1px;
+}
+
+.nav-tabs li.active a,
+.nav-tabs li a:hover {
+    color: var(--primary-color);
+}
+
+.nav-tabs li.active a {
+    background-color: var(--surface-color);
+    border-color: var(--border-color);
+    border-bottom-color: var(--surface-color);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+/* Table */
+.content {
+    padding-top: 20px;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+th,
+td {
+    padding: 8px 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: 500;
+}
+
+td:first-child {
+    text-align: left;
+}
+
+/* Hierarchy & Highlighting */
+td {
+    background-color: var(--surface-color);
+}
+
+.major-total-row td {
+    background-color: var(--major-total-bg);
+    font-weight: 500;
+}
+
+.sub-total-row td {
+    background-color: var(--sub-total-bg);
+}
+
+.highlight-green td {
+    background-color: var(--highlight-green-bg);
+}
+
+.level-0 {
+    font-weight: bold;
+}
+
+.level-1 {
+    padding-left: 20px;
+}
+
+.level-2 {
+    padding-left: 40px;
+}
+
+.level-3 {
+    padding-left: 60px;
+}
+
+.icon-gray {
+    color: var(--secondary-color);
+    margin-right: 6px;
+    width: 1em;
+    /* アイコンの幅を揃える */
+}
+
+.negative {
+    color: #d32f2f;
+}
+
+.negative-row td {
+    color: #d32f2f;
+}

@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <link rel="stylesheet" href="../styles/shihanki_shukeihyo.css" />
   </head>
   <body>
     <header class="header">
@@ -47,14 +47,14 @@
                 <li><a href="./shihanki_shukeihyo.html">四半期集計表</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="#"><i class="fas fa-tachometer-alt"></i> KPI <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="./kpi_input.html"><i class="fas fa-tasks"></i> KPI確認・入力</a></li>
                 <li><a href="./kpi_suiihyo.html"><i class="fas fa-chart-line"></i> KPI項目別 推移表</a></li>
                 <li><a href="./setting.html"><i class="fas fa-cog"></i> 設定</a></li>
               </ul>
-            </li>
+            </li> -->
             <li class="dropdown">
               <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
@@ -76,13 +76,141 @@
     </header>
 
     <div class="container">
+    
       <div class="page-header">
-        <h1>四半期集計表</h1>
+        <h1>トランソニックソフトウェア 四半期集計表 (2026年5月期)</h1>
       </div>
-
+    
+      <div class="filter-controls">
+        <select>
+          <option>6月実績（7月中に入力してください）</option>
+        </select>
+        <select>
+          <option>会社全体</option>
+        </select>
+        <div class="checkboxes">
+          <label><input type="checkbox" checked> 金額がゼロの行を表示</label>
+          <label><input type="checkbox" checked> 計算しない行を表示</label>
+          <label><input type="checkbox"> 非表示の勘定科目を確認</label>
+        </div>
+      </div>
+    
+      <nav class="main-nav">
+        <ul class="nav-tabs">
+          <li><a href="#"><i class="fas fa-laptop"></i> 会計ソフト</a></li>
+          <li><a href="#"><i class="fas fa-sliders"></i> 調整</a></li>
+          <li class="active"><a href="#"><i class="fas fa-chart-pie"></i> 固利利益 (会計ソフト＋調整)</a></li>
+        </ul>
+      </nav>
+    
       <main class="content">
-        <div class="placeholder">
-          <p>「四半期集計表」のコンテンツがここに入ります。</p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>勘定科目</th>
+                <th>1Q</th>
+                <th>2Q</th>
+                <th>3Q</th>
+                <th>4Q</th>
+                <th>前半</th>
+                <th>後半</th>
+                <th>年間合計</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="major-total-row">
+                <td class="level-0">当月経常利益</td>
+                <td>3,092</td>
+                <td>10,048</td>
+                <td>11,520</td>
+                <td>8,381</td>
+                <td>13,140</td>
+                <td>19,901</td>
+                <td>33,041</td>
+              </tr>
+              <tr class="major-total-row">
+                <td class="level-0">外部売上</td>
+                <td>49,854</td>
+                <td>58,216</td>
+                <td>60,171</td>
+                <td>60,171</td>
+                <td>108,070</td>
+                <td>120,342</td>
+                <td>228,412</td>
+              </tr>
+              <tr class="sub-total-row">
+                <td class="level-1"><i class="fas fa-chart-bar icon-gray"></i> 売上高</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="parent-row">
+                <td class="level-2"><i class="fas fa-caret-right icon-gray"></i> 努力目標</td>
+                <td>43,845</td>
+                <td>45,331</td>
+                <td>45,831</td>
+                <td>63,331</td>
+                <td>89,176</td>
+                <td>109,162</td>
+                <td>198,338</td>
+              </tr>
+              <tr class="child-row">
+                <td class="level-3"><i class="fas fa-user icon-gray"></i> 受注人数</td>
+                <td>64</td>
+                <td>61</td>
+                <td>60</td>
+                <td>60</td>
+                <td>125</td>
+                <td>120</td>
+                <td>245</td>
+              </tr>
+              <tr class="child-row">
+                <td class="level-3"><i class="fas fa-user icon-gray"></i> 派遣人数</td>
+                <td>11</td>
+                <td>16</td>
+                <td>18</td>
+                <td>18</td>
+                <td>27</td>
+                <td>36</td>
+                <td>63</td>
+              </tr>
+              <tr class="parent-row">
+                <td class="level-2"><i class="fas fa-caret-right icon-gray"></i> 外注入庫(東京金額)</td>
+                <td>40,095</td>
+                <td>42,600</td>
+                <td>41,400</td>
+                <td>41,400</td>
+                <td>82,695</td>
+                <td>82,800</td>
+                <td>165,495</td>
+              </tr>
+              <tr class="highlight-green">
+                <td class="level-1"><i class="fas fa-calculator icon-gray"></i> 試算表売上</td>
+                <td>14,710</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>14,710</td>
+                <td></td>
+                <td>14,710</td>
+              </tr>
+              <tr class="highlight-green negative-row">
+                <td class="level-1"><i class="fas fa-calculator icon-gray"></i> 差額調整計算</td>
+                <td class="negative">-35,144</td>
+                <td class="negative">-58,216</td>
+                <td class="negative">-60,171</td>
+                <td class="negative">-60,171</td>
+                <td class="negative">-93,360</td>
+                <td class="negative">-120,342</td>
+                <td class="negative">-213,702</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
     </div>

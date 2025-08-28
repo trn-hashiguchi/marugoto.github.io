@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <link rel="stylesheet" href="../styles/copy_fukugen.css" />
   </head>
   <body>
     <header class="header">
@@ -47,14 +47,14 @@
                 <li><a href="./shihanki_shukeihyo.html">四半期集計表</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="#"><i class="fas fa-tachometer-alt"></i> KPI <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="./kpi_input.html"><i class="fas fa-tasks"></i> KPI確認・入力</a></li>
                 <li><a href="./kpi_suiihyo.html"><i class="fas fa-chart-line"></i> KPI項目別 推移表</a></li>
                 <li><a href="./setting.html"><i class="fas fa-cog"></i> 設定</a></li>
               </ul>
-            </li>
+            </li> -->
             <li class="dropdown">
               <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
@@ -77,12 +77,40 @@
 
     <div class="container">
       <div class="page-header">
-        <h1>前回実績のコピーの復元</h1>
+        <h1>前回実績コピーの復元について</h1>
       </div>
-
+    
+      <div class="notification-bar">
+        戻したい時点の「このデータを復元」を押すと、「復元の対象」欄に表示されているデータがその時点の実績金額に戻ります。<br>
+        全部門のデータが復元されますので、よくご確認のうえ復元操作を行ってください。
+      </div>
+    
       <main class="content">
-        <div class="placeholder">
-          <p>「前回実績のコピーの復元」のコンテンツがここに入ります。</p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 15%;"></th>
+                <th style="width: 20%;">バックアップ日時</th>
+                <th style="width: 30%;">復元の対象</th>
+                <th style="width: 35%;">このデータについて</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="action-cell"><button class="btn-restore">このデータを復元</button></td>
+                <td>2024年07月31日 17時06分18秒</td>
+                <td>2025年度9月期当初計画9月実績の全ての部門</td>
+                <td class="description">利益計画（2025年度9月期当初計画9月実績）の入力画面で前回実績をコピーする前にバックアップしたデータです。</td>
+              </tr>
+              <tr>
+                <td class="action-cell"><button class="btn-restore">このデータを復元</button></td>
+                <td>2024年07月31日 17時06分02秒</td>
+                <td>2025年度9月期当初計画9月実績の全ての部門</td>
+                <td class="description">利益計画（2025年度9月期当初計画9月実績）の入力画面で前回実績をコピーする前にバックアップしたデータです。</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
     </div>

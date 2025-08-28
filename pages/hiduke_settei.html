@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <link rel="stylesheet" href="../styles/hiduke_settei.css" />
   </head>
   <body>
     <header class="header">
@@ -47,14 +47,14 @@
                 <li><a href="./shihanki_shukeihyo.html">四半期集計表</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="#"><i class="fas fa-tachometer-alt"></i> KPI <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="./kpi_input.html"><i class="fas fa-tasks"></i> KPI確認・入力</a></li>
                 <li><a href="./kpi_suiihyo.html"><i class="fas fa-chart-line"></i> KPI項目別 推移表</a></li>
                 <li><a href="./setting.html"><i class="fas fa-cog"></i> 設定</a></li>
               </ul>
-            </li>
+            </li> -->
             <li class="dropdown">
               <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
@@ -76,13 +76,35 @@
     </header>
 
     <div class="container">
-      <div class="page-header">
-        <h1>各種日付設定</h1>
-      </div>
-
       <main class="content">
-        <div class="placeholder">
-          <p>「各種日付設定」のコンテンツがここに入ります。</p>
+        <div class="card">
+          <h1 class="card-title">各種日付設定</h1>
+    
+          <div class="form-section">
+            <label class="form-label">初期選択月の切替日</label>
+            <div class="form-control-group">
+              <select>
+                <option>20日</option>
+                <option>25日</option>
+                <option>30日</option>
+              </select>
+              <p class="info-text">から、最新の月次決算を入力するためのシートをデフォルト表示にします。月次決算が出るくらいの日の少し前にしてください。</p>
+            </div>
+          </div>
+    
+          <div class="form-section">
+            <label class="form-label">利益計画確定日</label>
+            <div class="form-control-group">
+              <select>
+                <option>30日</option>
+                <option>25日</option>
+                <option>20日</option>
+              </select>
+              <p class="info-text">を、決算予測推移表などに表示する、利益計画を入力した日付とします。月次決算が出て、まるごと会計に入力するくらいの日にしてください。</p>
+            </div>
+          </div>
+    
+          <button class="btn-submit">設定を保存</button>
         </div>
       </main>
     </div>

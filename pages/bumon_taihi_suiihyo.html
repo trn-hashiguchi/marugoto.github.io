@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <link rel="stylesheet" href="../styles/bumon_taihi_suiihyo.css" />
   </head>
   <body>
     <header class="header">
@@ -47,14 +47,14 @@
                 <li><a href="./shihanki_shukeihyo.html">四半期集計表</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="#"><i class="fas fa-tachometer-alt"></i> KPI <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="./kpi_input.html"><i class="fas fa-tasks"></i> KPI確認・入力</a></li>
                 <li><a href="./kpi_suiihyo.html"><i class="fas fa-chart-line"></i> KPI項目別 推移表</a></li>
                 <li><a href="./setting.html"><i class="fas fa-cog"></i> 設定</a></li>
               </ul>
-            </li>
+            </li> -->
             <li class="dropdown">
               <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
@@ -76,13 +76,165 @@
     </header>
 
     <div class="container">
+    
       <div class="page-header">
-        <h1>部門対比 推移表</h1>
+        <h1>トランソニックソフトウェア 部門対比 推移表 (2026年5月期)</h1>
       </div>
-
+    
+      <div class="filter-controls">
+        <select>
+          <option>外部売上</option>
+        </select>
+        <select>
+          <option>全部門</option>
+        </select>
+      </div>
+    
+      <div class="period-selector">
+        <button>6月</button> <button>7月</button> <button>8月</button> <button>9月</button> <button>10月</button>
+        <button>11月</button> <button>12月</button>
+        <button>1月</button> <button>2月</button> <button>3月</button> <button>4月</button> <button>5月</button>
+        <button>決算調整</button> <button class="active">年間合計</button> <button>1Q</button> <button>2Q</button>
+        <button>3Q</button> <button>4Q</button>
+        <button>前期</button> <button>後期</button>
+      </div>
+    
+      <nav class="main-nav">
+        <ul class="nav-tabs">
+          <li class="active"><a href="#"><i class="fas fa-chart-pie"></i> 固利利益 (会計ソフト＋調整)</a></li>
+          <li><a href="#"><i class="fas fa-laptop"></i> 会計ソフト</a></li>
+          <li><a href="#"><i class="fas fa-sliders"></i> 調整</a></li>
+        </ul>
+      </nav>
+    
       <main class="content">
-        <div class="placeholder">
-          <p>「部門対比 推移表」のコンテンツがここに入ります。</p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2">部門</th>
+                <th rowspan="2">前年実績 <<< /th>
+                <th rowspan="2">前年同期</th>
+                <th rowspan="2">当期予測</th>
+                <th class="highlight-yellow">7月30日</th>
+                <th class="highlight-yellow">8月30日</th>
+                <th class="highlight-yellow">9月30日</th>
+                <th class="highlight-yellow">10月30日</th>
+                <th class="highlight-yellow">11月30日</th>
+                <th class="highlight-yellow">12月30日</th>
+              </tr>
+              <tr class="sub-header">
+                <td class="highlight-yellow">年間合計予測</td>
+                <td class="highlight-yellow">年間合計予測</td>
+                <td class="highlight-yellow">年間合計予測</td>
+                <td class="highlight-yellow">年間合計予測</td>
+                <td class="highlight-yellow">年間合計予測</td>
+                <td class="highlight-yellow">年間合計予測</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-0">会社全体</div>
+                </td>
+                <td>179,954</td>
+                <td>221,941</td>
+                <td>233,324</td>
+                <td>228,412</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-1 tree-node"><span class="tree-icon">└</span>会社全体(Z)</div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-1 tree-node"><span class="tree-icon">└</span>会社全体(下位合計)</div>
+                </td>
+                <td>180,562</td>
+                <td>221,941</td>
+                <td>233,324</td>
+                <td>228,412</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-2 tree-node"><span class="tree-line">│</span><span class="tree-icon">└</span>営業部</div>
+                </td>
+                <td>197,625</td>
+                <td>209,324</td>
+                <td>209,212</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-3 tree-node"><span class="tree-line">│</span><span class="tree-line">│</span><span
+                      class="tree-icon">└</span>営業・特別利益課</div>
+                </td>
+                <td>24,316</td>
+                <td>24,000</td>
+                <td>19,200</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="group-highlight">
+                <td class="dept-name">
+                  <div class="level-2 tree-node"><span class="tree-line">│</span><span class="tree-icon">└</span>制作部</div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="group-highlight">
+                <td class="dept-name">
+                  <div class="level-3 tree-node"><span class="tree-line">│</span><span class="tree-line">│</span><span
+                      class="tree-icon">└</span>制：かめ課</div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
     </div>

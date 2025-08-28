@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <link rel="stylesheet" href="../styles/houkokusyo.css" />
   </head>
   <body>
     <header class="header">
@@ -47,14 +47,14 @@
                 <li><a href="./shihanki_shukeihyo.html">四半期集計表</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="#"><i class="fas fa-tachometer-alt"></i> KPI <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="./kpi_input.html"><i class="fas fa-tasks"></i> KPI確認・入力</a></li>
                 <li><a href="./kpi_suiihyo.html"><i class="fas fa-chart-line"></i> KPI項目別 推移表</a></li>
                 <li><a href="./setting.html"><i class="fas fa-cog"></i> 設定</a></li>
               </ul>
-            </li>
+            </li> -->
             <li class="dropdown">
               <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
@@ -76,14 +76,247 @@
     </header>
 
     <div class="container">
+    
       <div class="page-header">
-        <h1>報告書</h1>
+        <h1>トランソニックソフトウェア 報告書 (2026年5月期)</h1>
       </div>
-
+    
+      <div class="filter-controls">
+        <select>
+          <option>6月実績（7月中に入力してください）</option>
+        </select>
+        <select>
+          <option>会社全体</option>
+        </select>
+        <button class="btn-primary">合計</button>
+      </div>
+    
       <main class="content">
-        <div class="placeholder">
-          <p>「報告書」のコンテンツがここに入ります。</p>
-        </div>
+        <section class="report-section">
+          <h2>勘定科目別</h2>
+          <div class="card-container">
+            <div class="report-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="3">当月</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td>前年</td>
+                    <td>%</td>
+                    <td>実績</td>
+                  </tr>
+                  <tr>
+                    <td>売上</td>
+                    <td>13,206</td>
+                    <td class="percent">111%</td>
+                    <td>14,122</td>
+                  </tr>
+                  <tr>
+                    <td>仕入</td>
+                    <td>1,065</td>
+                    <td class="percent">23%</td>
+                    <td>300</td>
+                  </tr>
+                  <tr class="total-row">
+                    <td>粗利</td>
+                    <td></td>
+                    <td class="percent">92%</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>粗利率</td>
+                    <td></td>
+                    <td class="percent">96%</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="report-card wide">
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="5">年間</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td>前年</td>
+                    <td>%</td>
+                    <td>前々年</td>
+                    <td>%</td>
+                    <td>実績</td>
+                  </tr>
+                  <tr>
+                    <td>売上</td>
+                    <td>221,941</td>
+                    <td class="percent">103%</td>
+                    <td>233,324</td>
+                    <td class="percent">96%</td>
+                    <td>228,412</td>
+                  </tr>
+                  <tr>
+                    <td>仕入</td>
+                    <td>16,431</td>
+                    <td class="percent">56%</td>
+                    <td>10,600</td>
+                    <td class="percent">86%</td>
+                    <td>9,150</td>
+                  </tr>
+                  <tr class="total-row">
+                    <td>粗利</td>
+                    <td></td>
+                    <td class="percent">93%</td>
+                    <td></td>
+                    <td class="percent">95%</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>粗利率</td>
+                    <td></td>
+                    <td class="percent">96%</td>
+                    <td></td>
+                    <td class="percent">96%</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="report-card wide">
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="5">費用（実績）</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td>4月</td>
+                    <td>5月</td>
+                    <td>6月</td>
+                    <td>7月</td>
+                    <td>8月</td>
+                  </tr>
+                  <tr>
+                    <td>経費</td>
+                    <td>15,671</td>
+                    <td>17,552</td>
+                    <td>14,710</td>
+                    <td>17,047</td>
+                    <td>18,097</td>
+                  </tr>
+                  <tr>
+                    <td>経常利益</td>
+                    <td>3,081</td>
+                    <td>6,289</td>
+                    <td>250</td>
+                    <td>300</td>
+                    <td>300</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="action-links">
+            <a href="#"><i class="fas fa-cog"></i>【共通】設定科目を追加</a>
+            <a href="#"><i class="fas fa-sort"></i>【共通】並び替え・削除</a>
+            <a href="#"><i class="fas fa-users-cog"></i>【部門別】表示科目設定</a>
+            <a href="#"><i class="fas fa-retweet"></i>並び替え・削除</a>
+          </div>
+        </section>
+    
+        <section class="report-section">
+          <div class="section-header">
+            <h2>部門別（期間）</h2>
+            <div class="period-filter">
+              <select>
+                <option>6月</option>
+              </select>
+              <span>〜</span>
+              <select>
+                <option>6月</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-container">
+            <div class="report-card department">
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="5">売上</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td>前年</td>
+                    <td>%</td>
+                    <td>目標</td>
+                    <td>%</td>
+                    <td>実績</td>
+                  </tr>
+                  <tr>
+                    <td>会社全体</td>
+                    <td>13,206</td>
+                    <td class="percent">111%</td>
+                    <td>14,122</td>
+                    <td class="percent">104%</td>
+                    <td>14,710</td>
+                  </tr>
+                  <tr>
+                    <td>会社全体(Z)</td>
+                    <td></td>
+                    <td></td>
+                    <td>0</td>
+                    <td></td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>会社全体(下)</td>
+                    <td>13,206</td>
+                    <td class="percent">111%</td>
+                    <td>14,122</td>
+                    <td class="percent">104%</td>
+                    <td>14,710</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="report-card department">
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="5">粗利益</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td>前年</td>
+                    <td>%</td>
+                    <td>目標</td>
+                    <td>%</td>
+                    <td>実績</td>
+                  </tr>
+                  <tr>
+                    <td>会社全体</td>
+                    <td>12,121</td>
+                    <td class="percent">119%</td>
+                    <td>13,822</td>
+                    <td class="percent">105%</td>
+                    <td>14,460</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
 

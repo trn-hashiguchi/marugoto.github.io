@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <link rel="stylesheet" href="../styles/bumon_settei.css" />
   </head>
   <body>
     <header class="header">
@@ -47,14 +47,14 @@
                 <li><a href="./shihanki_shukeihyo.html">四半期集計表</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="#"><i class="fas fa-tachometer-alt"></i> KPI <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="./kpi_input.html"><i class="fas fa-tasks"></i> KPI確認・入力</a></li>
                 <li><a href="./kpi_suiihyo.html"><i class="fas fa-chart-line"></i> KPI項目別 推移表</a></li>
                 <li><a href="./setting.html"><i class="fas fa-cog"></i> 設定</a></li>
               </ul>
-            </li>
+            </li> -->
             <li class="dropdown">
               <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
@@ -77,12 +77,100 @@
 
     <div class="container">
       <div class="page-header">
-        <h1>部門設定</h1>
+        <h1><i class="fas fa-sitemap"></i> 部門設定</h1>
+        <div class="action-links">
+          <a href="#"><i class="fas fa-plus"></i> 部門フィルタを追加</a>
+          <a href="#"><i class="fas fa-sort"></i> 並び替え・削除</a>
+        </div>
       </div>
-
+    
       <main class="content">
-        <div class="placeholder">
-          <p>「部門設定」のコンテンツがここに入ります。</p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>部門名</th>
+                <th>操作</th>
+                <th>個人部門の合計</th>
+                <th>かめ課</th>
+                <th>すぎ課</th>
+                <th>くろ課</th>
+                <th>小柳課</th>
+                <th>わた課</th>
+                <th>しの課</th>
+                <th>えの課</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-0"><i class="fas fa-caret-right"></i> 会社全体</div>
+                </td>
+                <td class="actions">
+                  <button class="btn-select-multi"><i class="fas fa-check-double"></i> 下位部門を11個選択/登録</button>
+                </td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-1"><i class="fas fa-caret-right"></i> 営業部</div>
+                </td>
+                <td class="actions">
+                  <button class="btn-edit">編集</button>
+                  <button class="btn-add-sub">+ 下位追加</button>
+                </td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-2"><i class="fas fa-caret-right"></i> 営業・特別利益課</div>
+                </td>
+                <td class="actions">
+                  <button class="btn-edit">編集</button>
+                  <button class="btn-add-sub">+ 下位追加</button>
+                </td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-off">対象外</button></td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-1"><i class="fas fa-caret-right"></i> 制作部</div>
+                </td>
+                <td class="actions">
+                  <button class="btn-edit">編集</button>
+                  <button class="btn-add-sub">+ 下位追加</button>
+                </td>
+                <td><button class="btn-status-off">対象外</button></td>
+                <td><button class="btn-status-on">対象</button></td>
+                <td><button class="btn-status-on">対象</button></td>
+                <td><button class="btn-status-on">対象</button></td>
+                <td><button class="btn-status-on">対象</button></td>
+                <td><button class="btn-status-on">対象</button></td>
+                <td><button class="btn-status-on">対象</button></td>
+                <td><button class="btn-status-on">対象</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
     </div>
