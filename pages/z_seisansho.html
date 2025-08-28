@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <link rel="stylesheet" href="../styles/z_seisansho.css" />
   </head>
   <body>
     <header class="header">
@@ -76,13 +76,177 @@
     </header>
 
     <div class="container">
+    
       <div class="page-header">
-        <h1>Z精算書</h1>
+        <h1>トランソニックソフトウェア Z精算表 (2026年5月期)</h1>
       </div>
-
+    
+      <div class="notification-bar">
+        年度合計以外を選択すると、Z部門の金額を一括で清算するためのボタンが表示されます。
+      </div>
+    
+      <div class="filter-controls">
+        <select id="period-select-main">
+          <option>6月実績</option>
+        </select>
+        <select id="department-select">
+          <option>上位部門：会社全体</option>
+        </select>
+      </div>
+    
+      <div class="period-selector">
+        <button>6月</button>
+        <button>7月</button>
+        <button>8月</button>
+        <button>9月</button>
+        <button>10月</button>
+        <button>11月</button>
+        <button>12月</button>
+        <button>1月</button>
+        <button>2月</button>
+        <button>3月</button>
+        <button>4月</button>
+        <button>5月</button>
+        <button>決算調整</button>
+        <button class="active">年間合計</button>
+      </div>
+    
+      <nav class="main-nav">
+        <ul class="nav-tabs">
+          <li class="active"><a href="#"><i class="fas fa-chart-pie"></i> 固利利益 (会計ソフト＋調整)</a></li>
+          <li><a href="#"><i class="fas fa-laptop"></i> 会計ソフト</a></li>
+          <li><a href="#"><i class="fas fa-sliders"></i> 調整</a></li>
+        </ul>
+      </nav>
+    
+    
       <main class="content">
-        <div class="placeholder">
-          <p>「Z精算書」のコンテンツがここに入ります。</p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2">勘定科目</th>
+                <th colspan="3">全体</th>
+                <th colspan="2">営業</th>
+                <th rowspan="2">特別利益</th>
+                <th colspan="7">制作部</th>
+                <th rowspan="2">管理部</th>
+                <th rowspan="2">経営部</th>
+                <th colspan="2">社長系直轄</th>
+                <th rowspan="2">助成金</th>
+              </tr>
+              <tr>
+                <th>全体</th>
+                <th>Z</th>
+                <th>下位合計</th>
+                <th>営業部</th>
+                <th>営業利益</th>
+                <th>制作：かめ課</th>
+                <th>制作：すぎ課</th>
+                <th>制作：くろ課</th>
+                <th>制作：小柳課</th>
+                <th>制作：わた課</th>
+                <th>制作：しの課</th>
+                <th>制作：えの課</th>
+                <th>社長系直轄(本部)</th>
+                <th>合成</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="parent-row">
+                <td>
+                  <div class="cell-content">外部売上 <button class="btn-transfer">振替へ</button></div>
+                </td>
+                <td>228,412</td>
+                <td>0</td>
+                <td>228,412</td>
+                <td>209,212</td>
+                <td>19,200</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr class="child-row">
+                <td>
+                  <div class="cell-content">売上高 <button class="btn-transfer">振替へ</button></div>
+                </td>
+                <td></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="child-row">
+                <td>
+                  <div class="cell-content">努力目標 <button class="btn-transfer">振替へ</button></div>
+                </td>
+                <td>198,338</td>
+                <td>0</td>
+                <td>198,338</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="child-row">
+                <td>
+                  <div class="cell-content">受注人数 <button class="btn-transfer">振替へ</button></div>
+                </td>
+                <td>245</td>
+                <td>245</td>
+                <td>0</td>
+                <td>0</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
     </div>

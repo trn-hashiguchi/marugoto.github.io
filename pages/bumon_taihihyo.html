@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <link rel="stylesheet" href="../styles/bumon_taihihyo.css" />
   </head>
   <body>
     <header class="header">
@@ -80,9 +80,196 @@
         <h1>部門対比表</h1>
       </div>
 
+      <div class="period-selector">
+        <button>6月</button>
+        <button>7月</button>
+        <button>8月</button>
+        <button>9月</button>
+        <button>10月</button>
+        <button>11月</button>
+        <button>12月</button>
+        <button>1月</button>
+        <button>2月</button>
+        <button>3月</button>
+        <button>4月</button>
+        <button>5月</button>
+        <button>決算調整</button>
+        <button class="active">年間合計</button>
+      </div>
+      
+      <div class="content-header">
+        <nav class="main-nav">
+          <ul class="nav-tabs">
+            <li class="active"><a href="#"><i class="fas fa-chart-pie"></i> 固利利益 (会計ソフト＋調整)</a></li>
+            <li><a href="#"><i class="fas fa-laptop"></i> 会計ソフト</a></li>
+            <li><a href="#"><i class="fas fa-sliders"></i> 調整</a></li>
+          </ul>
+        </nav>
+        <a href="#" class="action-link"><i class="fas fa-edit"></i> 科目名編集</a>
+      </div>
+      
+      
       <main class="content">
-        <div class="placeholder">
-          <p>「部門対比表」のコンテンツがここに入ります。</p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>部門</th>
+                <th>社内売上</th>
+                <th>社外売上</th>
+                <th>仕入</th>
+                <th>粗利</th>
+                <th>粗利率</th>
+                <th>外部販管費</th>
+                <th>社内販管費</th>
+                <th>営業利益</th>
+                <th>...</th>
+                <th>経常利益</th>
+                <th>経常利益率</th>
+                <th>税引前利益</th>
+                <th>年間合計</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="total-row">
+                <td class="dept-name">
+                  <div class="level-0">会社全体</div>
+                </td>
+                <td>226,412</td>
+                <td>0</td>
+                <td>9,150</td>
+                <td>0</td>
+                <td>219,262</td>
+                <td>96%</td>
+                <td>185,510</td>
+                <td>...</td>
+                <td>33,041</td>
+                <td>14.5%</td>
+                <td>33,041</td>
+                <td>33,041</td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-1 tree-node">
+                    <span class="tree-icon">└</span>
+                    会計全体(Z)
+                  </div>
+                </td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0%</td>
+                <td>0</td>
+                <td>...</td>
+                <td>0</td>
+                <td>0%</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-1 tree-node">
+                    <span class="tree-icon">└</span>
+                    会計全体(下位合計)
+                  </div>
+                </td>
+                <td>226,412</td>
+                <td>0</td>
+                <td>9,150</td>
+                <td>0</td>
+                <td>219,262</td>
+                <td>96%</td>
+                <td>185,510</td>
+                <td>...</td>
+                <td>33,041</td>
+                <td>14.5%</td>
+                <td>33,041</td>
+                <td>33,041</td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="dept-name">
+                  <div class="level-2 tree-node">
+                    <span class="tree-line">│</span><span class="tree-icon">└</span>
+                    営業部
+                  </div>
+                </td>
+                <td>209,212</td>
+                <td class="negative">-160,189</td>
+                <td>0</td>
+                <td>24,311</td>
+                <td>24,712</td>
+                <td class="rate-cell">50.4%</td>
+                <td>0</td>
+                <td>...</td>
+                <td>22,328</td>
+                <td>45.5%</td>
+                <td>22,328</td>
+                <td>22,328</td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-3 tree-node">
+                    <span class="tree-line">│</span><span class="tree-line">│</span><span class="tree-icon">└</span>
+                    営業・個別部門
+                  </div>
+                </td>
+                <td>19,200</td>
+                <td class="negative">-18,000</td>
+                <td>0</td>
+                <td>3,000</td>
+                <td class="negative">-1,800</td>
+                <td class="rate-cell">-150%</td>
+                <td>0</td>
+                <td>...</td>
+                <td class="negative">-1,800</td>
+                <td>-150%</td>
+                <td class="negative">-1,800</td>
+                <td class="negative">-1,800</td>
+              </tr>
+              <tr>
+                <td class="dept-name">
+                  <div class="level-2 tree-node">
+                    <span class="tree-line">│</span><span class="tree-icon">└</span>
+                    製造部
+                  </div>
+                </td>
+                <td>0</td>
+                <td>149,163</td>
+                <td>0</td>
+                <td>132,652</td>
+                <td>16,511</td>
+                <td class="rate-cell positive">10.9%</td>
+                <td>13,367</td>
+                <td>...</td>
+                <td>2,944</td>
+                <td>2%</td>
+                <td>2,944</td>
+                <td>2,944</td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="dept-name">
+                  <div class="level-2 tree-node is-last">
+                    <span class="tree-icon">└</span>
+                    経理部
+                  </div>
+                </td>
+                <td>0</td>
+                <td class="negative">-8,400</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="negative">-8,400</td>
+                <td class="rate-cell">100%</td>
+                <td>6,083</td>
+                <td>...</td>
+                <td class="negative">-16,694</td>
+                <td>0%</td>
+                <td class="negative">-16,694</td>
+                <td class="negative">-16,694</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
     </div>

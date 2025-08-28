@@ -15,7 +15,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <!-- <link rel="stylesheet" href="../styles/enterprise.css" /> -->
+    <link rel="stylesheet" href="../styles/kamokubetu_suiihyou.css">
   </head>
   <body>
     <header class="header">
@@ -81,9 +82,196 @@
       </div>
 
       <main class="content">
-        <div class="placeholder">
-          <p>「科目別 推移表」のコンテンツがここに入ります。</p>
+        <div class="filter-controls">
+          <select id="account-select">
+            <option>外部売上</option>
+          </select>
+          <select id="company-select">
+            <option>会社全体</option>
+          </select>
+          <div class="color-condition">
+            <label for="change-threshold">→方向に変化が</label>
+            <input type="text" id="change-threshold" value="1000">
+            <span>以上なら背景色</span>
+          </div>
         </div>
+        
+        <nav class="main-nav">
+          <ul class="nav-tabs">
+            <li class="active"><a href="#"><i class="fas fa-chart-pie"></i> 真利益 (会計ソフト＋調整)</a></li>
+            <li><a href="#"><i class="fas fa-laptop"></i> 会計ソフト</a></li>
+            <li><a href="#"><i class="fas fa-sliders"></i> 調整</a></li>
+          </ul>
+        </nav>
+        
+        <div class="action-bar">
+          <button class="action-button"><i class="fas fa-dollar-sign"></i> 利益計画</button>
+          <button class="action-button active"><i class="fas fa-file-invoice-dollar"></i> 決算等予測推移表</button>
+        </div>
+        
+        
+        <main class="content">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>時点</th>
+                  <th>6月月次</th>
+                  <th>7月月次</th>
+                  <th>8月月次</th>
+                  <th>9月月次</th>
+                  <th>10月月次</th>
+                  <th>11月月次</th>
+                  <th>12月月次</th>
+                  <th>1月月次</th>
+                  <th>2月月次</th>
+                  <th>3月月次</th>
+                  <th>4月月次</th>
+                  <th>5月月次</th>
+                  <th>決算調整</th>
+                  <th>年間合計</th>
+                  <th>前年比</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="row-header">前々年実績</td>
+                  <td>10,117</td>
+                  <td>14,159</td>
+                  <td>12,920</td>
+                  <td>14,161</td>
+                  <td>13,725</td>
+                  <td>12,400</td>
+                  <td>13,675</td>
+                  <td>13,821</td>
+                  <td>15,276</td>
+                  <td>19,808</td>
+                  <td>14,216</td>
+                  <td>26,264</td>
+                  <td class="negative">-608</td>
+                  <td>179,954</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="row-header">前年実績</td>
+                  <td>13,206</td>
+                  <td>16,853</td>
+                  <td>15,276</td>
+                  <td>17,000</td>
+                  <td>15,460</td>
+                  <td>16,103</td>
+                  <td>22,653</td>
+                  <td>21,779</td>
+                  <td>21,852</td>
+                  <td>23,051</td>
+                  <td>16,671</td>
+                  <td>17,552</td>
+                  <td>4,485</td>
+                  <td>221,941</td>
+                  <td></td>
+                </tr>
+                <tr class="plan-row">
+                  <td class="row-header">当初計画</td>
+                  <td class="highlight-green">14,122</td>
+                  <td class="highlight-green">17,947</td>
+                  <td class="highlight-green">20,397</td>
+                  <td class="highlight-green">20,372</td>
+                  <td class="highlight-green">20,072</td>
+                  <td class="highlight-green">20,072</td>
+                  <td class="highlight-green">20,072</td>
+                  <td class="highlight-green">20,072</td>
+                  <td class="highlight-green">20,072</td>
+                  <td class="highlight-green">20,072</td>
+                  <td class="highlight-green">20,072</td>
+                  <td class="highlight-green">20,072</td>
+                  <td>0</td>
+                  <td>233,324</td>
+                  <td class="percentage-up">105.1%</td>
+                </tr>
+                <tr>
+                  <td class="row-header-multi">
+                    <div>6月まで実績</div><span>7月30日</span>
+                  </td>
+                  <td>14,710</td>
+                  <td>17,047</td>
+                  <td>18,097</td>
+                  <td>18,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>20,072</td>
+                  <td>0</td>
+                  <td>228,412</td>
+                  <td class="percentage-up">102.9%</td>
+                </tr>
+                <tr>
+                  <td class="row-header-multi">
+                    <div>7月まで実績</div><span>8月30日</span>
+                  </td>
+                  <td class="disabled-cell"></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="row-header-multi">
+                    <div>8月まで実績</div><span>9月30日</span>
+                  </td>
+                  <td class="disabled-cell"></td>
+                  <td class="disabled-cell"></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="row-header-multi">
+                    <div>9月まで実績</div><span>10月30日</span>
+                  </td>
+                  <td class="disabled-cell"></td>
+                  <td class="disabled-cell"></td>
+                  <td class="disabled-cell"></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+        
+              </tbody>
+            </table>
+          </div>
       </main>
     </div>
 

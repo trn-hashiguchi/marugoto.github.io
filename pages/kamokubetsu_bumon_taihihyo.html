@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/enterprise.css" />
+    <link rel="stylesheet" href="../styles/kamokubetsu_bumon_taihihyo.css" />
   </head>
   <body>
     <header class="header">
@@ -75,19 +75,260 @@
       </div>
     </header>
 
-    <div class="container">
-      <div class="page-header">
-        <h1>科目別 部門対比表</h1>
-      </div>
-
-      <main class="content">
-        <div class="placeholder">
-          <p>「科目別 部門対比表」のコンテンツがここに入ります。</p>
-        </div>
-      </main>
+  <div class="container">
+  
+    <div class="page-header">
+      <h1>トランソニックソフトウェア 科目別 部門対比表 (2026年5月期)</h1>
     </div>
+  
+    <div class="filter-controls">
+      <select>
+        <option>6月実績</option>
+      </select>
+      <select>
+        <option>外部売上</option>
+      </select>
+      <select>
+        <option>全部門</option>
+      </select>
+    </div>
+  
+    <nav class="main-nav">
+      <ul class="nav-tabs">
+        <li class="active"><a href="#"><i class="fas fa-chart-pie"></i> 固利利益 (会計ソフト＋調整)</a></li>
+        <li><a href="#"><i class="fas fa-laptop"></i> 会計ソフト</a></li>
+        <li><a href="#"><i class="fas fa-sliders"></i> 調整</a></li>
+      </ul>
+    </nav>
+  
+    <div class="action-bar">
+      <button class="action-button"><i class="fas fa-dollar-sign"></i> 利益計画</button>
+      <button class="action-button active"><i class="fas fa-file-alt"></i> Z精算表</button>
+    </div>
+  
+    <main class="content">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>部門</th>
+              <th>6月</th>
+              <th>7月</th>
+              <th>8月</th>
+              <th>9月</th>
+              <th>10月</th>
+              <th>11月</th>
+              <th>12月</th>
+              <th>1月</th>
+              <th>2月</th>
+              <th>3月</th>
+              <th>4月</th>
+              <th>5月</th>
+              <th>決算調整</th>
+              <th>年間合計</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dept-name">
+                <div class="level-0">会社全体</div>
+              </td>
+              <td>14,710</td>
+              <td>17,047</td>
+              <td>18,097</td>
+              <td>18,072</td>
+              <td>20,072</td>
+              <td>20,072</td>
+              <td>20,072</td>
+              <td>20,072</td>
+              <td>20,027</td>
+              <td>20,027</td>
+              <td>20,027</td>
+              <td>20,072</td>
+              <td>0</td>
+              <td>228,412</td>
+            </tr>
+            <tr>
+              <td class="dept-name">
+                <div class="level-1 tree-node"><span class="tree-icon">└</span>会社全体(Z)</div>
+              </td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td class="dept-name">
+                <div class="level-1 tree-node"><span class="tree-icon">└</span>会社全体(下位合計)</div>
+              </td>
+              <td>14,710</td>
+              <td>17,047</td>
+              <td>18,097</td>
+              <td>18,072</td>
+              <td>20,072</td>
+              <td>20,072</td>
+              <td>20,072</td>
+              <td>20,072</td>
+              <td>20,027</td>
+              <td>20,027</td>
+              <td>20,027</td>
+              <td>20,072</td>
+              <td>0</td>
+              <td>228,412</td>
+            </tr>
+            <tr>
+              <td class="dept-name">
+                <div class="level-2 tree-node"><span class="tree-line">│</span><span class="tree-icon">└</span>営業部</div>
+              </td>
+              <td>14,710</td>
+              <td>17,047</td>
+              <td>18,097</td>
+              <td>18,072</td>
+              <td>17,672</td>
+              <td>17,672</td>
+              <td>17,672</td>
+              <td>17,672</td>
+              <td>17,627</td>
+              <td>17,627</td>
+              <td>17,627</td>
+              <td>17,627</td>
+              <td>0</td>
+              <td>209,212</td>
+            </tr>
+            <tr class="group-highlight">
+              <td class="dept-name">
+                <div class="level-2 tree-node"><span class="tree-line">│</span><span class="tree-icon">└</span>制作部</div>
+              </td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr class="group-highlight">
+              <td class="dept-name">
+                <div class="level-3 tree-node"><span class="tree-line">│</span><span class="tree-line">│</span><span
+                    class="tree-icon">└</span>制：かめ課</div>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="group-highlight">
+              <td class="dept-name">
+                <div class="level-3 tree-node"><span class="tree-line">│</span><span class="tree-line">│</span><span
+                    class="tree-icon">└</span>制：すぎ課</div>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="dept-name">
+                <div class="level-2 tree-node"><span class="tree-line">│</span><span class="tree-icon">└</span>管理部</div>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="dept-name">
+                <div class="level-2 tree-node is-last"><span class="tree-icon">└</span>経営部</div>
+              </td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr class="group-highlight">
+              <td class="dept-name">
+                <div class="level-3 tree-node is-last"><span class="tree-line">│</span><span
+                    class="tree-icon">└</span>個人：河村</div>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
 
-    <script src="../js/enterprise.js"></script>
-    <script src="../js/main.js"></script>
+  <script src="../js/enterprise.js"></script>
+  <script src="../js/main.js"></script>
   </body>
 </html>
