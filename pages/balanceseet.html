@@ -14,56 +14,61 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/balanceseet.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/balanceseet.css" />
   </head>
   <body>
     <header class="header">
       <div class="header-content">
         <div class="header-left">
           <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
-          <a href="index.html" class="btn btn-plan"
-            ><i class="fas fa-dollar-sign"></i> 利益計画</a
-          >
+          <a href="./index.html" class="btn btn-plan"><i class="fas fa-dollar-sign"></i> 利益計画</a>
         </div>
         <nav class="header-nav">
           <ul>
             <li>
-              <a href="enterprise.html"
-                ><i class="fas fa-file-invoice-dollar"></i> 決算予測推移表</a
-              >
+              <a href="./enterprise.html"><i class="fas fa-file-invoice-dollar"></i> 決算予測推移表</a>
             </li>
             <li>
-              <a href="balanceseet.html" class="active"
-                ><i class="fas fa-balance-scale"></i> 貸借対照表</a
-              >
+              <a href="./balanceseet.html" class="active"><i class="fas fa-balance-scale"></i> 貸借対照表</a>
             </li>
             <li>
-              <a href="asset.html"><i class="fas fa-book"></i> 残高資産台帳</a>
+              <a href="./asset.html"><i class="fas fa-book"></i> 残高資産台帳</a>
             </li>
             <li class="dropdown">
-              <a href="#"
-                ><i class="fas fa-chart-bar"></i> 分析表
-                <i class="fas fa-chevron-down"></i
-              ></a>
+              <a href="#"><i class="fas fa-chart-bar"></i> 分析表 <i class="fas fa-chevron-down"></i></a>
               <ul class="dropdown-menu">
-                <li><a href="#">科目別 推移表</a></li>
-                <li><a href="#">部門対比表</a></li>
-                <li><a href="#">Z精算書</a></li>
-                <li><a href="#">科目別 部門対比表</a></li>
-                <li><a href="#">部門対比 推移表</a></li>
-                <li><a href="#">報告書</a></li>
-                <li><a href="#">四半期集計表</a></li>
+                <li><a href="./kamokubetsu_suiihyo.html">科目別 推移表</a></li>
+                <li><a href="./bumon_taihihyo.html">部門対比表</a></li>
+                <li><a href="./z_seisansho.html">Z精算書</a></li>
+                <li><a href="./kamokubetsu_bumon_taihihyo.html">科目別 部門対比表</a></li>
+                <li><a href="./bumon_taihi_suiihyo.html">部門対比 推移表</a></li>
+                <li><a href="./hokokusho.html">報告書</a></li>
+                <li><a href="./shihanki_shukeihyo.html">四半期集計表</a></li>
               </ul>
             </li>
-            <li>
-              <a href="#">KPI <i class="fas fa-chevron-down"></i></a>
+            <li class="dropdown">
+              <a href="#"><i class="fas fa-tachometer-alt"></i> KPI <i class="fas fa-chevron-down"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="./kpi_input.html"><i class="fas fa-tasks"></i> KPI確認・入力</a></li>
+                <li><a href="./kpi_suiihyo.html"><i class="fas fa-chart-line"></i> KPI項目別 推移表</a></li>
+                <li><a href="./setting.html"><i class="fas fa-cog"></i> 設定</a></li>
+              </ul>
             </li>
-            <li>
-              <a href="#"
-                ><i class="fas fa-cog"></i> 設定
-                <i class="fas fa-chevron-down"></i
-              ></a>
+            <li class="dropdown">
+              <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="./nendo_kirikae.html">年度切替</a></li>
+                <li><a href="./shain_settei.html">社員設定</a></li>
+                <li><a href="./hiduke_settei.html">各種日付設定</a></li>
+                <li><a href="./bumon_settei.html">部門設定</a></li>
+                <li><a href="./kanjo_settei.html">勘定科目設定</a></li>
+                <li><a href="./kanjo_settei_bs.html">勘定科目設定(BS)</a></li>
+                <li><a href="./copy_fukugen.html">前回実績のコピーの復元</a></li>
+                <li><a href="./about.html">まるごと会計について</a></li>
+                <li><a href="./admin_console.html">管理コンソール</a></li>
+                <li><a href="./login.html">ログアウト</a></li>
+              </ul>
             </li>
           </ul>
         </nav>
@@ -282,5 +287,6 @@
         </div>
       </main>
     </div>
+  <script src="../js/main.js"></script>
   </body>
 </html>

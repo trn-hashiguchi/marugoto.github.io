@@ -115,7 +115,7 @@
   z-index: 1001;
 }
 
-.header-nav .dropdown:hover .dropdown-menu {
+.header-nav .dropdown .dropdown-menu.show {
   display: block;
 }
 
