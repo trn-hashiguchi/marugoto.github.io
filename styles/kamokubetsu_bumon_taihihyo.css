@@ -20,65 +20,7 @@ body {
     font-size: 13px;
 }
 
-/* Header */
-.header {
-    background-color: var(--header-bg);
-    color: var(--header-text);
-    padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-    width: 100%;
-    box-sizing: border-box;
-}
 
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.logo {
-    font-size: 18px;
-    font-weight: 700;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.header-nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.header-nav a {
-    color: var(--header-text);
-    text-decoration: none;
-    padding: 8px 10px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease-in-out;
-    font-size: 14px;
-}
-
-.header-nav a:hover,
-.header-nav a.active {
-    background-color: #343a40;
-    color: var(--header-text-hover);
-}
-
-.header-nav a .fa-chevron-down {
-    font-size: 12px;
-    margin-left: 4px;
-}
 
 /* Main Container & Page Header */
 .container {
