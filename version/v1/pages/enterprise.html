@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>決算予測推移表</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --base-color: #F7F8FA;
+            --main-color: #3498DB;
+            --sub-color: #EAECEE;
+            --text-color: #2C3E50;
+            --highlight-positive: #1ABC9C;
+            --highlight-negative: #E74C3C;
+            --surface-color: #FFFFFF;
+            --border-color: #EAECEE;
+            --header-bg: #2C3E50;
+            --header-text: #BDC3C7;
+            --header-text-hover: #FFFFFF;
+            --font-family-base: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--base-color);
+            color: var(--text-color);
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 0 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 64px;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1800px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--header-text-hover);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: var(--main-color);
+        }
+
+        .btn-plan {
+            background-color: transparent;
+            color: var(--header-text-hover);
+            border: 1px solid var(--main-color);
+            padding: 8px 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-plan:hover {
+            background-color: var(--main-color);
+            color: var(--header-text-hover);
+        }
+
+        .header-nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-nav a {
+            color: var(--header-text);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+        }
+
+        .header-nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--header-text-hover);
+        }
+        
+        .header-nav a.active {
+            background-color: var(--main-color);
+            color: var(--header-text-hover);
+        }
+
+        .header-nav .dropdown { position: relative; }
+        .header-nav .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 110%;
+            left: 0;
+            background-color: var(--header-bg);
+            border: 1px solid #495057;
+            border-radius: 6px;
+            padding: 8px 0;
+            list-style: none;
+            margin-top: 5px;
+            min-width: 220px;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .header-nav .dropdown:hover .dropdown-menu { display: block; }
+        .header-nav .dropdown-menu a { width: 100%; padding: 10px 20px; }
+
+        /* Main Container */
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .filter-controls-1 {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .filter-controls-1 select, .filter-controls-1 input[type="text"] {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 14px;
+            background-color: var(--surface-color);
+            min-width: 250px;
+        }
+        .checkboxes {
+            display: flex;
+            gap: 20px;
+        }
+        .checkboxes label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        .color-condition {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .color-condition input { width: 80px; }
+
+        .period-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .period-selector button {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .period-selector button:hover {
+            background-color: var(--sub-color);
+            border-color: #d0d3d6;
+        }
+        .period-selector button.active {
+            background-color: var(--main-color);
+            color: #fff;
+            border-color: var(--main-color);
+        }
+
+        .main-nav {
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 4px;
+        }
+        .nav-tabs li a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--header-text);
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease-in-out;
+            margin-bottom: -1px;
+            color: #566573;
+        }
+        .nav-tabs li.active a, .nav-tabs li a:hover {
+            color: var(--main-color);
+            border-bottom-color: var(--main-color);
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            white-space: nowrap;
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--base-color);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #566573;
+            vertical-align: middle;
+        }
+        thead th {
+            border-bottom-width: 2px;
+        }
+        .header-row-2 th, .header-row-3 th {
+            font-size: 11px;
+            font-weight: 500;
+            background-color: #FDFEFE;
+        }
+        .header-row-2 th { color: var(--main-color); }
+        .header-row-3 th { color: #566573; }
+
+        td {
+            background-color: var(--surface-color);
+        }
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+        tbody tr:hover td {
+            background-color: #F2F4F4;
+        }
+
+        .fixed-col {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            z-index: 1;
+        }
+        th.fixed-col { z-index: 2; }
+
+        .category-header td {
+            background-color: var(--base-color);
+            font-weight: 600;
+            color: var(--text-color);
+            padding: 10px 16px;
+        }
+        .major-item td {
+            font-weight: 500;
+        }
+        .minor-item td.fixed-col {
+            padding-left: 48px;
+        }
+        
+        .highlight-positive { background-color: #E8F8F5 !important; color: #138D75; font-weight: 600; }
+        .highlight-negative { background-color: #FDEDEC !important; color: #CB4335; font-weight: 600; }
+        .highlight-neutral-bg { background-color: #EBF5FB !important; }
+
+        .fixed-col .fa-plus-circle { color: var(--highlight-positive); }
+        .fixed-col .fa-wrench { color: #AAB7B8; }
+        .fixed-col .fa-caret-right {
+            color: #AAB7B8;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .parent.open .fa-caret-right { transform: rotate(90deg); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
+                <a href="./index.html" class="btn btn-plan"><i class="fas fa-dollar-sign"></i> 利益計画</a>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="./enterprise.html" class="active"><i class="fas fa-file-invoice-dollar"></i> 決算予測推移表</a></li>
+                    <li><a href="./balanceseet.html"><i class="fas fa-balance-scale"></i> 貸借対照表</a></li>
+                    <li><a href="./asset.html"><i class="fas fa-book"></i> 残高資産台帳</a></li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-chart-bar"></i> 分析表 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./kamokubetsu_suiihyo.html">科目別 推移表</a></li>
+                            <li><a href="./bumon_taihihyo.html">部門対比表</a></li>
+                            <li><a href="./z_seisansho.html">Z精算書</a></li>
+                            <li><a href="./kamokubetsu_bumon_taihihyo.html">科目別 部門対比表</a></li>
+                            <li><a href="./bumon_taihi_suiihyo.html">部門対比 推移表</a></li>
+                            <li><a href="./hokokusho.html">報告書</a></li>
+                            <li><a href="./shihanki_shukeihyo.html">四半期集計表</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./nendo_kirikae.html">年度切替</a></li>
+                            <li><a href="./shain_settei.html">社員設定</a></li>
+                            <li><a href="./hiduke_settei.html">各種日付設定</a></li>
+                            <li><a href="./bumon_settei.html">部門設定</a></li>
+                            <li><a href="./kanjo_settei.html">勘定科目設定</a></li>
+                            <li><a href="./kanjo_settei_bs.html">勘定科目設定(BS)</a></li>
+                            <li><a href="./copy_fukugen.html">前回実績のコピーの復元</a></li>
+                            <li><a href="./about.html">まるごと会計について</a></li>
+                            <li><a href="./admin_console.html">管理コンソール</a></li>
+                            <li><a href="../index.html">ログアウト</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>トランソニックソフトウェア 決算予測推移表 (2026年5月期)</h1>
+        </div>
+
+        <div class="card">
+            <div class="filter-controls-1">
+                <select id="company-select">
+                    <option>会社全体</option>
+                </select>
+                <div class="checkboxes">
+                    <label><input type="checkbox" /> 金額がゼロの行を表示</label>
+                    <label><input type="checkbox" /> 計算しない行を表示</label>
+                    <label><input type="checkbox" /> 非表示の勘定科目を確認</label>
+                </div>
+                <div class="color-condition">
+                    <label for="change-threshold">→方向に変化が</label>
+                    <input type="text" id="change-threshold" value="1000" />
+                    <span>以上なら背景色</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="period-selector">
+                <button>6月分</button>
+                <button>7月分</button>
+                <button>8月分</button>
+                <button>9月分</button>
+                <button>10月分</button>
+                <button>11月分</button>
+                <button>12月分</button>
+                <button>1月分</button>
+                <button>2月分</button>
+                <button>3月分</button>
+                <button>4月分</button>
+                <button>5月分</button>
+                <button>決算調整</button>
+                <button class="active">年間合計</button>
+                <button>1Q</button>
+                <button>2Q</button>
+                <button>3Q</button>
+                <button>4Q</button>
+                <button>前期</button>
+                <button>後期</button>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <ul class="nav-tabs">
+                <li class="active"><a href="#"><i class="fas fa-calculator"></i> 真利益 (会計ソフト＋調整)</a></li>
+                <li><a href="#"><i class="fas fa-laptop"></i> 会計ソフト</a></li>
+                <li><a href="#"><i class="fas fa-sliders"></i> 調整</a></li>
+                <li><a href="#"><i class="fas fa-file-alt"></i> ファイル</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr class="header-row-1">
+                            <th rowspan="3" style="width: 40px;"></th>
+                            <th rowspan="3" class="fixed-col" style="width: 250px;">勘定科目</th>
+                            <th rowspan="3">前前年実績 &lt;&lt;</th>
+                            <th rowspan="3">前年実績</th>
+                            <th rowspan="3">当期予測</th>
+                            <th>7月30日</th>
+                            <th>8月30日</th>
+                            <th>9月30日</th>
+                            <th>10月30日</th>
+                            <th>11月30日</th>
+                            <th>12月30日</th>
+                            <th>1月30日</th>
+                            <th>...</th>
+                        </tr>
+                        <tr class="header-row-2">
+                            <th>報告者編集</th>
+                            <th>報告者編集</th>
+                            <th>報告者編集</th>
+                            <th>報告者編集</th>
+                            <th>報告者編集</th>
+                            <th>報告者編集</th>
+                            <th>報告者編集</th>
+                            <th>...</th>
+                        </tr>
+                        <tr class="header-row-3">
+                            <th>年間合計予測</th>
+                            <th>年間合計予測</th>
+                            <th>年間合計予測</th>
+                            <th>年間合計予測</th>
+                            <th>年間合計予測</th>
+                            <th>年間合計予測</th>
+                            <th>年間合計予測</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="major-item">
+                            <td></td>
+                            <td class="fixed-col">当月経常利益</td>
+                            <td>11,298</td>
+                            <td>48,401</td>
+                            <td class="highlight-positive">38,055</td>
+                            <td class="highlight-neutral-bg">36,631</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>...</td>
+                        </tr>
+                        <tr class="category-header">
+                            <td colspan="15">収益</td>
+                        </tr>
+                        <tr class="major-item parent">
+                            <td><i class="fas fa-caret-right"></i></td>
+                            <td class="fixed-col" style="display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-plus-circle"></i> 外部売上
+                            </td>
+                            <td>179,954</td>
+                            <td>221,941</td>
+                            <td class="highlight-positive">223,334</td>
+                            <td>230,353</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr class="minor-item">
+                            <td></td>
+                            <td class="fixed-col" style="display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-wrench"></i> 受託
+                            </td>
+                            <td>123,181</td>
+                            <td>150,790</td>
+                            <td class="highlight-positive">167,158</td>
+                            <td>165,495</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr class="minor-item">
+                            <td></td>
+                            <td class="fixed-col" style="display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-wrench"></i> 派遣
+                            </td>
+                            <td>44,070</td>
+                            <td>23,155</td>
+                            <td class="highlight-positive">37,800</td>
+                            <td>38,220</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr class="category-header">
+                            <td colspan="15">費用</td>
+                        </tr>
+                        <tr class="major-item parent">
+                            <td><i class="fas fa-caret-right"></i></td>
+                            <td class="fixed-col" style="display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-plus-circle"></i> 外部販管費
+                            </td>
+                            <td>160,874</td>
+                            <td>188,613</td>
+                            <td class="highlight-positive">184,137</td>
+                            <td>183,825</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr class="minor-item">
+                            <td></td>
+                            <td class="fixed-col" style="display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-wrench"></i> 役員報酬
+                            </td>
+                            <td>19,000</td>
+                            <td>20,700</td>
+                            <td class="highlight-positive">26,160</td>
+                            <td>26,160</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr class="minor-item">
+                            <td></td>
+                            <td class="fixed-col" style="display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-wrench"></i> 給与手当
+                            </td>
+                            <td>67,303</td>
+                            <td>75,544</td>
+                            <td class="highlight-positive">78,612</td>
+                            <td>78,585</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr class="category-header">
+                            <td colspan="15">利益</td>
+                        </tr>
+                        <tr class="major-item">
+                            <td></td>
+                            <td class="fixed-col">粗利</td>
+                            <td>169,832</td>
+                            <td>205,510</td>
+                            <td class="highlight-positive">222,724</td>
+                            <td>221,167</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                        <tr class="major-item">
+                            <td></td>
+                            <td class="fixed-col">(粗利率)</td>
+                            <td>94.4%</td>
+                            <td>92.6%</td>
+                            <td class="highlight-positive">95.5%</td>
+                            <td>96%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple script for dropdown hover (can be removed if not needed)
+        // And for toggling child rows in the table
+        document.addEventListener('DOMContentLoaded', function () {
+            const parents = document.querySelectorAll('.table-wrapper .parent');
+            parents.forEach(parent => {
+                parent.addEventListener('click', function(event) {
+                    // Make sure not to trigger when clicking on icons/buttons inside
+                    if (event.target.closest('a, button, input')) {
+                        return;
+                    }
+                    this.classList.toggle('open');
+                    let sibling = this.nextElementSibling;
+                    while(sibling && sibling.classList.contains('minor-item')) {
+                        sibling.style.display = this.classList.contains('open') ? 'table-row' : 'none';
+                        sibling = sibling.nextElementSibling;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

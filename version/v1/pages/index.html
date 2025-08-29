@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>会計管理ダッシュボード</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        /* GEMINI.mdのデザインシステムを適用 */
+        :root {
+            --base-color: #F7F8FA;
+            --main-color: #3498DB;
+            --sub-color: #EAECEE;
+            --text-color: #2C3E50;
+            --text-color-light: #5D6D7E;
+            --highlight-positive: #1ABC9C;
+            --highlight-negative: #E74C3C;
+            --surface-color: #FFFFFF;
+            --border-color: #EAECEE;
+            --header-bg: #2C3E50;
+            --header-text: #BDC3C7;
+            --header-text-hover: #FFFFFF;
+            --font-family-base: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--base-color);
+            color: var(--text-color);
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 0 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 64px;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1800px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--header-text-hover);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: var(--main-color);
+        }
+
+        .btn-plan {
+            background-color: transparent;
+            color: var(--header-text-hover);
+            border: 1px solid var(--main-color);
+            padding: 8px 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-plan:hover {
+            background-color: var(--main-color);
+            color: var(--header-text-hover);
+        }
+
+        .header-nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-nav a {
+            color: var(--header-text);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+        }
+
+        .header-nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--header-text-hover);
+        }
+        
+        .header-nav a.active {
+            background-color: var(--main-color);
+            color: var(--header-text-hover);
+        }
+
+        .header-nav .dropdown { position: relative; }
+        .header-nav .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 110%;
+            left: 0;
+            background-color: var(--header-bg);
+            border: 1px solid #495057;
+            border-radius: 6px;
+            padding: 8px 0;
+            list-style: none;
+            margin-top: 5px;
+            min-width: 220px;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .header-nav .dropdown:hover .dropdown-menu { display: block; }
+        .header-nav .dropdown-menu a { width: 100%; padding: 10px 20px; }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .grid-col-span-2 {
+            grid-column: span 2;
+        }
+        .grid-col-span-3 {
+            grid-column: span 3;
+        }
+        .grid-col-span-4 {
+            grid-column: span 4;
+        }
+
+
+        /* Card Style */
+        .card {
+            background-color: var(--surface-color);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(44,62,80,0.05);
+            border: 1px solid var(--border-color);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* KPI Card */
+        .kpi-card {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .kpi-icon {
+            font-size: 24px;
+            color: var(--main-color);
+            background-color: #EBF5FB;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .kpi-title {
+            font-size: 14px;
+            color: var(--text-color-light);
+            margin: 0;
+        }
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0;
+        }
+        .kpi-change {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .kpi-change.positive { color: var(--highlight-positive); }
+        .kpi-change.negative { color: var(--highlight-negative); }
+
+        /* Chart Placeholder */
+        .chart-container {
+            height: 350px;
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            padding: 20px 0;
+        }
+        .chart-bar {
+            flex-grow: 1;
+            background-color: var(--sub-color);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        .chart-bar:hover {
+            background-color: #D5D8DC;
+        }
+        .chart-bar .bar-value {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .chart-bar:hover .bar-value {
+            opacity: 1;
+        }
+        .chart-bar.main {
+            background-color: var(--main-color);
+        }
+        .chart-bar.main:hover {
+            background-color: #2E86C1;
+        }
+
+        /* Task List */
+        .task-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .task-list li {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .task-list li:last-child {
+            border-bottom: none;
+        }
+        .task-icon {
+            font-size: 16px;
+            color: var(--text-color-light);
+        }
+        .task-details {
+            flex-grow: 1;
+        }
+        .task-title {
+            font-weight: 500;
+        }
+        .task-meta {
+            font-size: 12px;
+            color: var(--text-color-light);
+        }
+        .task-status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        .task-status.pending {
+            color: #D35400;
+            background-color: #FEF5E7;
+        }
+        .task-status.completed {
+            color: #1E8449;
+            background-color: #E8F8F5;
+        }
+    </style>
+</head>
+<body>
+    <!-- 既存のヘッダーHTMLをそのまま使用 -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
+          <a href="./index.html" class="btn btn-plan active"><i class="fas fa-dollar-sign"></i> 利益計画</a>
+        </div>
+        <nav class="header-nav">
+          <ul>
+            <li><a href="./enterprise.html"><i class="fas fa-file-invoice-dollar"></i> 決算予測推移表</a></li>
+            <li><a href="./balanceseet.html"><i class="fas fa-balance-scale"></i> 貸借対照表</a></li>
+            <li><a href="./asset.html"><i class="fas fa-book"></i> 残高資産台帳</a></li>
+            <li class="dropdown">
+              <a href="#"><i class="fas fa-chart-bar"></i> 分析表 <i class="fas fa-chevron-down"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="./kamokubetsu_suiihyo.html">科目別 推移表</a></li>
+                <li><a href="./bumon_taihihyo.html">部門対比表</a></li>
+                <li><a href="./z_seisansho.html">Z精算書</a></li>
+                <li><a href="./kamokubetsu_bumon_taihihyo.html">科目別 部門対比表</a></li>
+                <li><a href="./bumon_taihi_suiihyo.html">部門対比 推移表</a></li>
+                <li><a href="./hokokusho.html">報告書</a></li>
+                <li><a href="./shihanki_shukeihyo.html">四半期集計表</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#"><i class="fas fa-cog"></i> 設定 <i class="fas fa-chevron-down"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="./nendo_kirikae.html">年度切替</a></li>
+                <li><a href="./shain_settei.html">社員設定</a></li>
+                <li><a href="./hiduke_settei.html">各種日付設定</a></li>
+                <li><a href="./bumon_settei.html">部門設定</a></li>
+                <li><a href="./kanjo_settei.html">勘定科目設定</a></li>
+                <li><a href="./kanjo_settei_bs.html">勘定科目設定(BS)</a></li>
+                <li><a href="./copy_fukugen.html">前回実績のコピーの復元</a></li>
+                <li><a href="./about.html">まるごと会計について</a></li>
+                <li><a href="./admin_console.html">管理コンソール</a></li>
+                <li><a href="../index.html">ログアウト</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>ダッシュボード (2025年5月期)</h1>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- KPI Cards -->
+            <div class="card kpi-card">
+                <div class="kpi-icon"><i class="fas fa-yen-sign"></i></div>
+                <p class="kpi-title">売上 (YTD)</p>
+                <p class="kpi-value">¥230,353,000</p>
+                <div class="kpi-change positive"><i class="fas fa-arrow-up"></i> +5.2% (前年同期比)</div>
+            </div>
+            <div class="card kpi-card">
+                <div class="kpi-icon"><i class="fas fa-chart-pie"></i></div>
+                <p class="kpi-title">経常利益 (YTD)</p>
+                <p class="kpi-value">¥39,631,000</p>
+                <div class="kpi-change positive"><i class="fas fa-arrow-up"></i> +8.1% (前年同期比)</div>
+            </div>
+            <div class="card kpi-card">
+                <div class="kpi-icon"><i class="fas fa-percentage"></i></div>
+                <p class="kpi-title">利益率</p>
+                <p class="kpi-value">17.2%</p>
+                <div class="kpi-change positive"><i class="fas fa-arrow-up"></i> +1.2pt (前年同期比)</div>
+            </div>
+            <div class="card kpi-card">
+                <div class="kpi-icon"><i class="fas fa-users"></i></div>
+                <p class="kpi-title">従業員数</p>
+                <p class="kpi-value">125人</p>
+                <div class="kpi-change negative"><i class="fas fa-arrow-down"></i> -2人 (前月比)</div>
+            </div>
+
+            <!-- Chart -->
+            <div class="card grid-col-span-4">
+                <div class="card-header">
+                    <h2 class="card-title">月次利益推移</h2>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-bar" style="height: 20%;"><span class="bar-value">6月</span></div>
+                    <div class="chart-bar" style="height: 25%;"><span class="bar-value">7月</span></div>
+                    <div class="chart-bar" style="height: 40%;"><span class="bar-value">8月</span></div>
+                    <div class="chart-bar" style="height: 38%;"><span class="bar-value">9月</span></div>
+                    <div class="chart-bar main" style="height: 60%;"><span class="bar-value">10月</span></div>
+                    <div class="chart-bar" style="height: 62%;"><span class="bar-value">11月</span></div>
+                    <div class="chart-bar" style="height: 58%;"><span class="bar-value">12月</span></div>
+                    <div class="chart-bar" style="height: 61%;"><span class="bar-value">1月</span></div>
+                    <div class="chart-bar" style="height: 65%;"><span class="bar-value">2月</span></div>
+                    <div class="chart-bar" style="height: 63%;"><span class="bar-value">3月</span></div>
+                    <div class="chart-bar" style="height: 68%;"><span class="bar-value">4月</span></div>
+                    <div class="chart-bar" style="height: 68%;"><span class="bar-value">5月</span></div>
+                </div>
+            </div>
+
+            <!-- Task List -->
+            <div class="card grid-col-span-2 task-list">
+                <div class="card-header">
+                    <h2 class="card-title">タスクリスト</h2>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fas fa-file-invoice-dollar task-icon"></i>
+                        <div class="task-details">
+                            <div class="task-title">8月度 決算予測の入力</div>
+                            <div class="task-meta">期限: 2025/09/15</div>
+                        </div>
+                        <span class="task-status pending">要対応</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-file-contract task-icon"></i>
+                        <div class="task-details">
+                            <div class="task-title">ABC商事との契約更新</div>
+                            <div class="task-meta">期限: 2025/09/30</div>
+                        </div>
+                        <span class="task-status pending">要対応</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-file-alt task-icon"></i>
+                        <div class="task-details">
+                            <div class="task-title">第1四半期 報告書の作成</div>
+                            <div class="task-meta">完了日: 2025/08/20</div>
+                        </div>
+                        <span class="task-status completed">完了</span>
+                    </li>
+                     <li>
+                        <i class="fas fa-users task-icon"></i>
+                        <div class="task-details">
+                            <div class="task-title">新入社員研修の計画</div>
+                            <div class="task-meta">完了日: 2025/08/18</div>
+                        </div>
+                        <span class="task-status completed">完了</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="card grid-col-span-2">
+                 <div class="card-header">
+                    <h2 class="card-title">お知らせ</h2>
+                </div>
+                <p>システムメンテナンスのお知らせ：2025年9月5日 2:00 AM - 4:00 AM</p>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>
