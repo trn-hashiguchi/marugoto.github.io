@@ -8,7 +8,7 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write  # PR へのコメント投稿に必要
+  pull-requests: write # PR へのコメント投稿に必要
 
 # 同一PRで更新が来たら古い実行をキャンセル
 concurrency:
@@ -26,31 +26,31 @@ jobs:
       GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
       LLM_REVIEW_OUTPUT: llm_review_result.txt
       LLM_INPUT_MODE: full
-      DIFF_CONTEXT: '3'
+      DIFF_CONTEXT: "3"
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # merge-base計算に必須
+          fetch-depth: 0 # merge-base計算に必須
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Cache pip
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: pip-${{ runner.os }}-${{ hashFiles('.githab/ci/requirements.txt') }}
+          key: pip-${{ runner.os }}-${{ hashFiles('.github/ci/requirements.txt') }}
           restore-keys: |
             pip-${{ runner.os }}-
 
       - name: Install dependencies
         run: |
           python -m pip install -U pip
-          pip install -r .githab/ci/requirements.txt
+          pip install -r .github/ci/requirements.txt
 
       - name: Decode GCP SA key (Base64 -> file)
         run: echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > sa-key.json
@@ -84,12 +84,12 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
           python -m pip install -U pip
-          pip install -r .githab/ci/requirements.txt
+          pip install -r .github/ci/requirements.txt
 
       - name: Post comment to PR
         env:
