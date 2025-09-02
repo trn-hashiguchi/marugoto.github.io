@@ -1,0 +1,61 @@
+/* ranking_aggregation.css */
+
+.aggregation-controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 20px;
+    background-color: var(--surface-color);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.control-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.control-group select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--surface-color);
+    font-family: var(--font-family);
+    font-size: 14px;
+    min-width: 250px;
+}
+
+.table-wrapper .fas.fa-caret-up {
+    color: #1ABC9C; /* Teal Green */
+}
+
+.table-wrapper .fas.fa-caret-down {
+    color: #E74C3C; /* Soft Red */
+}
+
+.table-wrapper td:nth-child(1),
+.table-wrapper td:nth-child(5) {
+    text-align: center;
+}
+.table-wrapper th:nth-child(1),
+.table-wrapper th:nth-child(5) {
+    text-align: center;
+}
+
+.content {
+    padding: 0;
+}
+table th, table td {
+    text-align: left;
+}
+table tbody tr {
+    background-color: var(--surface-color);
+}
