@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業管理 - まるごと経営</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles/header.css">
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="../styles/enterprise_management.css">
+</head>
+<body>
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
+        </div>
+        <nav class="header-nav">
+          <ul>
+            <li><a href="enterprise_management.html">企業管理</a></li>
+            <li><a href="ranking_aggregation.html">ランキング集計</a></li>
+            <li><a href="common_account_management.html">共通勘定科目管理</a></li>
+            <li><a href="master_account_management.html">マスターアカウント管理</a></li>
+            <li><a href="../index.html">ログアウト</a></li>
+          </ul>
+        </nav>
+      </div>
+</header>
+
+    <div class="container">
+
+        <div class="page-controls">
+            <div class="filter-nav">
+                <a href="#" class="active">すべて</a>
+                <a href="#">英表記</a>
+                <a href="#">あ行</a>
+                <a href="#">か行</a>
+                <a href="#">さ行</a>
+                <a href="#">た行</a>
+                <a href="#">な行</a>
+                <a href="#">は行</a>
+                <a href="#">ま行</a>
+                <a href="#">や行</a>
+                <a href="#">ら行</a>
+                <a href="#">わ行</a>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-primary"><i class="fas fa-plus"></i> 企業追加</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="table-wrapper">
+                <table id="enterprise-table">
+                    <thead>
+                        <tr>
+                            <th>企業名</th>
+                            <th>企業ID</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Test data will be dynamically inserted here by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(function(){
+      // --- Pagination and Table Generation ---
+      const companies = [];
+      for (let i = 1; i <= 50; i++) {
+        companies.push({
+          name: `株式会社サンプルテック${i}`,
+          id: `C-${String(i).padStart(5, '0')}`
+        });
+      }
+
+      const tableBody = $('#enterprise-table tbody');
+      const paginationContainer = $('#pagination');
+      const rowsPerPage = 10;
+      let currentPage = 1;
+      const totalPages = Math.ceil(companies.length / rowsPerPage);
+
+      function displayTablePage(page) {
+        currentPage = page;
+        tableBody.empty();
+        const startIndex = (page - 1) * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        const pageItems = companies.slice(startIndex, endIndex);
+
+        pageItems.forEach(company => {
+          const row = `
+            <tr>
+              <td>${company.name}</td>
+              <td>${company.id}</td>
+              <td style="text-align: center;">
+                <div class="table-actions">
+                  <button class="btn btn-edit"><i class="fas fa-pencil-alt"></i> 編集</button>
+                  <button class="btn btn-accounts"><i class="fas fa-users"></i> 社員アカウント</button>
+                  <button class="btn btn-delete"><i class="fas fa-times"></i></button>
+                </div>
+              </td>
+            </tr>
+          `;
+          tableBody.append(row);
+        });
+        renderPagination();
+      }
+
+      function renderPagination() {
+        paginationContainer.empty();
+        
+        // Previous button
+        const prevDisabled = currentPage === 1 ? 'disabled' : '';
+        paginationContainer.append(`<a href="#" class="prev ${prevDisabled}" data-page="${currentPage - 1}">&laquo;</a>`);
+
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+          const activeClass = i === currentPage ? 'current' : '';
+          paginationContainer.append(`<a href="#" class="${activeClass}" data-page="${i}">${i}</a>`);
+        }
+
+        // Next button
+        const nextDisabled = currentPage === totalPages ? 'disabled' : '';
+        paginationContainer.append(`<a href="#" class="next ${nextDisabled}" data-page="${currentPage + 1}">&raquo;</a>`);
+      }
+
+      paginationContainer.on('click', 'a', function(e) {
+        e.preventDefault();
+        if ($(this).hasClass('disabled') || $(this).hasClass('current')) {
+          return;
+        }
+        const page = $(this).data('page');
+        displayTablePage(page);
+      });
+
+      // Initial display
+      displayTablePage(1);
+    });
+    </script>
+</body>
+</html>

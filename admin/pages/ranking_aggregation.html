@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>まるごと会計</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles/header.css">
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="../styles/ranking_aggregation.css">
+</head>
+<body>
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo"><i class="fas fa-chart-line"></i> まるごと会計</div>
+        </div>
+        <nav class="header-nav">
+          <ul>
+            <li><a href="enterprise_management.html">企業管理</a></li>
+            <li><a href="ranking_aggregation.html">ランキング集計</a></li>
+            <li><a href="common_account_management.html">共通勘定科目管理</a></li>
+            <li><a href="master_account_management.html">マスターアカウント管理</a></li>
+            <li><a href="../index.html">ログアウト</a></li>
+          </ul>
+        </nav>
+      </div>
+</header>
+
+    <div class="container">
+
+        <div class="aggregation-controls">
+            <div class="control-group">
+                <label for="period-select">集計期間</label>
+                <select id="period-select">
+                    <option>2025年 7月</option>
+                    <option>2025年 6月</option>
+                    <option>2025年 5月</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="metric-select">ランキング指標</label>
+                <select id="metric-select">
+                    <option>売上高</option>
+                    <option>経常利益</option>
+                    <option>労働分配率</option>
+                    <option>一人当たり売上高</option>
+                </select>
+            </div>
+            <button class="btn btn-primary"><i class="fas fa-cogs"></i> 集計実行</button>
+        </div>
+
+        <div class="content">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>順位</th>
+                            <th>企業名</th>
+                            <th>企業ID</th>
+                            <th>指標値</th>
+                            <th>前月比</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>株式会社サンプルテック15</td>
+                            <td>C-00015</td>
+                            <td>150,000,000 円</td>
+                            <td><i class="fas fa-caret-up"></i> 5.2%</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>株式会社サンプルテック3</td>
+                            <td>C-00003</td>
+                            <td>145,800,000 円</td>
+                            <td><i class="fas fa-caret-up"></i> 3.1%</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>株式会社サンプルテック42</td>
+                            <td>C-00042</td>
+                            <td>130,250,000 円</td>
+                            <td><i class="fas fa-caret-down"></i> -1.5%</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>株式会社サンプルテック28</td>
+                            <td>C-00028</td>
+                            <td>128,000,000 円</td>
+                            <td><i class="fas fa-caret-up"></i> 8.0%</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>株式会社サンプルテック11</td>
+                            <td>C-00011</td>
+                            <td>110,000,000 円</td>
+                            <td><i class="fas fa-caret-down"></i> -0.8%</td>
+                        </tr>
+                         <tr>
+                            <td>6</td>
+                            <td>株式会社サンプルテック33</td>
+                            <td>C-00033</td>
+                            <td>105,400,000 円</td>
+                            <td><i class="fas fa-caret-up"></i> 2.4%</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>株式会社サンプルテック7</td>
+                            <td>C-00007</td>
+                            <td>98,500,000 円</td>
+                            <td><i class="fas fa-caret-up"></i> 1.2%</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>株式会社サンプルテック19</td>
+                            <td>C-00019</td>
+                            <td>95,000,000 円</td>
+                            <td><i class="fas fa-caret-down"></i> -4.2%</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>株式会社サンプルテック50</td>
+                            <td>C-00050</td>
+                            <td>91,200,000 円</td>
+                            <td><i class="fas fa-caret-up"></i> 6.5%</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>株式会社サンプルテック22</td>
+                            <td>C-00022</td>
+                            <td>88,800,000 円</td>
+                            <td><i class="fas fa-caret-down"></i> -2.0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(function(){
+      // No header loading needed anymore
+    });
+    </script>
+</body>
+</html>
