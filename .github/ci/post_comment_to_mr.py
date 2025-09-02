@@ -1,4 +1,4 @@
-# .gitlab/ci/post_comment_to_mr.py  （ファイル名はそのままでOK）
+# .github/ci/post_comment_to_mr.py  （ファイル名はそのままでOK）
 """
 LLMによるレビュー結果を読み込み、GitHubのPull Requestにコメントとして投稿するスクリプト。
 - 実行環境: GitHub Actions（pull_request イベント）

@@ -56,7 +56,7 @@ jobs:
         run: echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > sa-key.json
 
       - name: Run LLM review
-        run: python .gitlab/ci/review_with_llm.py
+        run: python .github/ci/review_with_llm.py
 
       - name: Upload review result
         uses: actions/upload-artifact@v4
@@ -94,4 +94,4 @@ jobs:
       - name: Post comment to PR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python .gitlab/ci/post_comment_to_mr.py
+        run: python .github/ci/post_comment_to_mr.py
