@@ -94,19 +94,21 @@
         const pageItems = companies.slice(startIndex, endIndex);
 
         pageItems.forEach(company => {
-          const row = `
-            <tr>
-              <td>${company.name}</td>
-              <td>${company.id}</td>
-              <td style="text-align: center;">
-                <div class="table-actions">
-                  <button class="btn btn-edit"><i class="fas fa-pencil-alt"></i> 編集</button>
-                  <button class="btn btn-accounts"><i class="fas fa-users"></i> 社員アカウント</button>
-                  <button class="btn btn-delete"><i class="fas fa-times"></i></button>
-                </div>
-              </td>
-            </tr>
-          `;
+          // 改善例
+          const row = $('<tr>');
+          row.append($('<td>').text(company.name));
+          row.append($('<td>').text(company.id));
+
+          const actionsCell = $('<td>').css('text-align', 'center');
+          actionsCell.html(`
+  <div class="table-actions">
+    <button class="btn btn-edit"><i class="fas fa-pencil-alt"></i> 編集</button>
+    <button class="btn btn-accounts"><i class="fas fa-users"></i> 社員アカウント</button>
+    <button class="btn btn-delete"><i class="fas fa-times"></i></button>
+  </div>
+`);
+          row.append(actionsCell);
+
           tableBody.append(row);
         });
         renderPagination();
