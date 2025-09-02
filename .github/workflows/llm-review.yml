@@ -23,7 +23,7 @@ jobs:
       GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/sa-key.json
       GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
       GOOGLE_CLOUD_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
-      GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+      GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
       LLM_REVIEW_OUTPUT: llm_review_result.txt
       LLM_INPUT_MODE: full
       DIFF_CONTEXT: "3"
