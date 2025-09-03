@@ -1,8 +1,8 @@
-name: Auto Refactor PR (Gemini)
+name: Auto Refactor PR (Gemini - Vertex AI)
 
 on:
   schedule:
-    # JST 朝9時(月曜) = UTC 00:00 Monday
+    # JST 朝9時（月曜）= UTC 00:00 Monday
     - cron: "0 0 * * 1"
   workflow_dispatch:
     inputs:
@@ -20,11 +20,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BASE_BRANCH_DEFAULT: develop
-      # GCP/Vertex AI settings
-      GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp_sa.json
-      GOOGLE_GENAI_USE_VERTEXAI: true
-      GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-      GOOGLE_CLOUD_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
+      # ★ Project/Location は Secrets か Repository Variables から供給
+      GCP_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+      GCP_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
+
+      # 任意: 入力モード（既存スクリプト互換） 'full' or 'patch'
+      # 未指定ならスクリプト側デフォルト ('full')
+      # LLM_INPUT_MODE: patch
+
+      # 任意: モデルを上書きしたい場合
+      # GEMINI_MODEL: gemini-2.5-pro
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,22 +44,38 @@ jobs:
           fi
           echo "Using BASE_BRANCH=$BASE_BRANCH"
 
-      - name: Setup Node.js (for gemini CLI)
-        uses: actions/setup-node@v4
-        with: { node-version: "20" }
-
-      - name: Install Gemini CLI
-        run: npm i -g @google/gemini-cli || npm i -g gemini-cli
-
       - name: Setup Python
         uses: actions/setup-python@v5
         with: { python-version: "3.12" }
 
-      # 認証
-      - name: Decode GCP SA key
-        run: echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+      - name: Install dependencies (google-genai)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "google-genai>=1.30.0"
+        # ★ Vertex AI バックエンドでの認証（GCP_SA_KEY は Base64 済みを想定）
+      - name: Configure Vertex AI with Service Account
+        shell: bash
+        run: |
+          set -euo pipefail
 
-      - name: Run Gemini refactor analysis (Python)
+          if [ -z "${{ secrets.GCP_SA_KEY || '' }}" ]; then
+          echo "::error::GCP_SA_KEY（Base64エンコード済み）を Secrets に設定してください"; exit 1;
+          fi
+
+          # Base64 をデコードして SA キーを展開
+          printf '%s' "${{ secrets.GCP_SA_KEY }}" | base64 -d > "${HOME}/gcp_sa.json"
+
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcp_sa.json" >> "$GITHUB_ENV"
+          echo "GOOGLE_GENAI_USE_VERTEXAI=true" >> "$GITHUB_ENV"
+
+          P="${{ env.GCP_PROJECT_ID }}"
+          L="${{ env.GCP_LOCATION }}"
+          if [ -z "$P" ]; then echo "::error::GOOGLE_CLOUD_PROJECT が空です（Secrets/Vars を設定）"; exit 1; fi
+          if [ -z "$L" ]; then L="us-central1"; fi  # 既定を us-central1 に
+          echo "GOOGLE_CLOUD_PROJECT=$P" >> "$GITHUB_ENV"
+          echo "GOOGLE_CLOUD_LOCATION=$L" >> "$GITHUB_ENV"
+
+      - name: Run refactor (Python, ADC/Vertex)
         env:
           BASE_BRANCH: ${{ env.BASE_BRANCH }}
         run: python .github/scripts/gemini_refactor.py
