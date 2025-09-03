@@ -300,19 +300,48 @@ def validate_unified_diff(diff_text: str) -> bool:
 def main() -> None:
     model = DEFAULT_MODEL
     try:
-        logging.info("親ブランチを探索し、マージベースから変更を抽出しています...")
+        logging.info("親ブランチを探索し、リファクタ対象ファイルを特定します...")
         parent = find_parent_branch()
         after_sha = resolve_after_sha()
-        merge_base = merge_base_with_parent(parent, after=after_sha)
 
-        changed_files = get_changed_files_between(merge_base, after_sha)
-        logging.info(f"親ブランチ: {parent} / マージベース: {merge_base}")
-        logging.info(f"変更されたファイル数: {len(changed_files)}")
+        # 現在のブランチ名を取得 (例: refs/heads/develop -> develop)
+        current_branch_ref = run_cmd(['git', 'symbolic-ref', '--short', 'HEAD'])
+        current_branch = current_branch_ref.stdout.strip() if current_branch_ref.returncode == 0 else ''
+
+        # 親ブランチと現在のブランチが同じなら、全ファイルを対象とする
+        if parent == current_branch:
+            logging.info(f"親ブランチと現在ブランチが同一 ({parent}) のため、全ファイルをリファクタ対象とします。")
+            # git ls-files で管理下の全ファイルを取得
+            ls_files_result = run_cmd(['git', 'ls-files'])
+            if ls_files_result.returncode != 0:
+                raise RuntimeError("git ls-files でのファイルリスト取得に失敗しました。")
+            
+            all_files = [f for f in ls_files_result.stdout.strip().split('\n') if f]
+            # 除外ディレクトリをフィルタ
+            changed_files = []
+            for p in all_files:
+                parts = Path(p).parts
+                if any(seg in EXCLUDED_DIRS for seg in parts):
+                    continue
+                changed_files.append(p)
+        else:
+            # 通常の差分検出ロジック
+            logging.info("差分を検出し、リファクタ対象とします。")
+            merge_base = merge_base_with_parent(parent, after=after_sha)
+            changed_files = get_changed_files_between(merge_base, after_sha)
+            logging.info(f"親ブランチ: {parent} / マージベース: {merge_base}")
+
+        logging.info(f"対象ファイル数: {len(changed_files)}")
 
         # 入力モードに応じて LLM コンテキストを作成
         if LLM_INPUT_MODE == 'patch':
-            patch_text = get_diff_patch(merge_base, after_sha)
-            review_target = f"--- Unified Diff (context={DIFF_CONTEXT}) ---\n```\n{patch_text}\n```\n"
+            # 全ファイルモードの場合は patch は非対応（差分がないため）
+            if parent == current_branch:
+                 logging.warning("全ファイルモードでは 'patch' 入力はサポートされません。'full' モードにフォールバックします。")
+                 review_target = gather_full_contents(after_sha, changed_files)
+            else:
+                 patch_text = get_diff_patch(merge_base, after_sha)
+                 review_target = f"--- Unified Diff (context={DIFF_CONTEXT}) ---\n```\n{patch_text}\n```\n"
         else:
             # 'full'：変更ファイルの全文（サイズ制限）
             review_target = gather_full_contents(after_sha, changed_files)
@@ -369,6 +398,7 @@ def main() -> None:
             f.write("PR_BODY<<__EOF__\n"); f.write(pr_body); f.write("\n__EOF__\n")
 
         logging.info(f"PR準備完了（ブランチ: {new_branch}）。後段で gh pr create を実行します。")
+
 
     except (ValueError, RuntimeError) as e:
         logging.error(f"処理が中断されました: {e}")
