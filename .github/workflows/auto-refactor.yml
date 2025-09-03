@@ -1,0 +1,83 @@
+name: Auto Refactor PR (Gemini)
+
+on:
+  schedule:
+    # JST 朝9時に毎週月曜実行（UTCで 00:00 Monday）
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+    inputs:
+      base_branch:
+        description: "PRの宛先ブランチ（例: develop / main など）"
+        required: false
+        default: "develop"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    env:
+      BASE_BRANCH_DEFAULT: develop
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decide BASE_BRANCH
+        run: |
+          if [ -n "${{ github.event.inputs.base_branch }}" ]; then
+            echo "BASE_BRANCH=${{ github.event.inputs.base_branch }}" >> $GITHUB_ENV
+          else
+            echo "BASE_BRANCH=${BASE_BRANCH_DEFAULT}" >> $GITHUB_ENV
+          fi
+          echo "Using BASE_BRANCH=$BASE_BRANCH"
+
+      - name: Setup Node.js (for gemini CLI)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Gemini CLI
+        run: npm i -g @google/gemini-cli
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Configure GCP_SA_KEY (Base64)
+        run: |
+          echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > ${HOME}/gcp_sa.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcp_sa.json" >> $GITHUB_ENV
+
+      - name: Install deps (best-effort)
+        run: |
+          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt || true; fi
+          if [ -f package.json ]; then npm ci || true; fi
+          if [ -f composer.json ]; then sudo apt-get update && sudo apt-get install -y php php-cli php-xml php-mbstring git && curl -sS https://getcomposer.org/installer | php && php composer.phar install || true; fi
+          python -m pip install pytest || true
+
+      - name: Run Gemini refactor analysis (Python)
+        env:
+          BASE_BRANCH: ${{ env.BASE_BRANCH }}
+        run: |
+          python .github/scripts/gemini_refactor.py
+
+      - name: Create Pull Request if needed
+        if: env.NEED_PR == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_TITLE: ${{ env.PR_TITLE }}
+          PR_BODY: ${{ env.PR_BODY }}
+          NEW_BRANCH: ${{ env.NEW_BRANCH }}
+          BASE_BRANCH: ${{ env.BASE_BRANCH }}
+        run: |
+          git push -u origin "$NEW_BRANCH"
+          gh pr create \
+            --base "$BASE_BRANCH" \
+            --head "$NEW_BRANCH" \
+            --title "$PR_TITLE" \
+            --body "$PR_BODY"
