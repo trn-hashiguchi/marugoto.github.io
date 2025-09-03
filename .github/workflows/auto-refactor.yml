@@ -2,12 +2,12 @@ name: Auto Refactor PR (Gemini)
 
 on:
   schedule:
-    # JST 朝9時に毎週月曜実行（UTCで 00:00 Monday）
+    # JST 朝9時(月曜) = UTC 00:00 Monday
     - cron: "0 0 * * 1"
   workflow_dispatch:
     inputs:
       base_branch:
-        description: "PRの宛先ブランチ（例: develop / main など）"
+        description: "PRの宛先ブランチ（例: develop / main）"
         required: false
         default: "develop"
 
@@ -20,11 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BASE_BRANCH_DEFAULT: develop
+      GCP_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+      GCP_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
       - name: Decide BASE_BRANCH
         run: |
@@ -37,27 +38,32 @@ jobs:
 
       - name: Setup Node.js (for gemini CLI)
         uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+        with: { node-version: "20" }
 
       - name: Install Gemini CLI
-        run: npm i -g @google/gemini-cli
+        run: npm i -g @google/gemini-cli || npm i -g gemini-cli
 
       - name: Setup Python
         uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+        with: { python-version: "3.12" }
 
-      - name: Configure GCP_SA_KEY (Base64)
+      # 認証: SA(Base64) -> Vertex AI バックエンドで実行
+      - name: Configure Vertex AI with SA
         run: |
           echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > ${HOME}/gcp_sa.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcp_sa.json" >> $GITHUB_ENV
+          echo "GOOGLE_GENAI_USE_VERTEXAI=true" >> $GITHUB_ENV
+          echo "GOOGLE_CLOUD_PROJECT=${{ env.GCP_PROJECT_ID }}" >> $GITHUB_ENV
+          if [ -z "${{ env.GCP_LOCATION }}" ]; then
+            echo "GOOGLE_CLOUD_LOCATION=us-central1" >> $GITHUB_ENV
+          else
+            echo "GOOGLE_CLOUD_LOCATION=${{ env.GCP_LOCATION }}" >> $GITHUB_ENV
+          fi
 
       - name: Run Gemini refactor analysis (Python)
         env:
           BASE_BRANCH: ${{ env.BASE_BRANCH }}
-        run: |
-          python .github/scripts/gemini_refactor.py
+        run: python .github/scripts/gemini_refactor.py
 
       - name: Create Pull Request if needed
         if: env.NEED_PR == '1'
@@ -69,8 +75,4 @@ jobs:
           BASE_BRANCH: ${{ env.BASE_BRANCH }}
         run: |
           git push -u origin "$NEW_BRANCH"
-          gh pr create \
-            --base "$BASE_BRANCH" \
-            --head "$NEW_BRANCH" \
-            --title "$PR_TITLE" \
-            --body "$PR_BODY"
+          gh pr create --base "$BASE_BRANCH" --head "$NEW_BRANCH" --title "$PR_TITLE" --body "$PR_BODY"

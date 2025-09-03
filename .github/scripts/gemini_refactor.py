@@ -1,18 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
-import os
-import re
-import subprocess
-import sys
+import json, os, re, subprocess, sys
 from datetime import datetime
 from pathlib import Path
 
 BASE_BRANCH = os.environ.get("BASE_BRANCH", "develop")
 NEW_BRANCH = f"auto/refactor-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
 REPO_ROOT = Path(__file__).resolve().parents[2]
-
 EXCLUDES = {"node_modules", "vendor", ".github", ".git", "dist", "build"}
 
 PROMPT = r'''
@@ -42,23 +37,32 @@ def write_env(name: str, value: str):
         with open(env_file, "a", encoding="utf-8") as f:
             f.write(f"{name}={value}\n")
 
-def run(cmd, check=True, capture_output=False, text=True, cwd=None):
-    return subprocess.run(cmd, check=check, capture_output=capture_output, text=text, cwd=cwd)
+def run(cmd, check=True, capture_output=False, text=True):
+    return subprocess.run(cmd, check=check, capture_output=capture_output, text=text)
 
-def call_gemini() -> dict:
-    """
-    Gemini CLI を**非対話**で実行し、JSONのみ受け取る。
-    基本用法は公開資料を参照。:contentReference[oaicite:3]{index=3}
-    """
-    proc = run(
-        ["gemini", "--model", "gemini-2.5-pro", "--json", "--prompt", PROMPT],
-        capture_output=True
-    )
-    out = proc.stdout.strip()
-    m = re.search(r'\{.*\}\s*$', out, re.S)
+def parse_gemini_stdout(raw: str) -> dict:
+    m = re.search(r'\{.*\}\s*$', raw, re.S)
     if not m:
         raise RuntimeError("Gemini出力がJSONとして解釈できません")
-    return json.loads(m.group(0))
+    top = json.loads(m.group(0))
+    if all(k in top for k in ("decision", "level", "rationale", "title", "diff")):
+        return top
+    for k in ("text", "output", "content"):
+        if isinstance(top, dict) and k in top and isinstance(top[k], str):
+            try:
+                inner = json.loads(top[k]); 
+                if isinstance(inner, dict): return inner
+            except json.JSONDecodeError:
+                pass
+    return top
+
+def call_gemini() -> dict:
+    try:
+        proc = run(["gemini", "ask", "--model", "gemini-2.5-pro", "--format", "json", PROMPT], capture_output=True)
+    except subprocess.CalledProcessError as e:
+        sys.stderr.write(e.stderr or "")
+        raise
+    return parse_gemini_stdout(proc.stdout.strip())
 
 def ensure_on_base_and_branch(new_branch: str):
     run(["git", "checkout", BASE_BRANCH])
@@ -69,21 +73,14 @@ def validate_unified_diff(diff_text: str) -> bool:
     return bool(re.match(r'^(diff --git|--- |\+\+\+ )', diff_text))
 
 def apply_patch(diff_text: str):
-    """
-    `git apply` で安全に適用（unified diff想定）。:contentReference[oaicite:4]{index=4}
-    """
-    p = subprocess.Popen(["git", "apply", "--index", "--reject", "--whitespace=fix", "-"],
-                         stdin=subprocess.PIPE, text=True)
+    p = subprocess.Popen(["git", "apply", "--index", "--reject", "--whitespace=fix", "-"], stdin=subprocess.PIPE, text=True)
     assert p.stdin is not None
-    p.stdin.write(diff_text)
-    p.stdin.close()
-    rc = p.wait()
-    if rc != 0:
-        raise RuntimeError("git apply に失敗しました")
+    p.stdin.write(diff_text); p.stdin.close()
+    if p.wait() != 0: raise RuntimeError("git apply に失敗しました")
 
 def staged_changes_exist() -> bool:
-    rc = run(["bash", "-lc", "git diff --cached --quiet || echo CHANGES"], capture_output=True).stdout.strip()
-    return rc == "CHANGES"
+    out = run(["bash", "-lc", "git diff --cached --quiet || echo CHANGES"], capture_output=True).stdout.strip()
+    return out == "CHANGES"
 
 def main():
     try:
@@ -91,29 +88,32 @@ def main():
     except Exception as e:
         write_env("NEED_PR", "0")
         print(f"[gemini] error: {e}", file=sys.stderr)
+        # 認証トラブルの切り分け用
+        try:
+            status = run(["gemini", "auth", "status"], capture_output=True)
+            sys.stderr.write("\n[gemini auth status]\n" + status.stdout + status.stderr)
+        except Exception:
+            pass
         sys.exit(0)
 
     if result.get("decision") == "NO_CHANGES":
-        write_env("NEED_PR", "0")
-        return
+        write_env("NEED_PR", "0"); return
 
-    level = int(result.get("level", 0) or 0)
+    try:
+        level = int(result.get("level", 0) or 0)
+    except Exception:
+        level = 0
     if level < 3:
-        write_env("NEED_PR", "0")
-        return
+        write_env("NEED_PR", "0"); return
 
-    diff_text = result.get("diff") or ""
+    diff_text = (result.get("diff") or "").strip()
     title = result.get("title", "Refactor: improvements")
     rationale = (result.get("rationale") or "Reason not provided").strip()
 
     if not diff_text or not validate_unified_diff(diff_text):
-        write_env("NEED_PR", "0")
-        return
+        write_env("NEED_PR", "0"); return
 
-    # 作業ブランチ作成
     ensure_on_base_and_branch(NEW_BRANCH)
-
-    # パッチ適用
     try:
         apply_patch(diff_text)
     except Exception as e:
@@ -122,23 +122,19 @@ def main():
         return
 
     if not staged_changes_exist():
-        write_env("NEED_PR", "0")
-        return
+        write_env("NEED_PR", "0"); return
 
-    # コミット（テストは実行しない）
     run(["git", "commit", "-m", f"chore(refactor): apply Gemini suggestions (level={level})"])
 
-    # PR本文（「なぜ」「レベル」を必ず明記）
     pr_body = f"""### 目的（なぜこの修正を行ったのか）
 {rationale}
 
 ### リファクタレベル
 **{level} / 5**
 
-> 本PRは Gemini 2.5 Pro による自動レビュー結果に基づく提案です。  
+> 本PRは Gemini 2.5 Pro による自動レビュー結果に基づく提案です。
 > 「無理して修正点を探さない」方針で、必要性が低い場合は PR を作成していません。
 """
-
     write_env("NEED_PR", "1")
     write_env("NEW_BRANCH", NEW_BRANCH)
     write_env("PR_TITLE", title)
