@@ -22,10 +22,10 @@ PROMPT = r'''
 - 「無理して修正点を探さない」。可読性/安全性/パフォーマンス/保守性に**明確な根拠**がある場合のみ。
 - 変更が不要なら "decision": "NO_CHANGES" とする。
 - 変更が必要なら以下を返す：
-  - "level": 1〜5（5=強い必要性）。**3未満ならPRを作らない**想定で評価。
+  - "level": 1〜5（5=強い必要性）。**2未満ならPRを作らない**想定で評価。
   - "rationale": 「なぜこの修正を行うのか」を短く明確に（PR本文にそのまま使用）。
   - "title": わかりやすいPRタイトル。
-  - "diff": HEADを基準としたunified diff（`git apply`可能、--unified=3以上の文脈を含む、余計な文字出力禁止）。
+  - "diff": HEADを基準としたunified diff（`git apply`可能、--unified=2以上の文脈を含む、余計な文字出力禁止）。
   - "notes": 箇条書き補足（任意）。
 スキーマ：
 {"decision":"","level":0,"rationale":"","title":"","diff":"","notes":[]}
