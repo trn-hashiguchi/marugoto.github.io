@@ -20,8 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BASE_BRANCH_DEFAULT: develop
-      GCP_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-      GCP_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
+      # GCP/Vertex AI settings
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp_sa.json
+      GOOGLE_GENAI_USE_VERTEXAI: true
+      GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+      GOOGLE_CLOUD_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,18 +50,9 @@ jobs:
         uses: actions/setup-python@v5
         with: { python-version: "3.12" }
 
-      # 認証: SA(Base64) -> Vertex AI バックエンドで実行
-      - name: Configure Vertex AI with SA
-        run: |
-          echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > ${HOME}/gcp_sa.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcp_sa.json" >> $GITHUB_ENV
-          echo "GOOGLE_GENAI_USE_VERTEXAI=true" >> $GITHUB_ENV
-          echo "GOOGLE_CLOUD_PROJECT=${{ env.GCP_PROJECT_ID }}" >> $GITHUB_ENV
-          if [ -z "${{ env.GCP_LOCATION }}" ]; then
-            echo "GOOGLE_CLOUD_LOCATION=us-central1" >> $GITHUB_ENV
-          else
-            echo "GOOGLE_CLOUD_LOCATION=${{ env.GCP_LOCATION }}" >> $GITHUB_ENV
-          fi
+      # 認証
+      - name: Decode GCP SA key
+        run: echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
 
       - name: Run Gemini refactor analysis (Python)
         env:
