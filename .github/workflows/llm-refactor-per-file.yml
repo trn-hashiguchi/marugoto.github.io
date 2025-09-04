@@ -19,7 +19,7 @@ on:
       exclude_globs:
         description: "除外するグロブ（カンマ区切り）"
         required: false
-        default: ".git/**,.github/**,build/**,dist/**,out/**,node_modules/**,vendor/**,public/**,coverage/**,**/*.min.js,**/*.map,**/*.lock,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.pdf,package.json,package-lock.json,yarn.lock,pnpm-lock.yaml,docs/checklists/**,docs/check.md"
+        default: ".git/**,.github/**,build/**,dist/**,out/**,node_modules/**,vendor/**,public/**,coverage/**,**/*.min.js,**/*.map,**/*.lock,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.pdf,package.json,package-lock.json,yarn.lock,pnpm-lock.yaml,docks/checklists/**,docks/check.md"
       init_only:
         description: "初期化のみ（check.md と各 checklist の雛形作成、リファクタは無し）"
         required: false
@@ -78,7 +78,7 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa-key.json" >> $GITHUB_ENV
 
       - id: pick
-        name: Make check.md & pick next files
+        name: Pick next files from docks/check.md
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/sa-key.json
           GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
@@ -88,8 +88,6 @@ jobs:
             --mode prepare \
             --target-branch "${{ github.event.inputs.target_branch || 'develop' }}" \
             --batch-size "${{ github.event.inputs.batch_size || '1' }}" \
-            --include-globs "${{ github.event.inputs.include_globs }}" \
-            --exclude-globs "${{ github.event.inputs.exclude_globs }}" \
             --init-only "${{ github.event.inputs.init_only || 'false' }}" \
             --dry-run "${{ github.event.inputs.dry_run || 'false' }}"
 
