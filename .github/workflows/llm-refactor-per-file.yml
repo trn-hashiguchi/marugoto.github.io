@@ -126,15 +126,15 @@ jobs:
       - id: refactor
         name: Run LLM refactor for ${{ matrix.file }}
         env:
-            GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
-            GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-            GOOGLE_CLOUD_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
-            GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/sa-key.json
+          GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+          GOOGLE_CLOUD_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
         run: >
-            python .github/ci/refactor_with_llm.py
-            --mode refactor-single
-            --file "${{ matrix.file }}"
-            --target-branch "${{ github.event.inputs.target_branch || 'develop' }}"
+          python .github/ci/refactor_with_llm.py
+          --mode refactor-single
+          --file "${{ matrix.file }}"
+          --target-branch "${{ github.event.inputs.target_branch || 'develop' }}"
 
       - name: Create PR
         if: ${{ steps.refactor.outputs.changed == 'true' && github.event.inputs.dry_run != 'true' }}
