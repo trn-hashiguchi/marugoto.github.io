@@ -71,9 +71,11 @@ jobs:
           python -m pip install -U pip
           pip install -r .github/ci/requirements.txt
 
-      - name: Decode GCP SA key (Base64 -> file)
-        if: ${{ !fromJSON(github.event.inputs.dry_run || 'false') }}
-        run: echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > sa-key.json
+      - name: Decode GCP SA key (Base64 -> temp file)
+        run: |
+          mkdir -p "$RUNNER_TEMP"
+          echo "${{ secrets.GCP_SA_KEY }}" | base64 -d > "$RUNNER_TEMP/sa-key.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa-key.json" >> $GITHUB_ENV
 
       - id: pick
         name: Make check.md & pick next files
@@ -152,7 +154,11 @@ jobs:
           title: ${{ steps.refactor.outputs.pr_title }}
           body-path: ${{ steps.refactor.outputs.pr_body_path }}
           commit-message: ${{ steps.refactor.outputs.commit_message }}
-          labels: "llm-refactor, automated"
+          add-paths: |
+            ${{ matrix.file }}
+            docs/check.md
+            docs/checklists/**
+            .github/ci/_pr_bodies/**
 
       - name: No change
         if: ${{ steps.refactor.outputs.changed != 'true' }}

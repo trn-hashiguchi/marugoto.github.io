@@ -1,1 +1,4 @@
 .env
+sa-key.json
+*.pem
+*.p12
