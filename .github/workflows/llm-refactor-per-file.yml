@@ -20,11 +20,6 @@ on:
         description: "除外するグロブ（カンマ区切り）"
         required: false
         default: ".git/**,.github/**,build/**,dist/**,out/**,node_modules/**,vendor/**,public/**,coverage/**,**/*.min.js,**/*.map,**/*.lock,**/*.png,**/*.jpg,**/*.jpeg,**/*.gif,**/*.svg,**/*.pdf,package.json,package-lock.json,yarn.lock,pnpm-lock.yaml,docks/checklists/**,docks/check.md"
-      init_only:
-        description: "初期化のみ（check.md と各 checklist の雛形作成、リファクタは無し）"
-        required: false
-        default: false
-        type: boolean
       dry_run:
         description: "ドライラン（PR作成・pushなしで動作確認）"
         required: false
@@ -88,13 +83,12 @@ jobs:
             --mode prepare \
             --target-branch "${{ github.event.inputs.target_branch || 'develop' }}" \
             --batch-size "${{ github.event.inputs.batch_size || '1' }}" \
-            --init-only "${{ github.event.inputs.init_only || 'false' }}" \
             --dry-run "${{ github.event.inputs.dry_run || 'false' }}"
 
   refactor:
     name: Refactor (per file) & PR
     needs: prepare
-    if: ${{ needs.prepare.outputs.files != '[]' && needs.prepare.outputs.files != '' && github.event.inputs.init_only != 'true' }}
+    if: ${{ needs.prepare.outputs.files != '[]' && needs.prepare.outputs.files != '' }}
     runs-on: ubuntu-latest
     strategy:
       # ファイル毎にジョブ化。PR衝突回避のため直列実行
@@ -132,14 +126,14 @@ jobs:
       - id: refactor
         name: Run LLM refactor for ${{ matrix.file }}
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/sa-key.json
-          GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-          GOOGLE_CLOUD_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
-          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
-        run: |
-          python .github/ci/refactor_with_llm.py \
-            --mode refactor-single \
-            --file "${{ matrix.file }}" \
+            GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+            GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+            GOOGLE_CLOUD_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
+            GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+        run: >
+            python .github/ci/refactor_with_llm.py
+            --mode refactor-single
+            --file "${{ matrix.file }}"
             --target-branch "${{ github.event.inputs.target_branch || 'develop' }}"
 
       - name: Create PR

@@ -299,7 +299,7 @@ def main():
         ensure_check_index(candidates)
         unchecked = parse_unchecked()
         n = max(1, int(str(args.batch_size)))
-        picked = unchecked[:n] if str(args.init_only).lower() != "true" else []
+        picked = unchecked[:n]
         set_output("files", json.dumps(picked))  # matrix 用
         return
 
