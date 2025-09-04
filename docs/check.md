@@ -4,12 +4,12 @@ This checklist tracks the files to be refactored.
 
 ## Root
 
-- [ ] \_header.html
+- [ ] _header.html
 - [ ] index.html
 
 ## Admin
 
-- [ ] admin/\_header.html
+- [ ] admin/_header.html
 - [ ] admin/index.html
 - [ ] admin/pages/common_account_management.html
 - [ ] admin/pages/enterprise_management.html
