@@ -104,12 +104,6 @@ jobs:
             echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> $GITHUB_ENV
           fi
 
-      - name: Write aggregator script
-        shell: bash
-        run: |
-          mkdir -p .github/ci
-          echo "# placeholder: aggregator python script is generated in full workflow file" > .github/ci/gemini_refactor_aggregate.py
-
       - name: Run aggregate refactor
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
