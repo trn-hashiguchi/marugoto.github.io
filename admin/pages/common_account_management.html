@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>共通勘定科目管理 - まるごと経営</title>
+    <title>システム共通・勘定科目設定 - まるごと経営</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../styles/header.css">
     <link rel="stylesheet" href="../../styles/style.css">
+    <style>
+        /* This style is present in other pages' specific CSS */
+        .page-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -28,14 +37,95 @@
 
     <div class="container">
         <main>
-            <h1>共通勘定科目管理</h1>
-            <!-- ここにコンテンツを追加 -->
+            <div class="page-controls">
+                <div class="page-header" style="margin-bottom: 0;">
+                    <h1>システム共通・勘定科目設定</h1>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary"><i class="fas fa-plus"></i> 勘定科目追加</button>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="table-wrapper">
+                    <table id="account-table">
+                        <thead>
+                            <tr>
+                                <th>勘定科目名</th>
+                                <th>下層の初期展開</th>
+                                <th style="text-align: center;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>外部売上</td>
+                                <td>する</td>
+                                <td style="text-align: center;">
+                                    <button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>その他売上</td>
+                                <td>しない</td>
+                                <td style="text-align: center;">
+                                    <button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>売上原価</td>
+                                <td>する</td>
+                                <td style="text-align: center;">
+                                    <button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>人件費</td>
+                                <td>する</td>
+                                <td style="text-align: center;">
+                                    <button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>その他経費</td>
+                                <td>しない</td>
+                                <td style="text-align: center;">
+                                    <button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button>
+                                </td>
+                            </tr>
+                            <tr><td>役員報酬</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>給料手当</td><td>する</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>賞与</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>法定福利費</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>福利厚生費</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>採用教育費</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>地代家賃</td><td>する</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>減価償却費</td><td>する</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>水道光熱費</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>旅費交通費</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>通信費</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>支払手数料</td><td>する</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>支払報酬料</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>広告宣伝費</td><td>する</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>接待交際費</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>消耗品費</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>租税公課</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>営業外収益</td><td>する</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>営業外費用</td><td>する</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>特別利益</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>特別損失</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>雑収入</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>雑損失</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                            <tr><td>法人税等</td><td>しない</td><td style="text-align: center;"><button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    // No script needed for header loading
+    // No script needed for this page
     </script>
 </body>
 </html>

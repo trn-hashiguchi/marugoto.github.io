@@ -7,6 +7,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../styles/header.css">
     <link rel="stylesheet" href="../../styles/style.css">
+    <style>
+        .page-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .table-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-start; /* Changed to left-align buttons */
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+        #master-account-table th,
+        #master-account-table td {
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -28,14 +52,70 @@
 
     <div class="container">
         <main>
-            <h1>マスターアカウント管理</h1>
-            <!-- ここにコンテンツを追加 -->
+            <div class="page-controls">
+                <div class="page-header" style="margin-bottom: 0;">
+                    <h1>マスターアカウント管理</h1>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary"><i class="fas fa-plus"></i> 管理者アカウント追加</button>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="table-wrapper">
+                    <table id="master-account-table">
+                        <thead>
+                            <tr>
+                                <th>管理者名</th>
+                                <th>権限</th>
+                                <th>ログインID</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>アドミン</td>
+                                <td>マスターアカウント</td>
+                                <td>admin</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button>
+                                        <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> 削除</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>運用管理者A</td>
+                                <td>一般アカウント</td>
+                                <td>operator-a</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button>
+                                        <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> 削除</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>運用管理者B</td>
+                                <td>一般アカウント</td>
+                                <td>operator-b</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> 編集</button>
+                                        <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> 削除</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    // No script needed for header loading
+    // No script needed for this page
     </script>
 </body>
 </html>
