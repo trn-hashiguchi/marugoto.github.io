@@ -6,6 +6,7 @@ GitHub Actions で動作する LLM コードレビュー用スクリプト（ADC
 - PR のベースブランチを自動特定し、merge-base..HEAD（または PR の head.sha）を対象にレビュー
 - LLM へ渡す内容は「全文」(default) と「パッチ(diff)」を環境変数で切り替え
 - パッチの前後行数（コンテキスト）は環境変数で制御
+- .github/ci/file_list_prompt.md に記載されたファイルを前提知識として読み込み
 
 前提:
 - サービスアカウントに Vertex AI ユーザー権限 (roles/aiplatform.user)
@@ -43,6 +44,7 @@ from google import genai
 # --- 定数 ---
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROMPT_PATH = os.path.join(SCRIPT_DIR, 'prompt.md')
+FILE_LIST_PROMPT_PATH = os.path.join(SCRIPT_DIR, 'file_list_prompt.md')
 
 OUTPUT_FILE = os.getenv('LLM_REVIEW_OUTPUT', 'llm_review_result.txt')
 DEFAULT_MODEL = os.getenv('GEMINI_MODEL', 'gemini-2.5-pro-preview-03-25')
@@ -75,6 +77,17 @@ def run_cmd(cmd: list[str]) -> subprocess.CompletedProcess:
     return subprocess.run(cmd, capture_output=True, text=True, check=False, encoding='utf-8')
 
 
+def get_repo_root() -> str:
+    """リポジトリのルートディレクトリの絶対パスを取得する"""
+    try:
+        result = run_cmd(['git', 'rev-parse', '--show-toplevel'])
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
+    except Exception as e:
+        logging.warning(f"git rev-parse の実行に失敗: {e}。カレントディレクトリをルートとみなします。")
+    return os.getcwd()
+
+
 def load_system_prompt() -> str:
     try:
         with open(PROMPT_PATH, 'r', encoding='utf-8') as f:
@@ -82,6 +95,56 @@ def load_system_prompt() -> str:
     except FileNotFoundError:
         logging.warning(f"プロンプトファイル '{PROMPT_PATH}' が見つかりません。デフォルトのプロンプトを使用します。")
         return DEFAULT_PROMPT
+
+
+def load_prerequisite_paths() -> list[str]:
+    """前提条件ファイルリストを読み込んでパスのリストを返す"""
+    if not os.path.exists(FILE_LIST_PROMPT_PATH):
+        logging.info(f"前提条件ファイルリスト '{FILE_LIST_PROMPT_PATH}' が見つかりません。")
+        return []
+    
+    paths = []
+    with open(FILE_LIST_PROMPT_PATH, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#') or line.startswith('-'):
+                continue
+            paths.append(line)
+    return paths
+
+
+def load_prerequisite_content(repo_root: str, paths: list[str]) -> str:
+    """指定されたパスのファイル/ディレクトリからコンテンツを読み込む"""
+    content = ""
+    root_path = Path(repo_root)
+    binary_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.pdf', '.zip', '.gz', '.so', '.exe', '.dll', '.DS_Store'}
+
+    for rel_path_str in paths:
+        path = root_path / rel_path_str
+        if not path.exists():
+            logging.warning(f"前提知識ファイル/ディレクトリが見つかりません: '{rel_path_str}'")
+            continue
+
+        files_to_read = []
+        if path.is_dir():
+            files_to_read.extend(sorted(p for p in path.rglob('*') if p.is_file()))
+        elif path.is_file():
+            files_to_read.append(path)
+
+        for file_path in files_to_read:
+            if any(file_path.name.lower().endswith(ext) for ext in binary_extensions):
+                continue
+            try:
+                relative_file_path = file_path.relative_to(root_path)
+                content += f"--- 前提ファイル: {relative_file_path} ---\n```\n"
+                content += file_path.read_text(encoding='utf-8')
+                content += "\n```\n\n"
+            except UnicodeDecodeError:
+                logging.warning(f"ファイル '{file_path}' はUTF-8でデコードできませんでした。スキップします。")
+            except Exception as e:
+                logging.warning(f"ファイル '{file_path}' の読み込みに失敗: {e}")
+    
+    return content
 
 
 def load_event_payload() -> dict:
@@ -119,7 +182,6 @@ def _default_remote_head() -> Optional[str]:
 def _remote_branch_exists(name: str) -> bool:
     out = run_cmd(['git', 'ls-remote', '--heads', 'origin', name])
     return out.returncode == 0 and bool(out.stdout.strip())
-
 
 def find_parent_branch() -> str:
     """
@@ -159,13 +221,11 @@ def merge_base_with_parent(parent_branch: str, after: str = "HEAD") -> str:
         raise RuntimeError(f"親ブランチ '{parent_branch}' とのマージベース取得に失敗: {mb.stderr}")
     return mb.stdout.strip()
 
-
 def get_changed_files_between(merge_base: str, after: str = "HEAD") -> list[str]:
     diff = run_cmd(['git', 'diff', '--name-only', f'{merge_base}..{after}'])
     if diff.returncode != 0:
         raise RuntimeError(f"変更ファイルリストの取得に失敗しました: {diff.stderr}")
     return [ln for ln in diff.stdout.strip().split('\n') if ln]
-
 
 def get_file_content_at_commit(sha: str, file_path: str) -> str:
     result = run_cmd(['git', 'show', f'{sha}:{file_path}'])
@@ -174,7 +234,6 @@ def get_file_content_at_commit(sha: str, file_path: str) -> str:
     logging.warning(f"コミット '{sha}' にファイル '{file_path}' が見つかりませんでした。")
     return ""
 
-
 def get_diff_patch(merge_base: str, after: str = "HEAD") -> str:
     context = DIFF_CONTEXT if DIFF_CONTEXT.isdigit() else '3'
     cmd = ["git", "diff", f"--unified={context}", f"{merge_base}..{after}"]
@@ -182,7 +241,6 @@ def get_diff_patch(merge_base: str, after: str = "HEAD") -> str:
     if result.returncode != 0:
         raise RuntimeError(f"diff取得に失敗しました: {result.stderr}")
     return result.stdout
-
 
 def resolve_after_sha() -> str:
     """
@@ -207,10 +265,25 @@ def build_client() -> genai.Client:
         raise RuntimeError("環境変数 GOOGLE_CLOUD_PROJECT が未設定です。")
     return genai.Client(vertexai=True, project=project, location=location)
 
-
-def review_code_with_gemini_adc(model_name: str, review_content: str) -> str:
+def review_code_with_gemini_adc(model_name: str, review_content: str, prerequisite_content: str = "") -> str:
     system_prompt = load_system_prompt()
-    user_prompt = f"以下のファイル群または差分についてコードレビューをしてください。\n\n{review_content}"
+    
+    prerequisite_section = ""
+    if prerequisite_content:
+        prerequisite_section = f"""---
+## 前提知識
+レビューを行う前に、以下のファイルの内容をコンテキストとして完全に理解してください。
+これらは、プロジェクトの設計思想、コーディング規約、またはレビュー対象のコードが依存する重要なモジュールに関する情報を含んでいます。
+
+{prerequisite_content}---
+"""
+
+    user_prompt = f"""{prerequisite_section}
+## レビュー依頼
+以下のファイル群または差分について、シニアソフトウェアエンジニアとしてコードレビューを実施してください。
+
+{review_content}
+"""
     contents = f"{system_prompt}\n\n{user_prompt}"
 
     client = build_client()
@@ -230,6 +303,16 @@ def main() -> None:
     model = DEFAULT_MODEL
 
     try:
+        repo_root = get_repo_root()
+
+        logging.info("前提知識ファイルを読み込んでいます...")
+        prerequisite_paths = load_prerequisite_paths()
+        prerequisite_content = ""
+        if prerequisite_paths:
+            prerequisite_content = load_prerequisite_content(repo_root, prerequisite_paths)
+            if prerequisite_content:
+                logging.info(f"{len(prerequisite_paths)}個のパス指定から前提知識を読み込みました。")
+
         logging.info("親ブランチを探索し、マージベースから変更を抽出しています...")
         parent = find_parent_branch()
         after_sha = resolve_after_sha()
@@ -258,7 +341,7 @@ def main() -> None:
                     review_target_content += f"--- ファイル: {file_path} ---\n```\n{content_after}\n```\n\n"
 
             logging.info(f"Gemini モデル '{model}' によるコードレビューを開始します（ADC）...")
-            review_result = review_code_with_gemini_adc(model, review_target_content)
+            review_result = review_code_with_gemini_adc(model, review_target_content, prerequisite_content)
             logging.info("レビューが完了しました。")
             result_message = review_result
 
